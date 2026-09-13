@@ -6,7 +6,7 @@
 <title>Rocheltex — Fibra textil regenerada para automoción</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Special+Gothic+Condensed+One&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --cream:#f7f2e9;
@@ -17,13 +17,16 @@
     --red-deep:#a80c28;
     --charcoal:#141210;
     --line:rgba(25,21,16,0.14);
-    --radius:20px;
+    --grid-line:rgba(25,21,16,0.06);
+    --radius:0px;
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{
     margin:0;
-    background:var(--cream);
+    background-color:var(--cream);
+    background-image: linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
+    background-size:25% 100%;
     color:var(--ink);
     font-family:'Inter',sans-serif;
     -webkit-font-smoothing:antialiased;
@@ -41,14 +44,15 @@
     color:var(--red);
   }
   .num, .accent, .stat .num, .sec-num{
-    font-family:'Special Gothic Condensed One',sans-serif;
-    font-weight:400;
+    font-family:'JetBrains Mono',monospace;
+    font-weight:500;
+    letter-spacing:-0.02em;
   }
   .eyebrow{
-    font-family:'Inter',sans-serif;
+    font-family:'JetBrains Mono',monospace;
     font-size:12.5px;
-    font-weight:600;
-    letter-spacing:0.14em;
+    font-weight:500;
+    letter-spacing:0.06em;
     text-transform:uppercase;
     color:var(--red);
   }
@@ -59,20 +63,30 @@
   .reveal.in{opacity:1;transform:translateY(0);}
 
   .btn{
+    position:relative;
     font-family:'Inter',sans-serif;
     font-size:14.5px;
     font-weight:600;
     text-decoration:none;
     color:#fff;
     background:var(--red);
-    padding:15px 28px;
-    border-radius:100px;
+    padding:15px 36px 15px 28px;
+    border-radius:var(--radius);
     display:inline-flex;
     align-items:center;
     gap:8px;
     transition:background .2s ease, transform .2s ease;
     border:none;
     cursor:pointer;
+  }
+  .btn::after{
+    content:"";
+    position:absolute;
+    top:9px;right:12px;
+    width:10px;height:10px;
+    border-top:1.5px solid currentColor;
+    border-right:1.5px solid currentColor;
+    opacity:.7;
   }
   .btn:hover{background:var(--red-deep);transform:translateY(-1px);}
   .btn-ghost{
@@ -86,32 +100,45 @@
 
   /* NAV */
   header{
-    position:absolute;
+    position:fixed;
     top:0;left:0;right:0;
     z-index:60;
-    padding:26px 0;
+  }
+  .nav-scrim{
+    position:absolute;
+    inset:0;
+    height:150px;
+    pointer-events:none;
+    -webkit-backdrop-filter:blur(20px);
+    backdrop-filter:blur(20px);
+    background:linear-gradient(to bottom, rgba(247,242,233,0.85) 0%, rgba(247,242,233,0.55) 42%, rgba(247,242,233,0) 100%);
+    -webkit-mask-image:linear-gradient(to bottom, #000 0%, #000 35%, transparent 100%);
+    mask-image:linear-gradient(to bottom, #000 0%, #000 35%, transparent 100%);
   }
   .nav-row{
-    max-width:1180px;margin:0 auto;padding:0 40px;
+    position:relative;z-index:2;
+    max-width:1180px;margin:0 auto;padding:26px 40px;
     display:flex;align-items:center;justify-content:space-between;
   }
-  .logo-mark{height:22px;filter:brightness(0) invert(1) drop-shadow(0 1px 3px rgba(0,0,0,.35));}
+  .logo-mark{height:22px;filter:none;}
   nav.primary{display:flex;gap:34px;}
   nav.primary a{
-    color:#fff;text-decoration:none;font-size:14px;font-weight:500;
-    opacity:.9;
+    color:var(--ink);text-decoration:none;font-size:14px;font-weight:500;
+    opacity:.85;
   }
   nav.primary a:hover{opacity:1;}
   .nav-right{display:flex;align-items:center;gap:20px;}
-  .lang{font-size:12.5px;color:#fff;display:flex;gap:6px;opacity:.85;}
+  .lang{font-size:12.5px;color:var(--ink);display:flex;gap:6px;opacity:.75;}
   .lang b{color:var(--red);font-weight:700;}
+  .nav-contact-btn{padding:10px 26px 10px 20px;font-size:13px;}
+  .nav-contact-btn::after{top:7px;right:9px;width:8px;height:8px;}
   .burger{
     display:none;
     width:38px;height:38px;
-    border:1px solid rgba(255,255,255,.5);
+    border:1px solid var(--line);
     border-radius:50%;
     background:transparent;
-    color:#fff;
+    color:var(--ink);
     align-items:center;justify-content:center;
     cursor:pointer;
   }
@@ -136,7 +163,10 @@
     padding:16px 0;border-bottom:1px solid rgba(255,255,255,.12);
   }
   .mobile-nav .mob-links{display:flex;flex-direction:column;margin-top:30px;}
-  .mobile-nav .btn{margin-top:30px;align-self:flex-start;}
+  .nav-right .lang{display:none;}
+  .mobile-nav .mob-lang{color:#fdfbf6;opacity:.75;font-size:13px;margin-top:26px;display:flex;gap:6px;}
+  .mobile-nav .mob-lang b{color:var(--red);font-weight:700;}
+  .mobile-nav .btn{margin-top:22px;align-self:flex-start;font-size:14.5px;font-weight:600;}
 
   /* HERO */
   .hero{
@@ -191,7 +221,12 @@
   .hero-proof .dot{opacity:.5;}
 
   /* INTRO NARRATIVE */
-  .intro{padding:120px 0 100px;}
+  .intro{
+    padding:120px 0 100px;
+    background-color:var(--cream);
+    background-image: linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
+    background-size:25% 100%;
+  }
   .intro-grid{
     display:grid;
     grid-template-columns:150px 1fr;
@@ -200,7 +235,7 @@
   }
   .intro-photo{
     width:150px;height:150px;
-    border-radius:50%;
+    border-radius:0;
     overflow:hidden;
     border:1px solid var(--line);
   }
@@ -216,54 +251,121 @@
   .intro-text i{font-style:normal;font-weight:700;color:var(--red);}
 
   /* STATS */
-  .stats{padding:0 0 110px;}
+  .stats{
+    padding:0 0 110px;
+    background-color:var(--cream);
+    background-image: linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
+    background-size:25% 100%;
+  }
   .stat-row{
     display:flex;
     flex-wrap:wrap;
     gap:0;
-    border-top:1px solid var(--line);
-    border-bottom:1px solid var(--line);
+    background:var(--cream);
+    border:1px solid var(--line);
   }
   .stat{
+    position:relative;
     flex:1 1 0;
     min-width:150px;
-    padding:34px 26px;
+    padding:34px 16px;
     border-right:1px solid var(--line);
   }
   .stat:last-child{border-right:none;}
-  .stat .num{
-    font-size:clamp(48px,4.4vw,60px);
-    letter-spacing:0;
-    color:var(--ink);
+  .stat::after{
+    content:"";
+    position:absolute;top:14px;right:16px;
+    width:12px;height:12px;
+    border-top:1.5px solid var(--ink-soft);
+    border-right:1.5px solid var(--ink-soft);
+    opacity:.3;
   }
-  .stat .num .accent{color:var(--red);}
+  .stat .num{
+    font-weight:400;
+    font-size:clamp(22px, calc(3.7vw - 8.6px), 34px);
+    letter-spacing:-0.02em;
+    color:var(--ink);
+    white-space:nowrap;
+  }
+  .stat .num .accent{color:var(--ink);}
   .stat .label{
     margin-top:8px;
-    font-size:13px;
+    font-size:12px;
+    letter-spacing:-0.01em;
     color:var(--ink-soft);
     line-height:1.4;
+    white-space:nowrap;
   }
 
+  /* PRODUCTOS */
+  .products{
+    padding:0 0 110px;
+    background-color:var(--cream);
+    background-image: linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
+    background-size:25% 100%;
+  }
+  .products-intro{margin-top:18px;font-size:15.5px;color:var(--ink-soft);line-height:1.6;max-width:560px;}
+  .products-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+    background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+  }
+  .product-item{background:var(--cream-2);padding:30px 26px;}
+  .product-item h4{
+    font-family:'JetBrains Mono',monospace;
+    font-size:20px;
+    font-weight:700;
+    letter-spacing:-0.02em;
+    line-height:1.2;
+    color:var(--ink);
+  }
+  .product-item p{margin-top:10px;font-size:13.5px;font-weight:400;color:var(--ink-soft);line-height:1.5;}
+  .products-treat{
+    margin-top:36px;background:var(--cream-2);border:1px solid var(--line);border-radius:var(--radius);
+    padding:34px 36px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;
+  }
+  .products-treat h4{
+    font-family:'JetBrains Mono',monospace;
+    font-size:20px;
+    font-weight:700;
+    letter-spacing:-0.02em;
+    line-height:1.2;
+    margin-bottom:10px;
+    color:var(--ink);
+  }
+  .products-treat p{font-size:14px;color:var(--ink-soft);line-height:1.6;max-width:640px;}
+  .products-treat .btn{white-space:nowrap;}
+
   /* PILLARS / CARDS */
-  .pillars{padding:0 0 120px;}
+  .pillars{
+    padding:0 0 120px;
+    background-color:var(--cream);
+    background-image: linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
+    background-size:25% 100%;
+  }
   .section-head{max-width:640px;margin-bottom:52px;}
   .section-head h2{font-size:clamp(30px,4vw,44px);margin-top:14px;}
   .card-row{
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:28px;
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
   }
   .card{
-    background:#fff;
+    background:var(--cream-2);
     border-radius:var(--radius);
     overflow:hidden;
-    border:1px solid var(--line);
-    box-shadow:0 18px 40px -28px rgba(25,21,16,0.35);
   }
-  .card .card-photo{height:190px;overflow:hidden;}
+  .card .card-photo{aspect-ratio:6/5;overflow:hidden;background:var(--cream-2);}
   .card .card-photo img{width:100%;height:100%;object-fit:cover;}
   .card-body{padding:28px 26px 30px;}
-  .card-body h3{font-size:22px;font-weight:500;}
+  .card-body h3{
+    font-family:'JetBrains Mono',monospace;
+    font-size:20px;
+    font-weight:700;
+    letter-spacing:-0.02em;
+    line-height:1.2;
+  }
   .card-body ul{
     list-style:none;margin:18px 0 0;padding:0;
     display:flex;flex-direction:column;gap:9px;
@@ -277,7 +379,9 @@
   /* SECTORES */
   .trust{
     padding:90px 0;
-    background:var(--cream-2);
+    background-color:var(--cream-2);
+    background-image: linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
+    background-size:25% 100%;
     border-top:1px solid var(--line);
     border-bottom:1px solid var(--line);
   }
@@ -291,10 +395,10 @@
     background:var(--line);
     border:1px solid var(--line);
   }
-  .sector-card{background:#fff;padding:34px 26px;}
+  .sector-card{background:var(--cream);padding:34px 26px;}
   .sector-icon{
     width:44px;height:44px;
-    border-radius:50%;
+    border-radius:0;
     background:var(--cream-2);
     display:flex;align-items:center;justify-content:center;
     color:var(--red);
@@ -306,30 +410,47 @@
     color:var(--red);
     letter-spacing:0.04em;
   }
-  .sector-card h3{margin-top:6px;font-size:18px;font-weight:600;}
+  .sector-card h3{
+    margin-top:6px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:20px;
+    font-weight:700;
+    letter-spacing:-0.02em;
+    line-height:1.2;
+  }
   .sector-card p{margin-top:8px;font-size:13.5px;color:var(--ink-soft);line-height:1.5;}
 
+  /* FRAME (boxed content sitting opaque above the ambient grid) */
+  .frame{background:var(--cream);border:1px solid var(--line);padding:64px 56px;}
+
   /* PROCESO TEASER (link out to proceso page) */
-  .proceso-teaser{padding:110px 0;}
+  .proceso-teaser{
+    padding:110px 0;
+    background-color:var(--cream);
+    background-image: linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
+    background-size:25% 100%;
+  }
+  .proceso-teaser .frame{padding:0;overflow:hidden;}
   .pt-grid{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:56px;
-    align-items:center;
+    gap:0;
+    align-items:stretch;
   }
+  .pt-copy{padding:64px 48px 64px 56px;}
   .pt-copy h2{font-size:clamp(30px,4vw,46px);margin-top:14px;}
   .pt-copy p{margin-top:18px;font-size:16px;line-height:1.6;color:var(--ink-soft);max-width:420px;}
   .pt-steps{
-    display:flex;flex-wrap:wrap;gap:10px;
+    display:flex;flex-wrap:wrap;align-items:center;
     margin-top:26px;
-  }
-  .pt-steps span{
-    font-size:12px;font-weight:600;letter-spacing:0.04em;
-    border:1px solid var(--line);border-radius:100px;padding:8px 14px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px;
     color:var(--ink-soft);
   }
-  .pt-photo{border-radius:var(--radius);overflow:hidden;}
-  .pt-photo img{width:100%;height:380px;object-fit:cover;}
+  .pt-steps span{white-space:nowrap;}
+  .pt-steps span:not(:last-child)::after{content:"  »  ";color:var(--red);}
+  .pt-photo{overflow:hidden;height:100%;}
+  .pt-photo img{display:block;width:100%;height:100%;min-height:420px;object-fit:cover;}
 
   /* CLOSING CTA */
   .closing{position:relative;padding:150px 0;overflow:hidden;}
@@ -343,7 +464,13 @@
   .closing .hero-cta{justify-content:center;margin-top:34px;}
 
   /* CERTIFICACIONES */
-  .certs{padding:86px 0 92px;text-align:center;}
+  .certs{
+    padding:86px 0 92px;
+    text-align:center;
+    background-color:var(--cream);
+    background-image: linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
+    background-size:25% 100%;
+  }
   .certs-head{margin-bottom:44px;}
   .certs-head h2{font-size:clamp(26px,3.2vw,36px);margin-top:12px;}
   .certs-row{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:36px;}
@@ -355,7 +482,7 @@
   .certs-row img:hover{filter:grayscale(0) opacity(1);}
 
   /* FOOTER */
-  footer{padding:70px 0 34px;}
+  footer{padding:70px 0 34px;background:var(--cream);}
   .foot-top{
     display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px;
     padding-bottom:50px;border-bottom:1px solid var(--line);
@@ -378,15 +505,23 @@
     .intro-grid{grid-template-columns:1fr;}
     .intro-photo{width:100px;height:100px;}
     .card-row{grid-template-columns:1fr;}
+    .products-grid{grid-template-columns:1fr;}
+    .products-treat{grid-template-columns:1fr;}
+    .products-treat .btn{align-self:flex-start;}
     .trust-grid{grid-template-columns:repeat(2,1fr);}
     .pt-grid{grid-template-columns:1fr;}
-    .pt-photo img{height:260px;}
+    .pt-copy{padding:40px 24px;}
+    .pt-photo img{height:260px;min-height:0;}
+    .frame{padding:40px 24px;}
     nav.primary{display:none;}
     .burger{display:flex;}
     .foot-top{grid-template-columns:1fr;gap:30px;}
     .wrap{padding:0 22px;}
-    .nav-row{padding:0 22px;}
-    .stat{min-width:45%;}
+    .nav-row{padding:22px;gap:14px;}
+    .logo-mark{height:19px;}
+    .stat{min-width:45%;padding:26px 14px;}
+    .stat .label{font-size:11px;}
+    .stat .num{font-size:clamp(20px, calc(9.22vw - 8.94px), 38px);}
     .hero-proof{gap:6px 8px;}
   }
 </style>
@@ -394,17 +529,18 @@
 <body>
 
 <header>
+  <div class="nav-scrim"></div>
   <div class="nav-row">
     <a href="index.html"><img src="rocheltex-logo.svg" alt="Rocheltex" class="logo-mark"></a>
     <nav class="primary">
       <a href="rocheltex-proceso.html">Proceso</a>
-      <a href="#pilares">Productos</a>
+      <a href="#productos">Productos</a>
       <a href="#calidad">Calidad</a>
-      <a href="#nosotros">Nosotros</a>
+      <a href="rocheltex-nosotros.html">Nosotros</a>
     </nav>
     <div class="nav-right">
       <div class="lang"><b>ES</b> / EN</div>
-      <a class="btn btn-ghost" href="rocheltex-contacto.html" style="padding:10px 20px;font-size:13px;">Contacto</a>
+      <a class="btn btn-dark nav-contact-btn" href="rocheltex-contacto.html">Contacto</a>
       <button class="burger" id="burgerBtn" aria-label="Abrir menú">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
       </button>
@@ -420,10 +556,11 @@
   </div>
   <div class="mob-links">
     <a href="rocheltex-proceso.html">Proceso</a>
-    <a href="#pilares">Productos</a>
+    <a href="#productos">Productos</a>
     <a href="#calidad">Calidad</a>
-    <a href="#nosotros">Nosotros</a>
+    <a href="rocheltex-nosotros.html">Nosotros</a>
   </div>
+  <div class="mob-lang"><b>ES</b> / EN</div>
   <a class="btn" href="rocheltex-contacto.html">Contacto</a>
 </div>
 
@@ -450,7 +587,7 @@
 <section class="intro">
   <div class="wrap">
     <div class="intro-grid reveal">
-      <div class="intro-photo"><img src="materia-prima.jpg" alt="Materia prima textil en planta"></div>
+      <div class="intro-photo"><img src="https://d8j0ntlcm91z4.cloudfront.net/user_3GiS7aPDEaM7erdep7XJw0qzZ0J/hf_20260912_010620_9381633d-db3c-4001-930b-00254a97796f.png" alt="Nave con balas de materia prima textil apiladas"></div>
       <p class="intro-text">Transformamos materia prima textil en <i>fibra regenerada</i> de alto rendimiento para algunas de las mayores empresas de automoción en Europa.</p>
     </div>
   </div>
@@ -468,6 +605,34 @@
   </div>
 </section>
 
+<section class="products" id="productos">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Productos</div>
+      <h2>Borra textil adaptada a cada sector.</h2>
+      <p class="products-intro">Fabricamos distintos tipos de borra según la aplicación y el cliente, con tratamientos especiales cuando el proceso lo requiere.</p>
+    </div>
+    <div class="products-grid reveal">
+      <div class="product-item"><h4>Multicolor 50/50</h4><p>Mezcla equilibrada de fibras de distintos colores.</p></div>
+      <div class="product-item"><h4>Multicolor 80/20 jeans</h4><p>Con alto contenido en fibra vaquera.</p></div>
+      <div class="product-item"><h4>Multicolor, blanco y negro PES</h4><p>Fibra de poliéster en distintos tonos.</p></div>
+      <div class="product-item"><h4>Borra larga para cardado</h4><p>Fibra de mayor longitud, pensada para máquinas de cardado.</p></div>
+      <div class="product-item"><h4>Borra de yute</h4><p>Fibra de yute recuperada.</p></div>
+      <div class="product-item"><h4>PP multicolor 100%</h4><p>Polipropileno 100%.</p></div>
+      <div class="product-item"><h4>Mezclas con espuma, lana, etc.</h4><p>Composiciones combinadas según necesidad.</p></div>
+      <div class="product-item"><h4>Borra con tratamiento ignífugo</h4><p>Tratamiento de resistencia al fuego.</p></div>
+      <div class="product-item"><h4>Composición a medida</h4><p>Desarrollamos composiciones específicas según las necesidades del cliente.</p></div>
+    </div>
+    <div class="products-treat reveal">
+      <div>
+        <h4>Tratamientos antimoho e ignífugos</h4>
+        <p>Aplicamos Afrotin (antimoho) o tratamiento ignífugo mediante un sistema de tres inyectores, con impregnación completa del material y sin desperdicio — el sobrante se reincorpora a la fibra almacenada.</p>
+      </div>
+      <a class="btn" href="rocheltex-contacto.html">Solicita ficha técnica</a>
+    </div>
+  </div>
+</section>
+
 <section class="pillars" id="pilares">
   <div class="wrap">
     <div class="section-head reveal">
@@ -476,7 +641,7 @@
     </div>
     <div class="card-row reveal">
       <div class="card">
-        <div class="card-photo"><img src="production2.jpg" alt="Producción de borra textil Rocheltex"></div>
+        <div class="card-photo"><img src="img/pilar-produccion-prensa.jpg" alt="Ilustración de una prensa hecha con fibra regenerada, símbolo de Producción"></div>
         <div class="card-body">
           <h3>Producción</h3>
           <ul>
@@ -487,7 +652,7 @@
         </div>
       </div>
       <div class="card">
-        <div class="card-photo"><img src="logistica-camion.jpg" alt="Flota propia de transporte Rocheltex"></div>
+        <div class="card-photo"><img src="img/pilar-logistica-camion.jpg" alt="Ilustración de un camión hecho con fibra regenerada, símbolo de Logística propia"></div>
         <div class="card-body">
           <h3>Logística propia</h3>
           <ul>
@@ -498,7 +663,7 @@
         </div>
       </div>
       <div class="card">
-        <div class="card-photo"><img src="quality.jpg" alt="Calidad certificada Rocheltex"></div>
+        <div class="card-photo"><img src="img/pilar-calidad-check.jpg" alt="Ilustración de un check hecho con fibra regenerada, símbolo de Calidad certificada"></div>
         <div class="card-body">
           <h3>Calidad certificada</h3>
           <ul>
@@ -557,19 +722,21 @@
 
 <section class="proceso-teaser" id="proceso">
   <div class="wrap">
-    <div class="pt-grid reveal">
-      <div class="pt-copy">
-        <div class="eyebrow">Proceso</div>
-        <h2>De residuo textil a lámina de composite termoestable.</h2>
-        <p>Nueve fases controladas transforman el residuo textil en un material compuesto de alto rendimiento, listo para aplicaciones industriales exigentes.</p>
-        <div class="pt-steps">
-          <span>01 Recepción</span><span>02 Garneteado</span><span>03 Borra</span><span>04 Cardado</span><span>05 Velo cardado</span><span>06 Resina epoxi</span><span>07 Laminado</span><span>08 Moldeo</span><span>09 Composite</span>
+    <div class="frame">
+      <div class="pt-grid reveal">
+        <div class="pt-copy">
+          <div class="eyebrow">Proceso</div>
+          <h2>De residuo textil a borra regenerada, en siete fases controladas.</h2>
+          <p>Recepción, selección, corte, mezcla y tratamiento, cardado y prensado transforman el residuo textil en fibra regenerada lista para automoción, geotextiles, hilatura y punzonado.</p>
+          <div class="pt-steps">
+            <span>Recepción</span><span>Selección</span><span>Corte</span><span>Mezcla y tratamiento</span><span>Cardado</span><span>Prensado</span><span>Producto acabado</span>
+          </div>
+          <div class="hero-cta">
+            <a class="btn btn-dark" href="rocheltex-proceso.html">Ver el proceso completo</a>
+          </div>
         </div>
-        <div class="hero-cta">
-          <a class="btn btn-dark" href="rocheltex-proceso.html">Ver el proceso completo</a>
-        </div>
+        <div class="pt-photo"><img src="https://d8j0ntlcm91z4.cloudfront.net/user_3GiS7aPDEaM7erdep7XJw0qzZ0J/hf_20260912_010948_e119963f-1d7a-4084-8cdd-cc88147bbf39.png" alt="Detalle macro de fibra regenerada en proceso"></div>
       </div>
-      <div class="pt-photo"><img src="production.jpg" alt="Proceso de producción Rocheltex"></div>
     </div>
   </div>
 </section>
@@ -589,21 +756,23 @@
 
 <section class="certs" id="calidad">
   <div class="wrap">
-    <div class="certs-head reveal">
-      <span class="eyebrow">Calidad</span>
-      <h2>Certificaciones que respaldan cada lote.</h2>
-    </div>
-    <div class="certs-row reveal">
-      <img src="iatf.png" alt="Certificación IATF 16949">
-      <img src="iso9001.png" alt="Certificación ISO 9001">
-      <img src="iso14001.png" alt="Certificación ISO 14001">
-      <img src="psb.png" alt="Certificación PSB — VDA QMC">
-      <img src="pscr.png" alt="Certificación PSCR — VDA QMC">
+    <div class="frame">
+      <div class="certs-head reveal">
+        <span class="eyebrow">Calidad</span>
+        <h2>Certificaciones que respaldan cada lote.</h2>
+      </div>
+      <div class="certs-row reveal">
+        <img src="iatf.png" alt="Certificación IATF 16949">
+        <img src="iso9001.png" alt="Certificación ISO 9001">
+        <img src="iso14001.png" alt="Certificación ISO 14001">
+        <img src="psb.png" alt="Certificación PSB — VDA QMC">
+        <img src="pscr.png" alt="Certificación PSCR — VDA QMC">
+      </div>
     </div>
   </div>
 </section>
 
-<footer id="nosotros">
+<footer>
   <div class="wrap">
     <div class="foot-top">
       <div class="foot-logo">
@@ -613,9 +782,9 @@
       <div class="foot-col">
         <h4>Secciones</h4>
         <a href="rocheltex-proceso.html">Proceso</a>
-        <a href="#pilares">Productos</a>
+        <a href="#productos">Productos</a>
         <a href="#calidad">Calidad</a>
-        <a href="#nosotros">Nosotros</a>
+        <a href="rocheltex-nosotros.html">Nosotros</a>
       </div>
       <div class="foot-col">
         <h4>Certificaciones</h4>

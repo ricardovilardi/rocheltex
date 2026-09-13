@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Proceso — Rocheltex</title>
+<title>Nosotros — Rocheltex</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -43,7 +43,7 @@
     font-weight:700;
     color:var(--red);
   }
-  .num, .accent, .stat .num, .sec-num{
+  .num, .accent, .sec-num{
     font-family:'JetBrains Mono',monospace;
     font-weight:500;
     letter-spacing:-0.02em;
@@ -169,10 +169,10 @@
   .mobile-nav .mob-lang b{color:var(--red);font-weight:700;}
   .mobile-nav .btn{margin-top:22px;align-self:flex-start;font-size:14.5px;font-weight:600;}
 
-  /* FRAME (boxed content sitting opaque above the ambient grid) */
+  /* FRAME */
   .frame{background:var(--cream);border:1px solid var(--line);padding:64px 56px;}
 
-  /* CLOSING CTA (shared with Home) */
+  /* CLOSING CTA (shared) */
   .closing{position:relative;padding:150px 0;overflow:hidden;}
   .closing video,.closing .poster{
     position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
@@ -183,7 +183,7 @@
   .closing p{color:#d9d3c5;margin-top:18px;font-size:16px;}
   .closing .hero-cta{justify-content:center;margin-top:34px;display:flex;gap:16px;flex-wrap:wrap;}
 
-  /* FOOTER (shared with Home) */
+  /* FOOTER (shared) */
   footer{padding:70px 0 34px;background:var(--cream);}
   .foot-top{
     display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px;
@@ -203,34 +203,52 @@
   .foot-legal{display:flex;gap:20px;}
   .foot-legal a{text-decoration:none;color:var(--ink-soft);}
 
-  /* PAGE HERO — full-bleed photo, dark overlay */
-  .page-hero{
-    position:relative;
-    padding:210px 0 100px;
-    overflow:hidden;
+  /* SPLIT HERO */
+  .split-hero{
+    padding:200px 0 100px;
+    background-color:var(--cream);
+    background-image: linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
+    background-size:25% 100%;
   }
-  .page-hero .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
-  .page-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(20,17,14,0.55) 0%, rgba(20,17,14,0.72) 100%);}
-  .page-hero .wrap{position:relative;z-index:2;max-width:760px;}
-  .page-hero .eyebrow{color:#f2b8a8;}
-  .page-hero h1{color:#fdfbf6;font-size:clamp(34px,5vw,54px);margin-top:14px;}
-  .page-hero p{color:#e6e1d6;margin-top:18px;font-size:16.5px;line-height:1.6;max-width:560px;}
+  .split-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:56px;align-items:center;}
+  .split-copy h1{font-size:clamp(32px,4.6vw,50px);}
+  .split-copy p{margin-top:18px;font-size:16.5px;line-height:1.6;color:var(--ink-soft);max-width:460px;}
+  .split-copy .btn{margin-top:30px;}
+  .split-photo{border:1px solid var(--line);overflow:hidden;aspect-ratio:4/5;}
+  .split-photo img{width:100%;height:100%;object-fit:cover;}
 
-  /* DATA BAND — single highlighted stat */
-  .data-band{
+  /* PHOTO BAND — full-bleed, dark overlay */
+  .photo-band{position:relative;padding:130px 0;overflow:hidden;}
+  .photo-band .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  .photo-band::after{content:"";position:absolute;inset:0;background:rgba(20,17,14,0.68);}
+  .photo-band .wrap{position:relative;z-index:2;max-width:640px;text-align:center;margin:0 auto;}
+  .photo-band h2{color:#fdfbf6;font-size:clamp(28px,4vw,42px);}
+  .photo-band p{color:#e6e1d6;margin-top:16px;font-size:16px;line-height:1.6;}
+
+  /* QUOTE BAND */
+  .quote-band{padding:100px 0;background:var(--cream);text-align:center;}
+  .quote-band blockquote{
+    margin:0 auto;max-width:760px;
+    font-family:'Inter',sans-serif;font-weight:500;
+    font-size:clamp(22px,3vw,32px);line-height:1.4;letter-spacing:-0.01em;
+    color:var(--ink);
+  }
+  .quote-band blockquote::before,.quote-band blockquote::after{color:var(--red);}
+
+  /* TRACK RECORD */
+  .track-record{
     padding:0 0 110px;
     background-color:var(--cream);
     background-image: linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
     background-size:25% 100%;
   }
-  .data-band .frame{
-    display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:center;
-  }
-  .data-band .num{font-size:clamp(44px,6vw,72px);font-weight:400;color:var(--ink);white-space:nowrap;}
-  .data-band p{font-size:16px;line-height:1.6;color:var(--ink-soft);max-width:460px;}
+  .track-record .frame{max-width:820px;}
+  .track-record .eyebrow{display:block;margin-bottom:14px;}
+  .track-record h2{font-size:clamp(26px,3.6vw,38px);}
+  .track-record p{margin-top:18px;font-size:16px;line-height:1.65;color:var(--ink-soft);}
 
-  /* STEP GRID — 7 process phases, connected mesh */
-  .steps{
+  /* TIMELINE */
+  .timeline-section{
     padding:0 0 110px;
     background-color:var(--cream);
     background-image: linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
@@ -238,28 +256,41 @@
   }
   .section-head{max-width:640px;margin-bottom:52px;}
   .section-head h2{font-size:clamp(30px,4vw,44px);margin-top:14px;}
-  .step-grid{
-    display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  .pending-note{
+    margin-top:14px;font-size:13px;color:var(--ink-soft);
+    background:var(--cream-2);border:1px solid var(--line);
+    padding:10px 16px;display:inline-block;
+  }
+  .timeline-grid{
+    display:grid;grid-template-columns:repeat(5,1fr);gap:1px;
     background:var(--line);border:1px solid var(--line);
   }
-  .step-card{background:var(--cream-2);padding:30px 26px;}
-  .step-card .step-num{font-size:15px;color:var(--red);}
-  .step-card h3{
+  .timeline-item{background:var(--cream-2);padding:26px 22px;}
+  .timeline-item .year{
+    font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:700;color:var(--red);
+  }
+  .timeline-item h4{
     margin-top:10px;
     font-family:'JetBrains Mono',monospace;
-    font-size:20px;font-weight:700;letter-spacing:-0.02em;line-height:1.2;
+    font-size:16px;font-weight:700;letter-spacing:-0.02em;line-height:1.25;
   }
-  .step-card p{margin-top:10px;font-size:13.5px;color:var(--ink-soft);line-height:1.55;}
-  .step-card.step-cta{
-    background:var(--red);color:#fdfbf6;
-    display:flex;flex-direction:column;justify-content:center;gap:16px;
+  .timeline-item p{margin-top:8px;font-size:12.5px;color:var(--ink-soft);line-height:1.5;}
+
+  /* LOGISTICS BAND */
+  .logistics-band{
+    padding:110px 0;
+    background-color:var(--cream-2);
+    background-image: linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
+    background-size:25% 100%;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
   }
-  .step-card.step-cta p{
-    font-family:'JetBrains Mono',monospace;
-    font-size:16px;font-weight:700;letter-spacing:-0.02em;line-height:1.35;color:#fdfbf6;margin:0;
-  }
-  .step-card.step-cta .btn{background:#fdfbf6;color:var(--ink);align-self:flex-start;}
-  .step-card.step-cta .btn:hover{background:#fff;}
+  .logistics-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:stretch;background:var(--cream);border:1px solid var(--line);}
+  .logistics-copy{padding:56px 56px;}
+  .logistics-copy h2{font-size:clamp(26px,3.6vw,36px);}
+  .logistics-copy p{margin-top:16px;font-size:15.5px;line-height:1.6;color:var(--ink-soft);max-width:420px;}
+  .logistics-photo{overflow:hidden;height:100%;}
+  .logistics-photo img{display:block;width:100%;height:100%;min-height:320px;object-fit:cover;}
 
   @media (max-width:880px){
     .wrap{padding:0 22px;}
@@ -269,9 +300,13 @@
     .burger{display:flex;}
     .foot-top{grid-template-columns:1fr;gap:30px;}
     .frame{padding:40px 24px;}
-    .page-hero{padding:170px 0 80px;}
-    .data-band .frame{grid-template-columns:1fr;gap:20px;}
-    .step-grid{grid-template-columns:1fr;}
+    .split-hero{padding:170px 0 70px;}
+    .split-grid{grid-template-columns:1fr;}
+    .split-photo{aspect-ratio:16/10;}
+    .timeline-grid{grid-template-columns:1fr;}
+    .logistics-grid{grid-template-columns:1fr;}
+    .logistics-copy{padding:40px 24px;}
+    .logistics-photo img{height:220px;min-height:0;}
   }
 </style>
 </head>
@@ -282,10 +317,10 @@
   <div class="nav-row">
     <a href="index.html"><img src="rocheltex-logo.svg" alt="Rocheltex" class="logo-mark"></a>
     <nav class="primary">
-      <a href="rocheltex-proceso.html" class="active">Proceso</a>
+      <a href="rocheltex-proceso.html">Proceso</a>
       <a href="index.html#productos">Productos</a>
       <a href="index.html#calidad">Calidad</a>
-      <a href="rocheltex-nosotros.html">Nosotros</a>
+      <a href="rocheltex-nosotros.html" class="active">Nosotros</a>
     </nav>
     <div class="nav-right">
       <div class="lang"><b>ES</b> / EN</div>
@@ -313,69 +348,93 @@
   <a class="btn" href="rocheltex-contacto.html">Contacto</a>
 </div>
 
-<section class="page-hero">
-  <img class="poster" src="hero-poster.jpg" alt="">
+<section class="split-hero">
   <div class="wrap">
-    <div class="eyebrow">Proceso</div>
-    <h1>Nuestro proceso</h1>
-    <p>De la materia prima textil a la fibra regenerada, en siete fases controladas y trazables.</p>
+    <div class="split-grid reveal">
+      <div class="split-copy">
+        <div class="eyebrow">Nosotros</div>
+        <h1 style="margin-top:14px;">Fabricamos la materia prima que la industria del automóvil necesita.</h1>
+        <p>Desde Aielo de Malferit (Valencia), llevamos más de 30 años produciendo fibra textil regenerada para algunas de las mayores empresas del sector automoción en Europa.</p>
+        <a class="btn" href="rocheltex-contacto.html">Contacta con nosotros</a>
+      </div>
+      <div class="split-photo">
+        <img src="hero-poster.jpg" alt="Instalaciones de Rocheltex en Aielo de Malferit">
+      </div>
+    </div>
   </div>
 </section>
 
-<section class="data-band">
+<section class="photo-band">
+  <img class="poster" src="quality.jpg" alt="">
+  <div class="wrap reveal">
+    <h2>Comprometidos con la seriedad y la profesionalidad</h2>
+    <p>35 empleados cualificados forman nuestro equipo, con la experiencia necesaria para responder a los estándares más exigentes del sector.</p>
+  </div>
+</section>
+
+<section class="quote-band">
+  <div class="wrap">
+    <blockquote class="reveal">"En más de 30 años hemos crecido en maquinaria, instalaciones y capacidad, sin perder el compromiso que nos define desde el primer día."</blockquote>
+  </div>
+</section>
+
+<section class="track-record">
   <div class="wrap">
     <div class="frame reveal">
-      <div class="num">+4M kg</div>
-      <p>Recogemos nosotros mismos la materia prima con flota propia y garantizamos suministro constante a nuestros clientes.</p>
+      <span class="eyebrow">Trayectoria</span>
+      <h2>Instalaciones en constante expansión.</h2>
+      <p>Contamos con 22.000 m² repartidos en dos fábricas independientes, y más de 100.000 m² de suelo disponible para seguir creciendo.</p>
     </div>
   </div>
 </section>
 
-<section class="steps">
+<section class="timeline-section">
   <div class="wrap">
     <div class="section-head reveal">
-      <div class="eyebrow">Fases del proceso</div>
-      <h2>De residuo textil a producto acabado.</h2>
+      <div class="eyebrow">Nuestra trayectoria</div>
+      <h2>Más de 30 años de historia.</h2>
+      <div class="pending-note">Estructura a falta de confirmar con Rocheltex el año, título y descripción reales de cada hito — los campos siguientes son un guion de referencia, no datos publicables.</div>
     </div>
-    <div class="step-grid reveal">
-      <div class="step-card">
-        <div class="step-num num">01</div>
-        <h3>Recepción de materia prima</h3>
-        <p>La materia prima llega a planta a través de nuestra propia flota de transporte, que recoge directamente en origen.</p>
+    <div class="timeline-grid reveal">
+      <div class="timeline-item">
+        <div class="year">Año</div>
+        <h4>Fundación de la empresa</h4>
+        <p>Pendiente de confirmar con cliente.</p>
       </div>
-      <div class="step-card">
-        <div class="step-num num">02</div>
-        <h3>Selección</h3>
-        <p>Un sistema robotizado clasifica el material antes de su procesado.</p>
+      <div class="timeline-item">
+        <div class="year">Año</div>
+        <h4>Primera certificación de calidad</h4>
+        <p>Pendiente de confirmar con cliente.</p>
       </div>
-      <div class="step-card">
-        <div class="step-num num">03</div>
-        <h3>Corte</h3>
-        <p>Dos líneas de corte preparan el material para la fase de mezcla.</p>
+      <div class="timeline-item">
+        <div class="year">Año</div>
+        <h4>Ampliación / segunda fábrica</h4>
+        <p>Pendiente de confirmar con cliente.</p>
       </div>
-      <div class="step-card">
-        <div class="step-num num">04</div>
-        <h3>Mezcla y tratamiento</h3>
-        <p>En la sala de mezclas se aplican, si el cliente lo requiere, tratamientos antimoho (Afrotin) o ignífugos mediante inyectores, dosificados con precisión. El sobrante se reincorpora a la fibra, sin desperdicio.</p>
+      <div class="timeline-item">
+        <div class="year">Año</div>
+        <h4>Incorporación al sector automoción</h4>
+        <p>Pendiente de confirmar con cliente.</p>
       </div>
-      <div class="step-card">
-        <div class="step-num num">05</div>
-        <h3>Cardado</h3>
-        <p>Las cardas homogeneizan la fibra y preparan el material para el prensado.</p>
+      <div class="timeline-item">
+        <div class="year">Año</div>
+        <h4>Hito reciente</h4>
+        <p>Pendiente de confirmar con cliente.</p>
       </div>
-      <div class="step-card">
-        <div class="step-num num">06</div>
-        <h3>Prensado</h3>
-        <p>Prensas hidráulicas compactan el producto final en balas para su transporte.</p>
+    </div>
+  </div>
+</section>
+
+<section class="logistics-band">
+  <div class="wrap">
+    <div class="logistics-grid reveal">
+      <div class="logistics-copy">
+        <span class="eyebrow">Logística propia</span>
+        <h2 style="margin-top:14px;">Con flota propia.</h2>
+        <p>Recogemos directamente la materia prima y realizamos entregas locales y a cualquier punto de España con transporte propio.</p>
       </div>
-      <div class="step-card">
-        <div class="step-num num">07</div>
-        <h3>Producto acabado</h3>
-        <p>La borra resultante queda lista para su distribución a automoción, geotextiles, hilatura y punzonado.</p>
-      </div>
-      <div class="step-card step-cta">
-        <p>Descubre los distintos tipos de borra que fabricamos</p>
-        <a class="btn" href="index.html#productos">Ver productos</a>
+      <div class="logistics-photo">
+        <img src="logistica-camion.jpg" alt="Camión de la flota propia de Rocheltex">
       </div>
     </div>
   </div>
@@ -386,7 +445,7 @@
     <source src="hero-video.mp4" type="video/mp4">
   </video>
   <div class="wrap closing-content reveal">
-    <h2>¿Quieres más detalle técnico sobre nuestro proceso?</h2>
+    <h2>¿Quieres conocer más sobre Rocheltex?</h2>
     <p>Pol. Ind. Serrans II, s/n · 46812 Aielo de Malferit (Valencia)</p>
     <div class="hero-cta">
       <a class="btn" href="rocheltex-contacto.html">Ir a contacto</a>
