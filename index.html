@@ -504,15 +504,6 @@
   /* CERT LOGOS (footer + placeholder) */
   .foot-certs{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;}
   .foot-certs img{height:42px;width:auto;object-fit:contain;filter:grayscale(1) opacity(0.75);}
-  .cert-pending{
-    display:inline-flex;align-items:center;justify-content:center;
-    height:42px;padding:0 14px;border:1px dashed var(--line);
-    font-family:'JetBrains Mono',monospace;font-size:12.5px;font-weight:600;letter-spacing:-0.01em;
-    color:var(--ink-soft);
-  }
-  .cert-pending-lg{height:64px;padding:0 26px;font-size:15px;}
-  .certs-iatf{margin:26px 0 0;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--ink-soft);letter-spacing:0.02em;}
-  .foot-iatf{margin:10px 0 0;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--ink-soft);letter-spacing:0.02em;}
 
   @media (max-width:880px){
     .intro-grid{grid-template-columns:1fr;}
@@ -775,13 +766,13 @@
         <h2>Certificaciones que respaldan cada lote.</h2>
       </div>
       <div class="certs-row reveal">
+        <img src="iatf.png" alt="Certificación IATF 16949">
         <img src="iso9001.png" alt="Certificación ISO 9001">
         <img src="iso14001.png" alt="Certificación ISO 14001">
-        <span class="cert-pending cert-pending-lg" title="Logo oficial ISO 45001 pendiente del cliente">ISO 45001</span>
+        <img src="iso45001.png" alt="Certificación ISO 45001">
         <img src="psb.png" alt="Certificación PSB — VDA QMC">
         <img src="pscr.png" alt="Certificación PSCR — VDA QMC">
       </div>
-      <p class="certs-iatf">IATF 16949 · certificación de calidad para automoción</p>
     </div>
   </div>
 </section>
@@ -803,13 +794,13 @@
       <div class="foot-col">
         <h4>Certificaciones</h4>
         <div class="foot-certs">
+          <img src="iatf.png" alt="IATF 16949">
           <img src="iso9001.png" alt="ISO 9001">
           <img src="iso14001.png" alt="ISO 14001">
-          <span class="cert-pending" title="Logo oficial ISO 45001 pendiente del cliente">ISO 45001</span>
+          <img src="iso45001.png" alt="ISO 45001">
           <img src="psb.png" alt="PSB — VDA QMC">
           <img src="pscr.png" alt="PSCR — VDA QMC">
         </div>
-        <p class="foot-iatf">IATF 16949</p>
       </div>
     </div>
     <div class="foot-bottom">
