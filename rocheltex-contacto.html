@@ -222,6 +222,17 @@
   .map-frame{border:1px solid var(--line);overflow:hidden;}
   .map-frame iframe{width:100%;height:420px;border:0;display:block;filter:grayscale(0.35) contrast(1.05);}
 
+  /* CERT LOGOS (footer + placeholder) */
+  .foot-certs{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;}
+  .foot-certs img{height:42px;width:auto;object-fit:contain;filter:grayscale(1) opacity(0.75);}
+  .cert-pending{
+    display:inline-flex;align-items:center;justify-content:center;
+    height:42px;padding:0 14px;border:1px dashed var(--line);
+    font-family:'JetBrains Mono',monospace;font-size:12.5px;font-weight:600;letter-spacing:-0.01em;
+    color:var(--ink-soft);
+  }
+  .foot-iatf{margin:10px 0 0;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--ink-soft);letter-spacing:0.02em;}
+
   @media (max-width:880px){
     .wrap{padding:0 22px;}
     .nav-row{padding:22px;gap:14px;}
@@ -244,10 +255,10 @@
   <div class="nav-row">
     <a href="index.html"><img src="rocheltex-logo.svg" alt="Rocheltex" class="logo-mark"></a>
     <nav class="primary">
+      <a href="index.html">Inicio</a>
       <a href="rocheltex-proceso.html">Proceso</a>
-      <a href="index.html#productos">Productos</a>
-      <a href="index.html#calidad">Calidad</a>
       <a href="rocheltex-nosotros.html">Nosotros</a>
+      <a href="rocheltex-esg.html">Compromiso</a>
     </nav>
     <div class="nav-right">
       <div class="lang"><b>ES</b> / EN</div>
@@ -266,10 +277,10 @@
     </button>
   </div>
   <div class="mob-links">
+    <a href="index.html">Inicio</a>
     <a href="rocheltex-proceso.html">Proceso</a>
-    <a href="index.html#productos">Productos</a>
-    <a href="index.html#calidad">Calidad</a>
     <a href="rocheltex-nosotros.html">Nosotros</a>
+    <a href="rocheltex-esg.html">Compromiso</a>
   </div>
   <div class="mob-lang"><b>ES</b> / EN</div>
   <a class="btn" href="rocheltex-contacto.html">Contacto</a>
@@ -367,16 +378,21 @@
       </div>
       <div class="foot-col">
         <h4>Secciones</h4>
+        <a href="index.html">Inicio</a>
         <a href="rocheltex-proceso.html">Proceso</a>
-        <a href="index.html#productos">Productos</a>
-        <a href="index.html#calidad">Calidad</a>
         <a href="rocheltex-nosotros.html">Nosotros</a>
+        <a href="rocheltex-esg.html">Compromiso</a>
       </div>
       <div class="foot-col">
         <h4>Certificaciones</h4>
-        <a href="index.html#calidad">IATF 16949</a>
-        <a href="index.html#calidad">ISO 9001 · ISO 14001</a>
-        <a href="index.html#calidad">PSB · PSCR</a>
+        <div class="foot-certs">
+          <img src="iso9001.png" alt="ISO 9001">
+          <img src="iso14001.png" alt="ISO 14001">
+          <span class="cert-pending" title="Logo oficial ISO 45001 pendiente del cliente">ISO 45001</span>
+          <img src="psb.png" alt="PSB — VDA QMC">
+          <img src="pscr.png" alt="PSCR — VDA QMC">
+        </div>
+        <p class="foot-iatf">IATF 16949</p>
       </div>
     </div>
     <div class="foot-bottom">
