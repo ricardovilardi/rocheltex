@@ -241,6 +241,8 @@
   /* IMPACT BAND */
   .impact{padding:0 0 110px;background-color:var(--cream);background-image:linear-gradient(to right,var(--grid-line) 1px,transparent 1px);background-size:25% 100%;}
   .impact-head{display:flex;align-items:baseline;justify-content:space-between;gap:20px;margin-bottom:18px;}
+  .impact-photo{border:1px solid var(--line);border-bottom:none;aspect-ratio:21/8;overflow:hidden;background:var(--cream-2);}
+  .impact-photo img{width:100%;height:100%;object-fit:cover;display:block;}
   .impact-row{display:grid;grid-template-columns:repeat(3,1fr);background:var(--cream);border:1px solid var(--line);}
   .impact-item{position:relative;padding:40px 28px 36px;border-right:1px solid var(--line);}
   .impact-item:last-child{border-right:none;}
@@ -251,7 +253,10 @@
 
   /* PILLARS */
   .pillar-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
-  .pillar{background:var(--cream-2);padding:30px 24px 32px;}
+  .pillar{background:var(--cream-2);}
+  .pillar-photo{aspect-ratio:4/3;overflow:hidden;background:var(--cream-2);border-bottom:1px solid var(--line);}
+  .pillar-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+  .pillar-body{padding:26px 24px 32px;}
   .pillar .p-num{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;color:var(--red);letter-spacing:0.04em;}
   .pillar h3{margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;letter-spacing:-0.02em;line-height:1.2;}
   .pillar .iso{margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.02em;color:var(--ink-soft);}
@@ -288,6 +293,8 @@
   /* ETHICS CHANNEL */
   .channel-grid{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;}
   .channel-grid h2{font-size:clamp(26px,3.4vw,38px);margin-top:14px;}
+  .channel-icon{width:96px;height:96px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;background:var(--cream-2);}
+  .channel-icon img{width:52px;height:52px;}
   .channel-grid p{margin-top:16px;font-size:15.5px;line-height:1.65;color:var(--ink-soft);max-width:640px;}
 
   @media (max-width:1080px){
@@ -315,7 +322,7 @@
     .sdg-row{grid-template-columns:repeat(3,1fr);}
     .certs .frame{padding:40px 24px;}
     .channel-grid{grid-template-columns:1fr;}
-    .channel-grid .btn{justify-self:start;}
+    .channel-icon{justify-self:start;width:80px;height:80px;}
   }
 </style>
 </head>
@@ -379,6 +386,7 @@
 <section class="impact" id="impacto">
   <div class="wrap">
     <div class="impact-head reveal"><span class="eyebrow">Impacto medioambiental</span></div>
+    <div class="impact-photo reveal"><img src="img/esg-impacto-naturaleza.jpg" alt="Luz entre árboles sobre hojas y fibra textil, símbolo del impacto medioambiental" loading="lazy"></div>
     <div class="impact-row reveal">
       <div class="impact-item"><div class="fig">840,32<small>t</small></div><div class="cap">Ahorro estándar de carbono</div></div>
       <div class="impact-item"><div class="fig">997,87<small>t</small></div><div class="cap">CO₂ evitado</div></div>
@@ -396,6 +404,8 @@
     </div>
     <div class="pillar-grid reveal">
       <div class="pillar">
+        <div class="pillar-photo"><img src="img/esg-pilar-calidad.jpg" alt="Textura macro de fibra regenerada prensada, símbolo de calidad" loading="lazy"></div>
+        <div class="pillar-body">
         <div class="p-num">01</div>
         <h3>Calidad y excelencia en automoción</h3>
         <div class="iso">ISO 9001 · IATF 16949</div>
@@ -404,8 +414,11 @@
           <li>Mejora continua y gestión del riesgo mediante AMFE</li>
           <li>Cumplimiento estricto de los requisitos de seguridad del producto</li>
         </ul>
+        </div>
       </div>
       <div class="pillar">
+        <div class="pillar-photo"><img src="img/esg-pilar-ambiental.jpg" alt="Fibra textil regenerada entre musgo y hojas con gotas de agua, símbolo de compromiso ambiental" loading="lazy"></div>
+        <div class="pillar-body">
         <div class="p-num">02</div>
         <h3>Compromiso ambiental y descarbonización</h3>
         <div class="iso">ISO 14001</div>
@@ -414,8 +427,11 @@
           <li>Economía circular: reducción, reutilización y reciclaje de residuos</li>
           <li>Reducción activa de nuestra huella de carbono</li>
         </ul>
+        </div>
       </div>
       <div class="pillar">
+        <div class="pillar-photo"><img src="img/esg-pilar-personas.jpg" alt="Manos manipulando con cuidado tejidos plegados, símbolo de personas y seguridad" loading="lazy"></div>
+        <div class="pillar-body">
         <div class="p-num">03</div>
         <h3>Personas, seguridad y bienestar</h3>
         <div class="iso">ISO 45001</div>
@@ -425,8 +441,11 @@
           <li>Participación activa de la plantilla en la mejora continua</li>
           <li>Igualdad de oportunidades y rechazo absoluto al trabajo forzoso o infantil</li>
         </ul>
+        </div>
       </div>
       <div class="pillar">
+        <div class="pillar-photo"><img src="img/esg-pilar-gobernanza.jpg" alt="Composición abstracta de líneas y geometría sobre papel, símbolo de gobernanza" loading="lazy"></div>
+        <div class="pillar-body">
         <div class="p-num">04</div>
         <h3>Gobernanza y ética empresarial</h3>
         <div class="iso">Ética · Cumplimiento · Cadena de suministro</div>
@@ -435,6 +454,7 @@
           <li>Cumplimiento riguroso de la legislación y de los requisitos de cliente</li>
           <li>Exigencia de los mismos estándares a nuestra cadena de suministro</li>
         </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -526,7 +546,7 @@
           <h2>Un canal confidencial, sin represalias</h2>
           <p>Ponemos a disposición de empleados y colaboradores un Canal Ético para comunicar cualquier irregularidad de buena fe. Garantizamos confidencialidad, ausencia de represalias y una investigación objetiva, en cumplimiento de la Ley 2/2023.</p>
         </div>
-        <a class="btn" href="rocheltex-contacto.html">Contacta con nosotros</a>
+        <div class="channel-icon"><img src="img/safe-talk.svg" alt="" aria-hidden="true"></div>
       </div>
     </div>
   </div>
