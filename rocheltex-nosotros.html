@@ -290,7 +290,7 @@
   .logistics-copy h2{font-size:clamp(26px,3.6vw,36px);}
   .logistics-copy p{margin-top:16px;font-size:15.5px;line-height:1.6;color:var(--ink-soft);max-width:420px;}
   .logistics-photo{overflow:hidden;height:100%;}
-  .logistics-photo img{display:block;width:100%;height:100%;min-height:320px;object-fit:cover;}
+  .logistics-photo img,.logistics-photo video{display:block;width:100%;height:100%;min-height:320px;object-fit:cover;}
 
   /* CERT LOGOS (footer + placeholder) */
   .foot-certs{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;}
@@ -310,7 +310,7 @@
     .timeline-grid{grid-template-columns:1fr;}
     .logistics-grid{grid-template-columns:1fr;}
     .logistics-copy{padding:40px 24px;}
-    .logistics-photo img{height:220px;min-height:0;}
+    .logistics-photo img,.logistics-photo video{height:220px;min-height:0;}
   }
 </style>
 </head>
@@ -438,16 +438,16 @@
         <p>Recogemos directamente la materia prima y realizamos entregas locales y a cualquier punto de España con transporte propio.</p>
       </div>
       <div class="logistics-photo">
-        <img src="logistica-camion.jpg" alt="Camión de la flota propia de Rocheltex">
+        <video autoplay muted loop playsinline preload="metadata" poster="logistica-camion.jpg" aria-label="Camión de la flota propia de Rocheltex en movimiento">
+          <source src="flotapropia.mp4" type="video/mp4">
+        </video>
       </div>
     </div>
   </div>
 </section>
 
 <section class="closing">
-  <video autoplay muted loop playsinline poster="hero-poster.jpg">
-    <source src="hero-video.mp4" type="video/mp4">
-  </video>
+  <img class="poster" src="img/cta-camion-rocheltex.jpg" alt="Camión de la flota propia de Rocheltex frente a sus instalaciones en Aielo de Malferit">
   <div class="wrap closing-content reveal">
     <h2>¿Quieres conocer más sobre Rocheltex?</h2>
     <p>Pol. Ind. Serrans II, s/n · 46812 Aielo de Malferit (Valencia)</p>
