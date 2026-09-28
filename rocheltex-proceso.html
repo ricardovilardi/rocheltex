@@ -238,28 +238,65 @@
   }
   .section-head{max-width:640px;margin-bottom:52px;}
   .section-head h2{font-size:clamp(30px,4vw,44px);margin-top:14px;}
-  .step-grid{
-    display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
-    background:var(--line);border:1px solid var(--line);
+
+  /* PROCESS STACK — scroll-pinned card sequence (same mechanic as the
+     Testimonial Field Framer component: each card sticks with a slightly
+     increasing top offset + z-index, so passed cards peek out above the
+     active one; the next card arrives tilted back and slides flat into
+     place; passed cards recede with a subtle scale-down + darken). */
+  .pstack{position:relative;}
+  .pstack-card{
+    position:sticky;
+    top:var(--pin-top,132px);
+    z-index:var(--z,1);
+    perspective:1400px;
+    margin-bottom:var(--pstack-gap,64px);
   }
-  .step-card{background:var(--cream-2);padding:30px 26px;}
-  .step-card .step-num{font-size:15px;color:var(--red);}
-  .step-card h3{
-    margin-top:10px;
+  .pstack-card:last-child{margin-bottom:0;}
+  .pstack-inner{
+    position:relative;
+    display:grid;grid-template-columns:1.3fr 0.7fr;
+    min-height:var(--pstack-card-h,440px);
+    background:var(--cream-2);
+    border:1px solid var(--line);
+    transform-origin:bottom center;
+    will-change:transform;
+  }
+  .pstack-shade{
+    position:absolute;inset:0;background:#000;opacity:0;pointer-events:none;
+  }
+  .pstack-body{padding:44px 44px 40px;display:flex;flex-direction:column;justify-content:center;}
+  .pstack-body .step-num{font-size:15px;color:var(--red);}
+  .pstack-body h3{
+    margin-top:12px;
     font-family:'JetBrains Mono',monospace;
-    font-size:20px;font-weight:700;letter-spacing:-0.02em;line-height:1.2;
+    font-size:clamp(22px,2.4vw,30px);font-weight:700;letter-spacing:-0.02em;line-height:1.18;
   }
-  .step-card p{margin-top:10px;font-size:13.5px;color:var(--ink-soft);line-height:1.55;}
-  .step-card.step-cta{
-    background:var(--red);color:#fdfbf6;
-    display:flex;flex-direction:column;justify-content:center;gap:16px;
+  .pstack-body p{margin-top:14px;font-size:15px;color:var(--ink-soft);line-height:1.6;max-width:480px;}
+  .pstack-icon{
+    display:flex;align-items:center;justify-content:center;
+    border-left:1px solid var(--line);
+    background:var(--cream);
   }
-  .step-card.step-cta p{
-    font-family:'JetBrains Mono',monospace;
-    font-size:16px;font-weight:700;letter-spacing:-0.02em;line-height:1.35;color:#fdfbf6;margin:0;
+  .pstack-icon svg{width:74px;height:74px;color:var(--red);stroke-width:1.3;}
+
+  .pstack-card.pstack-cta .pstack-inner{background:var(--red);border-color:var(--red);grid-template-columns:1fr;}
+  .pstack-card.pstack-cta .pstack-body{
+    padding:44px;align-items:flex-start;gap:16px;flex-direction:row;justify-content:space-between;
   }
-  .step-card.step-cta .btn{background:#fdfbf6;color:var(--ink);align-self:flex-start;}
-  .step-card.step-cta .btn:hover{background:#fff;}
+  .pstack-card.pstack-cta h3{
+    color:#fdfbf6;font-size:clamp(20px,2.2vw,26px);margin-top:0;max-width:520px;
+  }
+  .pstack-card.pstack-cta .btn{background:#fdfbf6;color:var(--ink);flex-shrink:0;}
+  .pstack-card.pstack-cta .btn:hover{background:#fff;}
+
+  @media (max-width:880px){
+    .pstack-inner{grid-template-columns:1fr;}
+    .pstack-icon{border-left:none;border-top:1px solid var(--line);padding:26px 0;}
+    .pstack-icon svg{width:52px;height:52px;}
+    .pstack-body{padding:32px 26px;}
+    .pstack-card.pstack-cta .pstack-body{flex-direction:column;align-items:flex-start;}
+  }
 
   /* CERT LOGOS (footer + placeholder) */
   .foot-certs{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;}
@@ -341,45 +378,106 @@
       <div class="eyebrow">Fases del proceso</div>
       <h2>De residuo textil a producto acabado.</h2>
     </div>
-    <div class="step-grid reveal">
-      <div class="step-card">
-        <div class="step-num num">01</div>
-        <h3>Recepción de materia prima</h3>
-        <p>La materia prima llega a planta a través de nuestra propia flota de transporte, que recoge directamente en origen.</p>
+    <div class="pstack" id="pstack">
+      <div class="pstack-card" data-i="0">
+        <div class="pstack-inner">
+          <div class="pstack-shade"></div>
+          <div class="pstack-body">
+            <div class="step-num num">01</div>
+            <h3>Recepción de materia prima</h3>
+            <p>La materia prima llega a planta a través de nuestra propia flota de transporte, que recoge directamente en origen.</p>
+          </div>
+          <div class="pstack-icon" data-step-icon="1">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13l1.6-6.4A2 2 0 016.5 5H14l4 4h2.5a2 2 0 012 2v4a2 2 0 01-2 2H3z"/><circle cx="7.5" cy="17.5" r="2"/><circle cx="17" cy="17.5" r="2"/></svg>
+          </div>
+        </div>
       </div>
-      <div class="step-card">
-        <div class="step-num num">02</div>
-        <h3>Selección</h3>
-        <p>Un sistema robotizado clasifica el material antes de su procesado.</p>
+      <div class="pstack-card" data-i="1">
+        <div class="pstack-inner">
+          <div class="pstack-shade"></div>
+          <div class="pstack-body">
+            <div class="step-num num">02</div>
+            <h3>Selección</h3>
+            <p>Un sistema robotizado clasifica el material antes de su procesado.</p>
+          </div>
+          <div class="pstack-icon" data-step-icon="2">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16l-6 8v6l-4 2v-8L4 5z"/></svg>
+          </div>
+        </div>
       </div>
-      <div class="step-card">
-        <div class="step-num num">03</div>
-        <h3>Corte</h3>
-        <p>Dos líneas de corte preparan el material para la fase de mezcla.</p>
+      <div class="pstack-card" data-i="2">
+        <div class="pstack-inner">
+          <div class="pstack-shade"></div>
+          <div class="pstack-body">
+            <div class="step-num num">03</div>
+            <h3>Corte</h3>
+            <p>Dos líneas de corte preparan el material para la fase de mezcla.</p>
+          </div>
+          <div class="pstack-icon" data-step-icon="3">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.2"/><circle cx="6" cy="18" r="2.2"/><path d="M7.6 7.4L20 19M20 5L7.6 16.6"/></svg>
+          </div>
+        </div>
       </div>
-      <div class="step-card">
-        <div class="step-num num">04</div>
-        <h3>Mezcla y tratamiento</h3>
-        <p>En la sala de mezclas se aplican, si el cliente lo requiere, tratamientos antimoho (Afrotin) o ignífugos mediante inyectores, dosificados con precisión. El sobrante se reincorpora a la fibra, sin desperdicio.</p>
+      <div class="pstack-card" data-i="3">
+        <div class="pstack-inner">
+          <div class="pstack-shade"></div>
+          <div class="pstack-body">
+            <div class="step-num num">04</div>
+            <h3>Mezcla y tratamiento</h3>
+            <p>En la sala de mezclas se aplican, si el cliente lo requiere, tratamientos antimoho (Afrotin) o ignífugos mediante inyectores, dosificados con precisión. El sobrante se reincorpora a la fibra, sin desperdicio.</p>
+          </div>
+          <div class="pstack-icon" data-step-icon="4">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3h4M10 3v5.5L5.5 17a2 2 0 001.8 3h9.4a2 2 0 001.8-3L14 8.5V3"/><path d="M8.5 14.5h7"/></svg>
+          </div>
+        </div>
       </div>
-      <div class="step-card">
-        <div class="step-num num">05</div>
-        <h3>Cardado</h3>
-        <p>Las cardas homogeneizan la fibra y preparan el material para el prensado.</p>
+      <div class="pstack-card" data-i="4">
+        <div class="pstack-inner">
+          <div class="pstack-shade"></div>
+          <div class="pstack-body">
+            <div class="step-num num">05</div>
+            <h3>Cardado</h3>
+            <p>Las cardas homogeneizan la fibra y preparan el material para el prensado.</p>
+          </div>
+          <div class="pstack-icon" data-step-icon="5">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6c2 2 4-2 6 0s4-2 6 0 4-2 4 0"/><path d="M4 12c2 2 4-2 6 0s4-2 6 0 4-2 4 0"/><path d="M4 18c2 2 4-2 6 0s4-2 6 0 4-2 4 0"/></svg>
+          </div>
+        </div>
       </div>
-      <div class="step-card">
-        <div class="step-num num">06</div>
-        <h3>Prensado</h3>
-        <p>Prensas hidráulicas compactan el producto final en balas para su transporte.</p>
+      <div class="pstack-card" data-i="5">
+        <div class="pstack-inner">
+          <div class="pstack-shade"></div>
+          <div class="pstack-body">
+            <div class="step-num num">06</div>
+            <h3>Prensado</h3>
+            <p>Prensas hidráulicas compactan el producto final en balas para su transporte.</p>
+          </div>
+          <div class="pstack-icon" data-step-icon="6">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v5M9 8h6l1.5 4h-9L9 8z"/><path d="M6 12h12v3a2 2 0 01-2 2H8a2 2 0 01-2-2v-3z"/><path d="M9 21l1-4M15 21l-1-4"/></svg>
+          </div>
+        </div>
       </div>
-      <div class="step-card">
-        <div class="step-num num">07</div>
-        <h3>Producto acabado</h3>
-        <p>La borra resultante queda lista para su distribución a automoción, geotextiles, hilatura y punzonado.</p>
+      <div class="pstack-card" data-i="6">
+        <div class="pstack-inner">
+          <div class="pstack-shade"></div>
+          <div class="pstack-body">
+            <div class="step-num num">07</div>
+            <h3>Producto acabado</h3>
+            <p>La borra resultante queda lista para su distribución a automoción, geotextiles, hilatura y punzonado.</p>
+          </div>
+          <div class="pstack-icon" data-step-icon="7">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l9-5 9 5-9 5-9-5z"/><path d="M3 8v8l9 5 9-5V8M12 13v8"/></svg>
+          </div>
+        </div>
       </div>
-      <div class="step-card step-cta">
-        <p>Descubre los distintos tipos de borra que fabricamos</p>
-        <a class="btn" href="index.html#productos">Ver productos</a>
+      <div class="pstack-card pstack-cta" data-i="7">
+        <div class="pstack-inner">
+          <div class="pstack-shade"></div>
+          <div class="pstack-body">
+            <h3>Descubre los distintos tipos de borra que fabricamos</h3>
+            <a class="btn" href="index.html#productos">Ver productos</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -447,6 +545,74 @@
   if(burgerBtn){ burgerBtn.addEventListener('click', ()=> mobileNav.classList.add('open')); }
   if(closeBtn){ closeBtn.addEventListener('click', ()=> mobileNav.classList.remove('open')); }
   document.querySelectorAll('.mobile-nav a').forEach(a=> a.addEventListener('click', ()=> mobileNav.classList.remove('open')));
+
+  /* PROCESS STACK — scroll-driven pinned card sequence
+     (same stacking/tilt/recede mechanic as the "Testimonial Field" Framer
+     component: sticky cards with a cascading top offset + z-index; the
+     next card arrives tilted back and settles flat; passed cards shrink
+     and darken slightly the further behind they fall). */
+  (function(){
+    const track = document.getElementById('pstack');
+    if(!track) return;
+    const cards = [...track.querySelectorAll('.pstack-card')];
+    const inners = cards.map(c=>c.querySelector('.pstack-inner'));
+    const shades = cards.map(c=>c.querySelector('.pstack-shade'));
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let cfg, trackTop, ticking=false;
+
+    function readConfig(){
+      const mobile = innerWidth < 880;
+      cfg = {
+        pinTop: mobile ? 92 : 132,
+        peek: mobile ? 6 : 9.14,
+        gap: mobile ? 36 : 64,
+        step: mobile ? 460 : 620,
+        farRotate: reduceMotion ? 0 : (mobile ? 6 : 9),
+        farY: reduceMotion ? 0 : (mobile ? 26 : 46),
+        recedeScale: 0.045,
+        minScale: 0.78,
+        recedeShade: 0.1,
+        maxShade: 0.42
+      };
+    }
+
+    function layout(){
+      readConfig();
+      cards.forEach((card,i)=>{
+        card.style.setProperty('--pin-top', (cfg.pinTop + i*cfg.peek) + 'px');
+        card.style.setProperty('--z', i+1);
+        card.style.setProperty('--pstack-gap', cfg.gap + 'px');
+      });
+      const r = track.getBoundingClientRect();
+      trackTop = r.top + window.scrollY;
+      update();
+    }
+
+    function update(){
+      const scrolled = window.scrollY - (trackTop - cfg.pinTop);
+      const A = scrolled / cfg.step;
+      cards.forEach((card,i)=>{
+        const p = Math.min(1, Math.max(0, A - i + 1));
+        const depth = Math.max(0, A - i);
+        const rotate = cfg.farRotate * (1-p);
+        const ty = cfg.farY * (1-p);
+        const scale = Math.min(1, Math.max(cfg.minScale, 1 - cfg.recedeScale*depth));
+        const shade = Math.min(cfg.maxShade, Math.max(0, cfg.recedeShade*depth));
+        inners[i].style.transform = `translateY(${ty.toFixed(2)}px) rotateX(${rotate.toFixed(2)}deg) scale(${scale.toFixed(4)})`;
+        shades[i].style.opacity = shade.toFixed(3);
+      });
+      ticking = false;
+    }
+
+    function onScroll(){
+      if(!ticking){ ticking = true; requestAnimationFrame(update); }
+    }
+
+    window.addEventListener('scroll', onScroll, {passive:true});
+    window.addEventListener('resize', layout);
+    layout();
+  })();
 </script>
 
 </body>
