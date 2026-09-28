@@ -248,17 +248,17 @@
   .c3d{outline:none;}
   .c3d-stage{
     position:relative;
-    height:var(--c3d-h,680px);
-    perspective:1400px;
+    height:var(--c3d-h,560px);
+    perspective:var(--c3d-persp,1400px);
     overflow:hidden;
   }
   .c3d-track{position:absolute;inset:0;transform-style:preserve-3d;}
   .c3d-card{
     position:absolute;top:50%;left:50%;
-    width:var(--c3d-w,250px);
-    height:var(--c3d-h-card,460px);
-    margin-top:calc(var(--c3d-h-card,460px) / -2);
-    margin-left:calc(var(--c3d-w,250px) / -2);
+    width:var(--c3d-w,460px);
+    height:var(--c3d-h-card,370px);
+    margin-top:calc(var(--c3d-h-card,370px) / -2);
+    margin-left:calc(var(--c3d-w,460px) / -2);
     background:var(--cream-2);
     border:1px solid var(--line);
     padding:38px 34px;
@@ -281,7 +281,7 @@
     font-family:'JetBrains Mono',monospace;
     font-size:19px;font-weight:700;letter-spacing:-0.02em;line-height:1.22;
   }
-  .c3d-card p{margin-top:12px;font-size:13.5px;color:var(--ink-soft);line-height:1.55;}
+  .c3d-card p{margin-top:12px;font-size:16px;color:var(--ink-soft);line-height:1.6;}
 
   .c3d-nav{display:flex;align-items:center;justify-content:center;gap:22px;margin-top:40px;}
   .c3d-arrow{
@@ -570,14 +570,18 @@
       // component, just sized for real paragraph text instead of a
       // one-line bio.
       const mobile = innerWidth < 880;
-      const perspective = 1400;
-      const radius = mobile ? 260 : 380;
-      const w = mobile ? 210 : 250;
-      const h = mobile ? 520 : 460;
+      // Desktop uses a longer perspective + wider radius than a naive
+      // setup: the cards are wide (near-square), so a short perspective
+      // magnifies the front card enough to swallow its neighbours.
+      const perspective = mobile ? 1400 : 4000;
+      const radius = mobile ? 40 : 650;
+      const w = mobile ? 310 : 460;
+      const h = mobile ? 400 : 370;
       return {
         w, h,
-        stageH: mobile ? 660 : 680,
-        radius: radius
+        stageH: mobile ? 460 : 560,
+        radius: radius,
+        perspective: perspective
       };
     }
 
@@ -603,6 +607,7 @@
       root.style.setProperty('--c3d-w', c.w + 'px');
       root.style.setProperty('--c3d-h-card', c.h + 'px');
       root.style.setProperty('--c3d-h', c.stageH + 'px');
+      root.style.setProperty('--c3d-persp', c.perspective + 'px');
       render(false);
     }
 
