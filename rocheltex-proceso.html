@@ -248,17 +248,17 @@
   .c3d{outline:none;}
   .c3d-stage{
     position:relative;
-    height:var(--c3d-h,480px);
+    height:var(--c3d-h,680px);
     perspective:1400px;
     overflow:hidden;
   }
   .c3d-track{position:absolute;inset:0;transform-style:preserve-3d;}
   .c3d-card{
     position:absolute;top:50%;left:50%;
-    width:var(--c3d-w,300px);
-    height:var(--c3d-h-card,420px);
-    margin-top:calc(var(--c3d-h-card,420px) / -2);
-    margin-left:calc(var(--c3d-w,300px) / -2);
+    width:var(--c3d-w,250px);
+    height:var(--c3d-h-card,460px);
+    margin-top:calc(var(--c3d-h-card,460px) / -2);
+    margin-left:calc(var(--c3d-w,250px) / -2);
     background:var(--cream-2);
     border:1px solid var(--line);
     padding:38px 34px;
@@ -562,12 +562,22 @@
     });
 
     function cfg(){
+      // Card width/height are authored to comfortably fit the longest
+      // step copy (measured against "Mezcla y tratamiento"); the stage
+      // height then has to fit the FRONT card's rendered size, which
+      // translateZ(radius) magnifies (it's pulled toward the camera) by
+      // perspective/(perspective-radius) — same 3D math as the reference
+      // component, just sized for real paragraph text instead of a
+      // one-line bio.
       const mobile = innerWidth < 880;
+      const perspective = 1400;
+      const radius = mobile ? 260 : 380;
+      const w = mobile ? 210 : 250;
+      const h = mobile ? 520 : 460;
       return {
-        w: mobile ? 230 : 300,
-        h: mobile ? 330 : 420,
-        stageH: mobile ? 400 : 480,
-        radius: mobile ? 330 : 460
+        w, h,
+        stageH: mobile ? 660 : 680,
+        radius: radius
       };
     }
 
@@ -581,7 +591,7 @@
         const rad = angle * Math.PI/180;
         const z = Math.cos(rad) * c.radius;
         card.style.transition = animate ? '' : 'none';
-        card.style.transform = `translate(-50%,-50%) rotateY(${angle.toFixed(3)}deg) translateZ(${c.radius}px)`;
+        card.style.transform = `rotateY(${angle.toFixed(3)}deg) translateZ(${c.radius}px)`;
         card.style.zIndex = Math.round(z) + 1000;
         card.classList.toggle('is-active', i === active);
       });
