@@ -248,20 +248,20 @@
   .c3d{outline:none;}
   .c3d-stage{
     position:relative;
-    height:var(--c3d-h,560px);
+    height:var(--c3d-h,320px);
     perspective:var(--c3d-persp,1400px);
     overflow:hidden;
   }
   .c3d-track{position:absolute;inset:0;transform-style:preserve-3d;}
   .c3d-card{
     position:absolute;top:50%;left:50%;
-    width:var(--c3d-w,460px);
-    height:var(--c3d-h-card,370px);
-    margin-top:calc(var(--c3d-h-card,370px) / -2);
-    margin-left:calc(var(--c3d-w,460px) / -2);
+    width:var(--c3d-w,560px);
+    height:var(--c3d-h-card,260px);
+    margin-top:calc(var(--c3d-h-card,260px) / -2);
+    margin-left:calc(var(--c3d-w,560px) / -2);
     background:var(--cream-2);
     border:1px solid var(--line);
-    padding:38px 34px;
+    padding:26px 32px;
     display:flex;flex-direction:column;align-items:flex-start;
     transition:transform .7s cubic-bezier(.22,.9,.3,1);
     cursor:pointer;
@@ -269,21 +269,21 @@
   }
   .c3d-card.is-active{cursor:default;}
   .c3d-icon{
-    width:60px;height:60px;border-radius:50%;
+    width:44px;height:44px;border-radius:50%;
     border:1.5px solid var(--red);
     display:flex;align-items:center;justify-content:center;
-    margin-bottom:22px;flex-shrink:0;
+    margin-bottom:14px;flex-shrink:0;
   }
-  .c3d-icon svg{width:26px;height:26px;fill:var(--red);}
-  .c3d-card .step-num{font-size:14px;color:var(--red);}
+  .c3d-icon svg{width:20px;height:20px;fill:var(--red);}
+  .c3d-card .step-num{font-size:13px;color:var(--red);}
   .c3d-card h3{
-    margin-top:8px;
+    margin-top:6px;
     font-family:'JetBrains Mono',monospace;
     font-size:19px;font-weight:700;letter-spacing:-0.02em;line-height:1.22;
   }
-  .c3d-card p{margin-top:12px;font-size:16px;color:var(--ink-soft);line-height:1.6;}
+  .c3d-card p{margin-top:8px;font-size:13px;color:var(--ink-soft);line-height:1.55;}
 
-  .c3d-nav{display:flex;align-items:center;justify-content:center;gap:22px;margin-top:40px;}
+  .c3d-nav{display:flex;align-items:center;justify-content:center;gap:22px;margin-top:24px;}
   .c3d-arrow{
     width:42px;height:42px;border-radius:50%;border:1px solid var(--line);
     background:var(--cream);color:var(--ink);display:flex;align-items:center;justify-content:center;
@@ -314,6 +314,9 @@
   .c3d-cta .btn:hover{background:#fff;}
 
   @media (max-width:880px){
+    .c3d-card{padding:22px 24px;}
+    .c3d-icon{width:40px;height:40px;margin-bottom:12px;}
+    .c3d-icon svg{width:18px;height:18px;}
     .c3d-cta{flex-direction:column;align-items:flex-start;padding:28px 24px;}
   }
 
@@ -570,16 +573,18 @@
       // component, just sized for real paragraph text instead of a
       // one-line bio.
       const mobile = innerWidth < 880;
-      // Desktop uses a longer perspective + wider radius than a naive
-      // setup: the cards are wide (near-square), so a short perspective
-      // magnifies the front card enough to swallow its neighbours.
-      const perspective = mobile ? 1400 : 4000;
-      const radius = mobile ? 40 : 650;
-      const w = mobile ? 310 : 460;
-      const h = mobile ? 400 : 370;
+      // Desktop is capped around 300px tall (rendered) and a long
+      // perspective + wide radius keep the magnified front card from
+      // swallowing its neighbours. Mobile can run taller, but still
+      // needs enough radius that the rotated side cards don't cross
+      // through the front one at such a narrow width.
+      const perspective = mobile ? 3500 : 10000;
+      const radius = mobile ? 350 : 650;
+      const w = mobile ? 280 : 560;
+      const h = mobile ? 310 : 260;
       return {
         w, h,
-        stageH: mobile ? 460 : 560,
+        stageH: mobile ? 400 : 320,
         radius: radius,
         perspective: perspective
       };
