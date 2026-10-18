@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Productos — Rocheltex</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#f7f2e9;
+    --cream-2:#efe8da;
+    --ink:#191510;
+    --ink-soft:#5c564a;
+    --red:#c70f23;
+    --red-deep:#a90d1e;
+    --blue:#0657b9;
+    --charcoal:#141210;
+    --line:rgba(25,21,16,0.14);
+    --grid-line:rgba(25,21,16,0.06);
+    --radius:0px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background-color:var(--cream);
+    background-image: linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
+    background-size:25% 100%;
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.serif{
+    font-family:'Inter',sans-serif;
+    font-weight:700;
+    line-height:1.08;
+    letter-spacing:-0.02em;
+    margin:0;
+  }
+  h1 i, h2 i{
+    font-style:normal;
+    font-weight:700;
+    color:var(--red);
+  }
+  .num, .accent, .stat .num, .sec-num{
+    font-family:'JetBrains Mono',monospace;
+    font-weight:500;
+    letter-spacing:-0.02em;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    font-weight:500;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--red);
+  }
+  a{color:inherit;}
+  img{display:block;max-width:100%;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 40px;}
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  .btn{
+    position:relative;
+    font-family:'Inter',sans-serif;
+    font-size:14.5px;
+    font-weight:600;
+    text-decoration:none;
+    color:#fff;
+    background:var(--red);
+    padding:15px 36px 15px 28px;
+    border-radius:var(--radius);
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    transition:background .2s ease, transform .2s ease;
+    border:none;
+    cursor:pointer;
+  }
+  .btn::after{
+    content:"";
+    position:absolute;
+    top:9px;right:12px;
+    width:10px;height:10px;
+    border-top:1.5px solid currentColor;
+    border-right:1.5px solid currentColor;
+    opacity:.7;
+  }
+  .btn:hover{background:var(--red-deep);transform:translateY(-1px);}
+  .btn-ghost{
+    background:transparent;
+    border:1px solid rgba(255,255,255,0.55);
+    color:#fff;
+  }
+  .btn-ghost:hover{background:rgba(255,255,255,0.12);}
+  .btn-dark{background:var(--ink);}
+  .btn-dark:hover{background:#000;}
+
+  /* NAV */
+  header{
+    position:fixed;
+    top:0;left:0;right:0;
+    z-index:60;
+  }
+  .nav-scrim{
+    position:absolute;
+    inset:0;
+    height:150px;
+    pointer-events:none;
+    -webkit-backdrop-filter:blur(20px);
+    backdrop-filter:blur(20px);
+    background:linear-gradient(to bottom, rgba(247,242,233,0.85) 0%, rgba(247,242,233,0.55) 42%, rgba(247,242,233,0) 100%);
+    -webkit-mask-image:linear-gradient(to bottom, #000 0%, #000 35%, transparent 100%);
+    mask-image:linear-gradient(to bottom, #000 0%, #000 35%, transparent 100%);
+  }
+  .nav-row{
+    position:relative;z-index:2;
+    max-width:1180px;margin:0 auto;padding:26px 40px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .logo-mark{height:44px;width:auto;}
+  nav.primary{display:flex;gap:34px;}
+  nav.primary a{
+    color:var(--ink);text-decoration:none;font-size:14px;font-weight:500;
+    opacity:.85;
+  }
+  nav.primary a:hover{opacity:1;}
+  nav.primary a.active{opacity:1;color:var(--red);}
+  .nav-right{display:flex;align-items:center;gap:20px;}
+  .lang{font-size:12.5px;color:var(--ink);display:flex;gap:6px;opacity:.75;}
+  .lang b{color:var(--red);font-weight:700;}
+  .nav-contact-btn{padding:10px 26px 10px 20px;font-size:13px;}
+  .nav-contact-btn::after{top:7px;right:9px;width:8px;height:8px;}
+  .burger{
+    display:none;
+    width:38px;height:38px;
+    border:1px solid var(--line);
+    border-radius:50%;
+    background:transparent;
+    color:var(--ink);
+    align-items:center;justify-content:center;
+    cursor:pointer;
+  }
+  .burger svg{width:16px;height:16px;}
+  .mobile-nav{
+    display:none;
+    position:fixed;inset:0;
+    background:var(--charcoal);
+    z-index:100;
+    padding:26px 22px;
+    flex-direction:column;
+  }
+  .mobile-nav.open{display:flex;}
+  .mobile-nav .close-row{display:flex;justify-content:flex-end;}
+  .mobile-nav .close-btn{
+    width:38px;height:38px;border:1px solid rgba(255,255,255,.5);border-radius:50%;
+    background:transparent;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;
+  }
+  .mobile-nav a{
+    color:#fdfbf6;text-decoration:none;
+    font-family:'Inter',sans-serif;font-weight:600;font-size:26px;
+    padding:16px 0;border-bottom:1px solid rgba(255,255,255,.12);
+  }
+  .mobile-nav .mob-links{display:flex;flex-direction:column;margin-top:30px;}
+  .nav-right .lang{display:none;}
+  .mobile-nav .mob-lang{color:#fdfbf6;opacity:.75;font-size:13px;margin-top:26px;display:flex;gap:6px;}
+  .mobile-nav .mob-lang b{color:var(--red);font-weight:700;}
+  .mobile-nav .btn{margin-top:22px;align-self:flex-start;font-size:14.5px;font-weight:600;}
+
+  /* FRAME (boxed content sitting opaque above the ambient grid) */
+  .frame{background:var(--cream);border:1px solid var(--line);padding:64px 56px;}
+
+  /* CLOSING CTA (shared with Home) */
+  .closing{position:relative;padding:150px 0;overflow:hidden;}
+  .closing video,.closing .poster{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  }
+  .closing::after{content:"";position:absolute;inset:0;background:rgba(20,17,14,0.78);}
+  .closing-content{position:relative;z-index:2;text-align:center;}
+  .closing h2{font-size:clamp(34px,5.4vw,58px);color:#fdfbf6;max-width:760px;margin:0 auto;}
+  .closing p{color:#d9d3c5;margin-top:18px;font-size:16px;}
+  .closing .hero-cta{justify-content:center;margin-top:34px;display:flex;gap:16px;flex-wrap:wrap;}
+
+  /* FOOTER (shared with Home) */
+  footer{padding:70px 0 34px;background:var(--cream);}
+  .foot-top{
+    display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px;
+    padding-bottom:50px;border-bottom:1px solid var(--line);
+  }
+  .foot-logo img{width:176px;height:auto;filter:none;}
+  .foot-tagline{margin-top:18px;font-size:14px;color:var(--ink-soft);max-width:280px;line-height:1.6;}
+  .foot-col h4{
+    font-size:12.5px;text-transform:uppercase;letter-spacing:0.1em;
+    color:var(--ink-soft);font-weight:600;margin:0 0 16px;
+  }
+  .foot-col a{display:block;text-decoration:none;font-size:14.5px;margin-bottom:11px;}
+  .foot-bottom{
+    display:flex;justify-content:space-between;align-items:center;
+    padding-top:26px;font-size:13px;color:var(--ink-soft);flex-wrap:wrap;gap:10px;
+  }
+  .foot-legal{display:flex;gap:20px;}
+  .foot-legal a{text-decoration:none;color:var(--ink-soft);}
+
+  /* PAGE HERO — full-bleed photo, dark overlay */
+  .page-hero{
+    position:relative;
+    padding:210px 0 100px;
+    overflow:hidden;
+  }
+  .page-hero .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  .page-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(20,17,14,0.55) 0%, rgba(20,17,14,0.72) 100%);}
+  .page-hero .wrap{position:relative;z-index:2;max-width:760px;}
+  .page-hero .eyebrow{color:#f2b8a8;}
+  .page-hero h1{color:#fdfbf6;font-size:clamp(34px,5vw,54px);margin-top:14px;}
+  .page-hero p{color:#e6e1d6;margin-top:18px;font-size:16.5px;line-height:1.6;max-width:560px;}
+
+  /* CATÁLOGO — materias primas y producto acabado */
+  .catalog{
+    padding:90px 0 20px;
+    background-color:var(--cream);
+    background-image:linear-gradient(to right,var(--grid-line) 1px,transparent 1px);
+    background-size:25% 100%;
+  }
+  .catalog + .catalog{padding-top:70px;}
+  #producto-acabado{padding-bottom:110px;}
+  .section-head{max-width:640px;margin-bottom:40px;}
+  .section-head h2{font-size:clamp(30px,4vw,44px);margin-top:14px;}
+  .cat-claim{margin:16px 0 0;}
+  .cat-lead{margin:16px 0 0;font-size:16px;line-height:1.6;color:var(--ink-soft);}
+  .iso-badge{
+    display:inline-block;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;
+    letter-spacing:.04em;border:1px solid var(--blue);color:var(--blue);padding:4px 10px;
+  }
+  .cat-jump{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:56px;}
+  .cat-jump a{
+    display:inline-flex;align-items:center;gap:9px;padding:10px 16px;
+    border:1px solid var(--line);background:var(--cream);color:var(--ink);text-decoration:none;
+    font-family:'JetBrains Mono',monospace;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;
+    transition:border-color .2s ease,color .2s ease;
+  }
+  .cat-jump a::before{
+    content:"";width:9px;height:8px;background:var(--blue);clip-path:polygon(50% 0,100% 100%,0 100%);
+  }
+  .cat-jump a:hover{border-color:var(--red);color:var(--red);}
+  .cat-table{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);}
+  .cat-row{display:grid;grid-template-columns:minmax(200px,260px) 1fr;background:var(--cream);}
+  .cat-name{
+    margin:0;padding:22px 28px;background:var(--cream-2);display:flex;align-items:center;
+    font-family:'JetBrains Mono',monospace;font-size:17px;font-weight:700;letter-spacing:-0.02em;line-height:1.25;
+  }
+  .cat-items{list-style:none;margin:0;padding:14px 24px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 30px;}
+  .cat-items li{display:flex;align-items:center;gap:12px;font-size:14px;line-height:1.25;color:var(--ink);}
+  .cat-items img{width:52px;height:52px;object-fit:cover;border:1px solid var(--line);background:var(--cream-2);flex-shrink:0;}
+  .cat-treat{
+    margin-top:56px;background:var(--cream-2);border:1px solid var(--line);
+    padding:34px 36px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;
+  }
+  .cat-treat h4{
+    margin:0 0 10px;font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;
+    letter-spacing:-0.02em;line-height:1.2;color:var(--ink);
+  }
+  .cat-treat p{margin:0;font-size:14px;color:var(--ink-soft);line-height:1.6;max-width:640px;}
+  .cat-treat .btn{white-space:nowrap;}
+  @media (max-width:880px){
+    .catalog{padding:60px 0 10px;}
+    .catalog + .catalog{padding-top:50px;}
+    .cat-row{grid-template-columns:1fr;}
+    .cat-name{padding:16px 20px;}
+    .cat-items{padding:14px 20px;gap:12px 22px;}
+    .cat-treat{grid-template-columns:1fr;padding:26px 24px;}
+    .cat-treat .btn{justify-self:start;}
+  }
+
+  /* CERT LOGOS (footer + placeholder) */
+  .foot-certs{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;}
+  .foot-certs img{height:42px;width:auto;object-fit:contain;filter:grayscale(1) opacity(0.75);}
+
+  @media (max-width:880px){
+    .wrap{padding:0 22px;}
+    .nav-row{padding:22px;gap:14px;}
+    .logo-mark{height:34px;}
+    nav.primary{display:none;}
+    .burger{display:flex;}
+    .foot-top{grid-template-columns:1fr;gap:30px;}
+    .frame{padding:40px 24px;}
+    .page-hero{padding:170px 0 80px;}
+  }
+  /* BRAND v2 — logo azul + rojo. Regla: azul = grafismo (símbolo, pictogramas,
+     viñetas); rojo = tipografía y acción (eyebrows, números, enlaces, botones). */
+  .eyebrow::before{
+    content:"";display:inline-block;width:9px;height:8px;margin-right:9px;
+    background:var(--blue);clip-path:polygon(50% 0,100% 100%,0 100%);
+    position:relative;top:-1px;
+  }
+  .hero .eyebrow::before,.page-hero .eyebrow::before{background:#fff;}
+  .card-body li::before,.pillar li::before{
+    width:8px;height:7px;top:7px;border-radius:0;background:var(--blue);
+    clip-path:polygon(50% 0,100% 100%,0 100%);
+  }
+  .sector-icon{color:var(--blue);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-scrim"></div>
+  <div class="nav-row">
+    <a href="index.html"><img src="img/logo/rocheltex-horizontal.svg" alt="Rocheltex, S.L." class="logo-mark" width="192" height="44"></a>
+    <nav class="primary">
+      <a href="index.html">Inicio</a>
+      <a href="rocheltex-proceso.html">Proceso</a>
+      <a href="rocheltex-nosotros.html">Nosotros</a>
+      <a href="rocheltex-esg.html">Compromiso</a>
+    </nav>
+    <div class="nav-right">
+      <div class="lang"><b>ES</b> / EN</div>
+      <a class="btn btn-dark nav-contact-btn" href="rocheltex-contacto.html">Contacto</a>
+      <button class="burger" id="burgerBtn" aria-label="Abrir menú">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-nav" id="mobileNav">
+  <div class="close-row">
+    <button class="close-btn" id="closeBtn" aria-label="Cerrar menú">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <div class="mob-links">
+    <a href="index.html">Inicio</a>
+    <a href="rocheltex-proceso.html">Proceso</a>
+    <a href="rocheltex-nosotros.html">Nosotros</a>
+    <a href="rocheltex-esg.html">Compromiso</a>
+  </div>
+  <div class="mob-lang"><b>ES</b> / EN</div>
+  <a class="btn" href="rocheltex-contacto.html">Contacto</a>
+</div>
+
+<section class="page-hero">
+  <img class="poster" src="hero-poster.jpg" alt="">
+  <div class="wrap">
+    <div class="eyebrow">Productos</div>
+    <h1>Nuestros productos</h1>
+    <p>Materias primas 100% recicladas pre-consumer y producto acabado, en distintas composiciones de algodón, poliéster, yute y más.</p>
+  </div>
+</section>
+
+<section class="catalog" id="materias-primas">
+  <div class="wrap">
+    <div class="cat-jump reveal">
+      <a href="#materias-primas">Materias primas</a>
+      <a href="#producto-acabado">Producto acabado</a>
+    </div>
+    <div class="section-head reveal">
+      <div class="eyebrow">Materias primas</div>
+      <h2>100% reciclado pre-consumer.</h2>
+      <p class="cat-claim"><span class="iso-badge">ISO 14021</span></p>
+    </div>
+    <div class="cat-table reveal">
+      <div class="cat-row">
+        <h3 class="cat-name">Algodón 80/20</h3>
+        <ul class="cat-items">
+          <li><img src="img/productos/mp-algodon-8020-punto.jpg" alt="" width="52" height="52" loading="lazy"><span>Punto</span></li>
+          <li><img src="img/productos/mp-algodon-8020-camiseria.jpg" alt="" width="52" height="52" loading="lazy"><span>Camisería</span></li>
+          <li><img src="img/productos/mp-algodon-8020-tirilla.jpg" alt="" width="52" height="52" loading="lazy"><span>Tirilla</span></li>
+        </ul>
+      </div>
+      <div class="cat-row">
+        <h3 class="cat-name">Algodón 50/50</h3>
+        <ul class="cat-items">
+          <li><img src="img/productos/mp-algodon-5050-punto.jpg" alt="" width="52" height="52" loading="lazy"><span>Punto</span></li>
+          <li><img src="img/productos/mp-algodon-5050-camiseria.jpg" alt="" width="52" height="52" loading="lazy"><span>Camisería</span></li>
+          <li><img src="img/productos/mp-algodon-5050-tirilla.jpg" alt="" width="52" height="52" loading="lazy"><span>Tirilla</span></li>
+        </ul>
+      </div>
+      <div class="cat-row">
+        <h3 class="cat-name">Poliéster (PES)</h3>
+        <ul class="cat-items">
+          <li><img src="img/productos/mp-pes-trapo.jpg" alt="" width="52" height="52" loading="lazy"><span>Trapo</span></li>
+          <li><img src="img/productos/mp-pes-tirilla.jpg" alt="" width="52" height="52" loading="lazy"><span>Tirilla</span></li>
+          <li><img src="img/productos/mp-pes-hilacho-multicolor.jpg" alt="" width="52" height="52" loading="lazy"><span>Hilacho multicolor</span></li>
+          <li><img src="img/productos/mp-pes-hilacho-blanco.jpg" alt="" width="52" height="52" loading="lazy"><span>Hilacho blanco</span></li>
+          <li><img src="img/productos/mp-pes-hilacho-negro.jpg" alt="" width="52" height="52" loading="lazy"><span>Hilacho negro</span></li>
+        </ul>
+      </div>
+      <div class="cat-row">
+        <h3 class="cat-name">PP</h3>
+        <ul class="cat-items">
+          <li><img src="img/productos/mp-pp-hilachos.jpg" alt="" width="52" height="52" loading="lazy"><span>Hilachos</span></li>
+        </ul>
+      </div>
+      <div class="cat-row">
+        <h3 class="cat-name">Yute</h3>
+        <ul class="cat-items">
+          <li><img src="img/productos/mp-yute-sacos.jpg" alt="" width="52" height="52" loading="lazy"><span>Sacos</span></li>
+          <li><img src="img/productos/mp-yute-tirilla.jpg" alt="" width="52" height="52" loading="lazy"><span>Tirilla</span></li>
+        </ul>
+      </div>
+      <div class="cat-row">
+        <h3 class="cat-name">Lana</h3>
+        <ul class="cat-items">
+          <li><img src="img/productos/mp-lana.jpg" alt="Lana" width="52" height="52" loading="lazy"></li>
+        </ul>
+      </div>
+      <div class="cat-row">
+        <h3 class="cat-name">Espuma</h3>
+        <ul class="cat-items">
+          <li><img src="img/productos/mp-espuma.jpg" alt="Espuma" width="52" height="52" loading="lazy"></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="catalog" id="producto-acabado">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Producto acabado</div>
+      <h2>Fibra lista para su aplicación.</h2>
+      <p class="cat-lead">La borra resultante queda lista para su distribución a automoción, geotextiles, hilatura y punzonado.</p>
+    </div>
+    <div class="cat-table reveal">
+      <div class="cat-row">
+        <h3 class="cat-name">Algodón</h3>
+        <ul class="cat-items">
+          <li><img src="img/productos/pa-algodon-5050.jpg" alt="" width="52" height="52" loading="lazy"><span>50/50</span></li>
+          <li><img src="img/productos/pa-algodon-8020.jpg" alt="" width="52" height="52" loading="lazy"><span>80/20</span></li>
+          <li><img src="img/productos/pa-algodon-9010.jpg" alt="" width="52" height="52" loading="lazy"><span>90/10</span></li>
+          <li><img src="img/productos/pa-algodon-econofiber.jpg" alt="" width="52" height="52" loading="lazy"><span>EconoFiber</span></li>
+          <li><img src="img/productos/pa-algodon-blanco.jpg" alt="" width="52" height="52" loading="lazy"><span>Blanco</span></li>
+          <li><img src="img/productos/pa-algodon-lista-clara.jpg" alt="" width="52" height="52" loading="lazy"><span>Lista clara</span></li>
+        </ul>
+      </div>
+      <div class="cat-row">
+        <h3 class="cat-name">Poliéster (PES)</h3>
+        <ul class="cat-items">
+          <li><img src="img/productos/pa-pes-multicolor.jpg" alt="" width="52" height="52" loading="lazy"><span>Multicolor</span></li>
+          <li><img src="img/productos/pa-pes-blanco-texturizado.jpg" alt="" width="52" height="52" loading="lazy"><span>Blanco texturizado</span></li>
+          <li><img src="img/productos/pa-pes-blanco-alta-tenacidad.jpg" alt="" width="52" height="52" loading="lazy"><span>Blanco alta tenacidad</span></li>
+          <li><img src="img/productos/pa-pes-negro.jpg" alt="" width="52" height="52" loading="lazy"><span>Negro</span></li>
+        </ul>
+      </div>
+      <div class="cat-row">
+        <h3 class="cat-name">Yute</h3>
+        <ul class="cat-items">
+          <li><img src="img/productos/pa-yute.jpg" alt="Yute" width="52" height="52" loading="lazy"></li>
+        </ul>
+      </div>
+      <div class="cat-row">
+        <h3 class="cat-name">Polipropileno (PP)</h3>
+        <ul class="cat-items">
+          <li><img src="img/productos/pa-pp-multicolor.jpg" alt="" width="52" height="52" loading="lazy"><span>Multicolor</span></li>
+        </ul>
+      </div>
+      <div class="cat-row">
+        <h3 class="cat-name">Multicolor fibra larga para carda</h3>
+        <ul class="cat-items">
+          <li><img src="img/productos/pa-fibra-larga-carda.jpg" alt="Multicolor fibra larga para carda" width="52" height="52" loading="lazy"></li>
+        </ul>
+      </div>
+      <div class="cat-row">
+        <h3 class="cat-name">Ignífugo 80/20</h3>
+        <ul class="cat-items">
+          <li><img src="img/productos/pa-ignifugo-8020.jpg" alt="Ignífugo 80/20" width="52" height="52" loading="lazy"></li>
+        </ul>
+      </div>
+    </div>
+    <div class="cat-treat reveal">
+      <div>
+        <h4>Tratamientos antimoho e ignífugos</h4>
+        <p>Aplicamos Afrotin (antimoho) o tratamiento ignífugo mediante un sistema de tres inyectores, con impregnación completa del material y sin desperdicio — el sobrante se reincorpora a la fibra almacenada.</p>
+      </div>
+      <a class="btn" href="rocheltex-contacto.html">Solicita ficha técnica</a>
+    </div>
+  </div>
+</section>
+
+<section class="closing">
+  <img class="poster" src="img/cta-camion-rocheltex.jpg" alt="Camión de la flota propia de Rocheltex frente a sus instalaciones en Aielo de Malferit">
+  <div class="wrap closing-content reveal">
+    <h2>¿Buscas una composición concreta?</h2>
+    <p>Pol. Ind. Serrans II, s/n · 46812 Aielo de Malferit (Valencia)</p>
+    <div class="hero-cta">
+      <a class="btn" href="rocheltex-contacto.html">Ir a contacto</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-logo">
+        <img src="img/logo/rocheltex-empilhado.svg" alt="Rocheltex, S.L." width="176" height="114">
+        <p class="foot-tagline">Fibra textil regenerada para automoción, geotextiles, hilatura y punzonado. Aielo de Malferit, Valencia.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Secciones</h4>
+        <a href="index.html">Inicio</a>
+        <a href="rocheltex-proceso.html">Proceso</a>
+        <a href="rocheltex-nosotros.html">Nosotros</a>
+        <a href="rocheltex-esg.html">Compromiso</a>
+      </div>
+      <div class="foot-col">
+        <h4>Certificaciones</h4>
+        <div class="foot-certs">
+          <img src="iatf.png" alt="IATF 16949">
+          <img src="iso9001.png" alt="ISO 9001">
+          <img src="iso14001.png" alt="ISO 14001">
+          <img src="iso45001.png" alt="ISO 45001">
+          <img src="psb.png" alt="PSB — VDA QMC">
+          <img src="pscr.png" alt="PSCR — VDA QMC">
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© Rocheltex, S.L.</span>
+      <div class="foot-legal">
+        <a href="rocheltex-contacto.html">Contacto</a>
+        <a href="#">Aviso legal</a>
+        <a href="#">Privacidad</a>
+        <a href="#">Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  },{threshold:0.1});
+  revealEls.forEach(el=>io.observe(el));
+
+  const burgerBtn = document.getElementById('burgerBtn');
+  const closeBtn = document.getElementById('closeBtn');
+  const mobileNav = document.getElementById('mobileNav');
+  if(burgerBtn){ burgerBtn.addEventListener('click', ()=> mobileNav.classList.add('open')); }
+  if(closeBtn){ closeBtn.addEventListener('click', ()=> mobileNav.classList.remove('open')); }
+  document.querySelectorAll('.mobile-nav a').forEach(a=> a.addEventListener('click', ()=> mobileNav.classList.remove('open')));
+</script>
+
+</body>
+</html>

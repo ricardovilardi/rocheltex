@@ -338,6 +338,18 @@
   }
   .products-treat p{font-size:14px;color:var(--ink-soft);line-height:1.6;max-width:640px;}
   .products-treat .btn{white-space:nowrap;}
+  .products-grid-2{grid-template-columns:1fr 1fr;}
+  .product-claim{margin:12px 0 0;display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:13.5px;color:var(--ink-soft);}
+  .iso-badge{
+    display:inline-block;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;
+    letter-spacing:.04em;border:1px solid var(--blue);color:var(--blue);padding:3px 9px;
+  }
+  .product-item ul{list-style:none;margin:20px 0 0;padding:0;display:flex;flex-direction:column;gap:9px;}
+  .product-item li{font-size:14px;color:var(--ink-soft);padding-left:18px;position:relative;}
+  .product-item li::before{
+    content:"";position:absolute;left:0;top:7px;width:8px;height:7px;background:var(--blue);
+    clip-path:polygon(50% 0,100% 100%,0 100%);
+  }
 
   /* PILLARS / CARDS */
   .pillars{
@@ -632,26 +644,42 @@
   <div class="wrap">
     <div class="section-head reveal">
       <div class="eyebrow">Productos</div>
-      <h2>Borra textil adaptada a cada sector.</h2>
-      <p class="products-intro">Fabricamos distintos tipos de borra según la aplicación y el cliente, con tratamientos especiales cuando el proceso lo requiere.</p>
+      <h2>Materias primas y producto acabado.</h2>
+      <p class="products-intro">Dos líneas de producto, en distintas composiciones de algodón, poliéster, yute y más.</p>
     </div>
-    <div class="products-grid reveal">
-      <div class="product-item"><h4>Multicolor 50/50</h4><p>Mezcla equilibrada de fibras de distintos colores.</p></div>
-      <div class="product-item"><h4>Multicolor 80/20 jeans</h4><p>Con alto contenido en fibra vaquera.</p></div>
-      <div class="product-item"><h4>Multicolor, blanco y negro PES</h4><p>Fibra de poliéster en distintos tonos.</p></div>
-      <div class="product-item"><h4>Borra larga para cardado</h4><p>Fibra de mayor longitud, pensada para máquinas de cardado.</p></div>
-      <div class="product-item"><h4>Borra de yute</h4><p>Fibra de yute recuperada.</p></div>
-      <div class="product-item"><h4>PP multicolor 100%</h4><p>Polipropileno 100%.</p></div>
-      <div class="product-item"><h4>Mezclas con espuma, lana, etc.</h4><p>Composiciones combinadas según necesidad.</p></div>
-      <div class="product-item"><h4>Borra con tratamiento ignífugo</h4><p>Tratamiento de resistencia al fuego.</p></div>
-      <div class="product-item"><h4>Composición a medida</h4><p>Desarrollamos composiciones específicas según las necesidades del cliente.</p></div>
+    <div class="products-grid products-grid-2 reveal">
+      <div class="product-item">
+        <h4>Materias primas</h4>
+        <p class="product-claim"><span class="iso-badge">ISO 14021</span> 100% reciclado pre-consumer</p>
+        <ul>
+          <li>Algodón 80/20</li>
+          <li>Algodón 50/50</li>
+          <li>Poliéster (PES)</li>
+          <li>PP</li>
+          <li>Yute</li>
+          <li>Lana</li>
+          <li>Espuma</li>
+        </ul>
+      </div>
+      <div class="product-item">
+        <h4>Producto acabado</h4>
+        <p class="product-claim">Fibra lista para su aplicación</p>
+        <ul>
+          <li>Algodón</li>
+          <li>Poliéster (PES)</li>
+          <li>Yute</li>
+          <li>Polipropileno (PP) multicolor</li>
+          <li>Multicolor fibra larga para carda</li>
+          <li>Ignífugo 80/20</li>
+        </ul>
+      </div>
     </div>
     <div class="products-treat reveal">
       <div>
-        <h4>Tratamientos antimoho e ignífugos</h4>
-        <p>Aplicamos Afrotin (antimoho) o tratamiento ignífugo mediante un sistema de tres inyectores, con impregnación completa del material y sin desperdicio — el sobrante se reincorpora a la fibra almacenada.</p>
+        <h4>Catálogo completo</h4>
+        <p>Todas las variantes de materias primas y producto acabado, con su imagen de referencia.</p>
       </div>
-      <a class="btn" href="rocheltex-contacto.html">Solicita ficha técnica</a>
+      <a class="btn" href="rocheltex-productos.html">Ver productos</a>
     </div>
   </div>
 </section>
