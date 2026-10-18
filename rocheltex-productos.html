@@ -248,15 +248,19 @@
     content:"";width:9px;height:8px;background:var(--blue);clip-path:polygon(50% 0,100% 100%,0 100%);
   }
   .cat-jump a:hover{border-color:var(--red);color:var(--red);}
-  .cat-table{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);}
-  .cat-row{display:grid;grid-template-columns:minmax(200px,260px) 1fr;background:var(--cream);}
-  .cat-name{
-    margin:0;padding:22px 28px;background:var(--cream-2);display:flex;align-items:center;
-    font-family:'JetBrains Mono',monospace;font-size:17px;font-weight:700;letter-spacing:-0.02em;line-height:1.25;
+  .cat-grid{
+    list-style:none;margin:0;padding:0 1px 1px 0;
+    display:grid;grid-template-columns:repeat(3,1fr);
   }
-  .cat-items{list-style:none;margin:0;padding:14px 24px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 30px;}
-  .cat-items li{display:flex;align-items:center;gap:12px;font-size:14px;line-height:1.25;color:var(--ink);}
-  .cat-items img{width:52px;height:52px;object-fit:cover;border:1px solid var(--line);background:var(--cream-2);flex-shrink:0;}
+  .cat-tile{
+    display:grid;grid-template-columns:96px 1fr;gap:18px;align-items:center;
+    padding:16px 18px;background:var(--cream);
+    border:1px solid var(--line);margin:0 -1px -1px 0;
+  }
+  .cat-tile img{width:96px;height:96px;object-fit:cover;display:block;border:1px solid var(--line);background:var(--cream-2);}
+  .cat-tile-text{display:flex;flex-direction:column;gap:5px;min-width:0;}
+  .cat-eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);line-height:1.3;}
+  .cat-pname{font-size:15.5px;font-weight:700;letter-spacing:-0.01em;line-height:1.25;color:var(--ink);}
   .cat-treat{
     margin-top:56px;background:var(--cream-2);border:1px solid var(--line);
     display:grid;grid-template-columns:1fr minmax(300px,420px);align-items:stretch;
@@ -279,12 +283,15 @@
   .cat-treat .cat-treat-note{margin-top:12px;font-size:12.5px;color:var(--ink-soft);}
   .cat-treat .btn{margin-top:24px;white-space:nowrap;}
   .cat-treat .cat-treat-caption{margin:10px 0 0;font-size:12px;line-height:1.4;color:var(--ink-soft);max-width:none;}
+  @media (max-width:1100px){
+    .cat-grid{grid-template-columns:repeat(2,1fr);}
+  }
   @media (max-width:880px){
     .catalog{padding:60px 0 10px;}
     .catalog + .catalog{padding-top:50px;}
-    .cat-row{grid-template-columns:1fr;}
-    .cat-name{padding:16px 20px;}
-    .cat-items{padding:14px 20px;gap:12px 22px;}
+    .cat-grid{grid-template-columns:1fr;}
+    .cat-tile{grid-template-columns:84px 1fr;gap:16px;padding:14px 16px;}
+    .cat-tile img{width:84px;height:84px;}
     .cat-treat{grid-template-columns:1fr;}
     .cat-treat-media{order:-1;align-self:auto;padding:0;}
     .cat-treat .cat-treat-caption{padding:0 24px;margin:10px 0 0;}
@@ -328,8 +335,8 @@
   <div class="nav-row">
     <a href="index.html"><img src="img/logo/rocheltex-horizontal.svg" alt="Rocheltex, S.L." class="logo-mark" width="192" height="44"></a>
     <nav class="primary">
-      <a href="index.html">Inicio</a>
       <a href="rocheltex-proceso.html">Proceso</a>
+      <a href="rocheltex-productos.html" class="active">Productos</a>
       <a href="rocheltex-nosotros.html">Nosotros</a>
       <a href="rocheltex-esg.html">Compromiso</a>
     </nav>
@@ -350,8 +357,8 @@
     </button>
   </div>
   <div class="mob-links">
-    <a href="index.html">Inicio</a>
     <a href="rocheltex-proceso.html">Proceso</a>
+    <a href="rocheltex-productos.html">Productos</a>
     <a href="rocheltex-nosotros.html">Nosotros</a>
     <a href="rocheltex-esg.html">Compromiso</a>
   </div>
@@ -379,59 +386,72 @@
       <h2>100% reciclado pre-consumer.</h2>
       <p class="cat-claim"><span class="iso-badge">ISO 14021</span></p>
     </div>
-    <div class="cat-table reveal">
-      <div class="cat-row">
-        <h3 class="cat-name">Algodón 80/20</h3>
-        <ul class="cat-items">
-          <li><img src="img/productos/mp-algodon-8020-punto.jpg" alt="" width="52" height="52" loading="lazy"><span>Punto</span></li>
-          <li><img src="img/productos/mp-algodon-8020-camiseria.jpg" alt="" width="52" height="52" loading="lazy"><span>Camisería</span></li>
-          <li><img src="img/productos/mp-algodon-8020-tirilla.jpg" alt="" width="52" height="52" loading="lazy"><span>Tirilla</span></li>
-        </ul>
-      </div>
-      <div class="cat-row">
-        <h3 class="cat-name">Algodón 50/50</h3>
-        <ul class="cat-items">
-          <li><img src="img/productos/mp-algodon-5050-punto.jpg" alt="" width="52" height="52" loading="lazy"><span>Punto</span></li>
-          <li><img src="img/productos/mp-algodon-5050-camiseria.jpg" alt="" width="52" height="52" loading="lazy"><span>Camisería</span></li>
-          <li><img src="img/productos/mp-algodon-5050-tirilla.jpg" alt="" width="52" height="52" loading="lazy"><span>Tirilla</span></li>
-        </ul>
-      </div>
-      <div class="cat-row">
-        <h3 class="cat-name">Poliéster (PES)</h3>
-        <ul class="cat-items">
-          <li><img src="img/productos/mp-pes-trapo.jpg" alt="" width="52" height="52" loading="lazy"><span>Trapo</span></li>
-          <li><img src="img/productos/mp-pes-tirilla.jpg" alt="" width="52" height="52" loading="lazy"><span>Tirilla</span></li>
-          <li><img src="img/productos/mp-pes-hilacho-multicolor.jpg" alt="" width="52" height="52" loading="lazy"><span>Hilacho multicolor</span></li>
-          <li><img src="img/productos/mp-pes-hilacho-blanco.jpg" alt="" width="52" height="52" loading="lazy"><span>Hilacho blanco</span></li>
-          <li><img src="img/productos/mp-pes-hilacho-negro.jpg" alt="" width="52" height="52" loading="lazy"><span>Hilacho negro</span></li>
-        </ul>
-      </div>
-      <div class="cat-row">
-        <h3 class="cat-name">PP</h3>
-        <ul class="cat-items">
-          <li><img src="img/productos/mp-pp-hilachos.jpg" alt="" width="52" height="52" loading="lazy"><span>Hilachos</span></li>
-        </ul>
-      </div>
-      <div class="cat-row">
-        <h3 class="cat-name">Yute</h3>
-        <ul class="cat-items">
-          <li><img src="img/productos/mp-yute-sacos.jpg" alt="" width="52" height="52" loading="lazy"><span>Sacos</span></li>
-          <li><img src="img/productos/mp-yute-tirilla.jpg" alt="" width="52" height="52" loading="lazy"><span>Tirilla</span></li>
-        </ul>
-      </div>
-      <div class="cat-row">
-        <h3 class="cat-name">Lana</h3>
-        <ul class="cat-items">
-          <li><img src="img/productos/mp-lana.jpg" alt="Lana" width="52" height="52" loading="lazy"></li>
-        </ul>
-      </div>
-      <div class="cat-row">
-        <h3 class="cat-name">Espuma</h3>
-        <ul class="cat-items">
-          <li><img src="img/productos/mp-espuma.jpg" alt="Espuma" width="52" height="52" loading="lazy"></li>
-        </ul>
-      </div>
-    </div>
+    <ul class="cat-grid reveal">
+      <li class="cat-tile">
+        <img src="img/productos/mp-algodon-8020-punto.jpg" alt="" width="96" height="96" loading="lazy">
+        <div class="cat-tile-text"><span class="cat-eyebrow">Algodón 80/20</span><strong class="cat-pname">Punto</strong></div>
+      </li>
+      <li class="cat-tile">
+        <img src="img/productos/mp-algodon-8020-camiseria.jpg" alt="" width="96" height="96" loading="lazy">
+        <div class="cat-tile-text"><span class="cat-eyebrow">Algodón 80/20</span><strong class="cat-pname">Camisería</strong></div>
+      </li>
+      <li class="cat-tile">
+        <img src="img/productos/mp-algodon-8020-tirilla.jpg" alt="" width="96" height="96" loading="lazy">
+        <div class="cat-tile-text"><span class="cat-eyebrow">Algodón 80/20</span><strong class="cat-pname">Tirilla</strong></div>
+      </li>
+      <li class="cat-tile">
+        <img src="img/productos/mp-algodon-5050-punto.jpg" alt="" width="96" height="96" loading="lazy">
+        <div class="cat-tile-text"><span class="cat-eyebrow">Algodón 50/50</span><strong class="cat-pname">Punto</strong></div>
+      </li>
+      <li class="cat-tile">
+        <img src="img/productos/mp-algodon-5050-camiseria.jpg" alt="" width="96" height="96" loading="lazy">
+        <div class="cat-tile-text"><span class="cat-eyebrow">Algodón 50/50</span><strong class="cat-pname">Camisería</strong></div>
+      </li>
+      <li class="cat-tile">
+        <img src="img/productos/mp-algodon-5050-tirilla.jpg" alt="" width="96" height="96" loading="lazy">
+        <div class="cat-tile-text"><span class="cat-eyebrow">Algodón 50/50</span><strong class="cat-pname">Tirilla</strong></div>
+      </li>
+      <li class="cat-tile">
+        <img src="img/productos/mp-pes-trapo.jpg" alt="" width="96" height="96" loading="lazy">
+        <div class="cat-tile-text"><span class="cat-eyebrow">Poliéster (PES)</span><strong class="cat-pname">Trapo</strong></div>
+      </li>
+      <li class="cat-tile">
+        <img src="img/productos/mp-pes-tirilla.jpg" alt="" width="96" height="96" loading="lazy">
+        <div class="cat-tile-text"><span class="cat-eyebrow">Poliéster (PES)</span><strong class="cat-pname">Tirilla</strong></div>
+      </li>
+      <li class="cat-tile">
+        <img src="img/productos/mp-pes-hilacho-multicolor.jpg" alt="" width="96" height="96" loading="lazy">
+        <div class="cat-tile-text"><span class="cat-eyebrow">Poliéster (PES)</span><strong class="cat-pname">Hilacho multicolor</strong></div>
+      </li>
+      <li class="cat-tile">
+        <img src="img/productos/mp-pes-hilacho-blanco.jpg" alt="" width="96" height="96" loading="lazy">
+        <div class="cat-tile-text"><span class="cat-eyebrow">Poliéster (PES)</span><strong class="cat-pname">Hilacho blanco</strong></div>
+      </li>
+      <li class="cat-tile">
+        <img src="img/productos/mp-pes-hilacho-negro.jpg" alt="" width="96" height="96" loading="lazy">
+        <div class="cat-tile-text"><span class="cat-eyebrow">Poliéster (PES)</span><strong class="cat-pname">Hilacho negro</strong></div>
+      </li>
+      <li class="cat-tile">
+        <img src="img/productos/mp-pp-hilachos.jpg" alt="" width="96" height="96" loading="lazy">
+        <div class="cat-tile-text"><span class="cat-eyebrow">PP</span><strong class="cat-pname">Hilachos</strong></div>
+      </li>
+      <li class="cat-tile">
+        <img src="img/productos/mp-yute-sacos.jpg" alt="" width="96" height="96" loading="lazy">
+        <div class="cat-tile-text"><span class="cat-eyebrow">Yute</span><strong class="cat-pname">Sacos</strong></div>
+      </li>
+      <li class="cat-tile">
+        <img src="img/productos/mp-yute-tirilla.jpg" alt="" width="96" height="96" loading="lazy">
+        <div class="cat-tile-text"><span class="cat-eyebrow">Yute</span><strong class="cat-pname">Tirilla</strong></div>
+      </li>
+      <li class="cat-tile">
+        <img src="img/productos/mp-lana.jpg" alt="" width="96" height="96" loading="lazy">
+        <div class="cat-tile-text"><strong class="cat-pname">Lana</strong></div>
+      </li>
+      <li class="cat-tile">
+        <img src="img/productos/mp-espuma.jpg" alt="" width="96" height="96" loading="lazy">
+        <div class="cat-tile-text"><strong class="cat-pname">Espuma</strong></div>
+      </li>
+    </ul>
   </div>
 </section>
 
@@ -442,52 +462,64 @@
       <h2>Fibra lista para su aplicación.</h2>
       <p class="cat-lead">La borra resultante queda lista para su distribución a automoción, geotextiles, hilatura y punzonado.</p>
     </div>
-    <div class="cat-table reveal">
-      <div class="cat-row">
-        <h3 class="cat-name">Algodón</h3>
-        <ul class="cat-items">
-          <li><img src="img/productos/pa-algodon-5050.jpg" alt="" width="52" height="52" loading="lazy"><span>50/50</span></li>
-          <li><img src="img/productos/pa-algodon-8020.jpg" alt="" width="52" height="52" loading="lazy"><span>80/20</span></li>
-          <li><img src="img/productos/pa-algodon-9010.jpg" alt="" width="52" height="52" loading="lazy"><span>90/10</span></li>
-          <li><img src="img/productos/pa-algodon-econofiber.jpg" alt="" width="52" height="52" loading="lazy"><span>EconoFiber</span></li>
-          <li><img src="img/productos/pa-algodon-blanco.jpg" alt="" width="52" height="52" loading="lazy"><span>Blanco</span></li>
-          <li><img src="img/productos/pa-algodon-lista-clara.jpg" alt="" width="52" height="52" loading="lazy"><span>Lista clara</span></li>
-        </ul>
-      </div>
-      <div class="cat-row">
-        <h3 class="cat-name">Poliéster (PES)</h3>
-        <ul class="cat-items">
-          <li><img src="img/productos/pa-pes-multicolor.jpg" alt="" width="52" height="52" loading="lazy"><span>Multicolor</span></li>
-          <li><img src="img/productos/pa-pes-blanco-texturizado.jpg" alt="" width="52" height="52" loading="lazy"><span>Blanco texturizado</span></li>
-          <li><img src="img/productos/pa-pes-blanco-alta-tenacidad.jpg" alt="" width="52" height="52" loading="lazy"><span>Blanco alta tenacidad</span></li>
-          <li><img src="img/productos/pa-pes-negro.jpg" alt="" width="52" height="52" loading="lazy"><span>Negro</span></li>
-        </ul>
-      </div>
-      <div class="cat-row">
-        <h3 class="cat-name">Yute</h3>
-        <ul class="cat-items">
-          <li><img src="img/productos/pa-yute.jpg" alt="Yute" width="52" height="52" loading="lazy"></li>
-        </ul>
-      </div>
-      <div class="cat-row">
-        <h3 class="cat-name">Polipropileno (PP)</h3>
-        <ul class="cat-items">
-          <li><img src="img/productos/pa-pp-multicolor.jpg" alt="" width="52" height="52" loading="lazy"><span>Multicolor</span></li>
-        </ul>
-      </div>
-      <div class="cat-row">
-        <h3 class="cat-name">Multicolor fibra larga para carda</h3>
-        <ul class="cat-items">
-          <li><img src="img/productos/pa-fibra-larga-carda.jpg" alt="Multicolor fibra larga para carda" width="52" height="52" loading="lazy"></li>
-        </ul>
-      </div>
-      <div class="cat-row">
-        <h3 class="cat-name">Ignífugo 80/20</h3>
-        <ul class="cat-items">
-          <li><img src="img/productos/pa-ignifugo-8020.jpg" alt="Ignífugo 80/20" width="52" height="52" loading="lazy"></li>
-        </ul>
-      </div>
-    </div>
+    <ul class="cat-grid reveal">
+      <li class="cat-tile">
+        <img src="img/productos/pa-algodon-5050.jpg" alt="" width="96" height="96" loading="lazy">
+        <div class="cat-tile-text"><span class="cat-eyebrow">Algodón</span><strong class="cat-pname">50/50</strong></div>
+      </li>
+      <li class="cat-tile">
+        <img src="img/productos/pa-algodon-8020.jpg" alt="" width="96" height="96" loading="lazy">
+        <div class="cat-tile-text"><span class="cat-eyebrow">Algodón</span><strong class="cat-pname">80/20</strong></div>
+      </li>
+      <li class="cat-tile">
+        <img src="img/productos/pa-algodon-9010.jpg" alt="" width="96" height="96" loading="lazy">
+        <div class="cat-tile-text"><span class="cat-eyebrow">Algodón</span><strong class="cat-pname">90/10</strong></div>
+      </li>
+      <li class="cat-tile">
+        <img src="img/productos/pa-algodon-econofiber.jpg" alt="" width="96" height="96" loading="lazy">
+        <div class="cat-tile-text"><span class="cat-eyebrow">Algodón</span><strong class="cat-pname">EconoFiber</strong></div>
+      </li>
+      <li class="cat-tile">
+        <img src="img/productos/pa-algodon-blanco.jpg" alt="" width="96" height="96" loading="lazy">
+        <div class="cat-tile-text"><span class="cat-eyebrow">Algodón</span><strong class="cat-pname">Blanco</strong></div>
+      </li>
+      <li class="cat-tile">
+        <img src="img/productos/pa-algodon-lista-clara.jpg" alt="" width="96" height="96" loading="lazy">
+        <div class="cat-tile-text"><span class="cat-eyebrow">Algodón</span><strong class="cat-pname">Lista clara</strong></div>
+      </li>
+      <li class="cat-tile">
+        <img src="img/productos/pa-pes-multicolor.jpg" alt="" width="96" height="96" loading="lazy">
+        <div class="cat-tile-text"><span class="cat-eyebrow">Poliéster (PES)</span><strong class="cat-pname">Multicolor</strong></div>
+      </li>
+      <li class="cat-tile">
+        <img src="img/productos/pa-pes-blanco-texturizado.jpg" alt="" width="96" height="96" loading="lazy">
+        <div class="cat-tile-text"><span class="cat-eyebrow">Poliéster (PES)</span><strong class="cat-pname">Blanco texturizado</strong></div>
+      </li>
+      <li class="cat-tile">
+        <img src="img/productos/pa-pes-blanco-alta-tenacidad.jpg" alt="" width="96" height="96" loading="lazy">
+        <div class="cat-tile-text"><span class="cat-eyebrow">Poliéster (PES)</span><strong class="cat-pname">Blanco alta tenacidad</strong></div>
+      </li>
+      <li class="cat-tile">
+        <img src="img/productos/pa-pes-negro.jpg" alt="" width="96" height="96" loading="lazy">
+        <div class="cat-tile-text"><span class="cat-eyebrow">Poliéster (PES)</span><strong class="cat-pname">Negro</strong></div>
+      </li>
+      <li class="cat-tile">
+        <img src="img/productos/pa-yute.jpg" alt="" width="96" height="96" loading="lazy">
+        <div class="cat-tile-text"><strong class="cat-pname">Yute</strong></div>
+      </li>
+      <li class="cat-tile">
+        <img src="img/productos/pa-pp-multicolor.jpg" alt="" width="96" height="96" loading="lazy">
+        <div class="cat-tile-text"><span class="cat-eyebrow">Polipropileno (PP)</span><strong class="cat-pname">Multicolor</strong></div>
+      </li>
+      <li class="cat-tile">
+        <img src="img/productos/pa-fibra-larga-carda.jpg" alt="" width="96" height="96" loading="lazy">
+        <div class="cat-tile-text"><strong class="cat-pname">Multicolor fibra larga para carda</strong></div>
+      </li>
+      <li class="cat-tile">
+        <img src="img/productos/pa-ignifugo-8020.jpg" alt="" width="96" height="96" loading="lazy">
+        <div class="cat-tile-text"><strong class="cat-pname">Ignífugo 80/20</strong></div>
+      </li>
+    </ul>
     <div class="cat-treat reveal">
       <div class="cat-treat-body">
         <h4>Tratamientos</h4>
@@ -525,13 +557,13 @@
   <div class="wrap">
     <div class="foot-top">
       <div class="foot-logo">
-        <img src="img/logo/rocheltex-empilhado.svg" alt="Rocheltex, S.L." width="176" height="114">
+        <a href="index.html" aria-label="Rocheltex, inicio"><img src="img/logo/rocheltex-empilhado.svg" alt="Rocheltex, S.L." width="176" height="114"></a>
         <p class="foot-tagline">Fibra textil regenerada para automoción, geotextiles, hilatura y punzonado. Aielo de Malferit, Valencia.</p>
       </div>
       <div class="foot-col">
         <h4>Secciones</h4>
-        <a href="index.html">Inicio</a>
         <a href="rocheltex-proceso.html">Proceso</a>
+        <a href="rocheltex-productos.html">Productos</a>
         <a href="rocheltex-nosotros.html">Nosotros</a>
         <a href="rocheltex-esg.html">Compromiso</a>
       </div>
