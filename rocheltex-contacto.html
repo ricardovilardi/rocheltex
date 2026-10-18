@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contacto — Rocheltex</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -13,8 +16,9 @@
     --cream-2:#efe8da;
     --ink:#191510;
     --ink-soft:#5c564a;
-    --red:#dc0f34;
-    --red-deep:#a80c28;
+    --red:#c70f23;
+    --red-deep:#a90d1e;
+    --blue:#0657b9;
     --charcoal:#141210;
     --line:rgba(25,21,16,0.14);
     --grid-line:rgba(25,21,16,0.06);
@@ -104,7 +108,7 @@
     max-width:1180px;margin:0 auto;padding:26px 40px;
     display:flex;align-items:center;justify-content:space-between;
   }
-  .logo-mark{height:22px;filter:none;}
+  .logo-mark{height:44px;width:auto;}
   nav.primary{display:flex;gap:34px;}
   nav.primary a{
     color:var(--ink);text-decoration:none;font-size:14px;font-weight:500;
@@ -158,7 +162,7 @@
     display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px;
     padding-bottom:50px;border-bottom:1px solid var(--line);
   }
-  .foot-logo img{height:20px;filter:none;}
+  .foot-logo img{width:176px;height:auto;filter:none;}
   .foot-tagline{margin-top:18px;font-size:14px;color:var(--ink-soft);max-width:280px;line-height:1.6;}
   .foot-col h4{
     font-size:12.5px;text-transform:uppercase;letter-spacing:0.1em;
@@ -229,7 +233,7 @@
   @media (max-width:880px){
     .wrap{padding:0 22px;}
     .nav-row{padding:22px;gap:14px;}
-    .logo-mark{height:19px;}
+    .logo-mark{height:34px;}
     nav.primary{display:none;}
     .burger{display:flex;}
     .foot-top{grid-template-columns:1fr;gap:30px;}
@@ -239,6 +243,21 @@
     .form-card, .info-card{padding:28px;}
     .map-frame iframe{height:300px;}
   }
+  /* BRAND v2 — logo azul + rojo. Regla: azul = grafismo (símbolo, pictogramas,
+     viñetas); rojo = tipografía y acción (eyebrows, números, enlaces, botones). */
+  .eyebrow::before{
+    content:"";display:inline-block;width:9px;height:8px;margin-right:9px;
+    background:var(--blue);clip-path:polygon(50% 0,100% 100%,0 100%);
+    position:relative;top:-1px;
+  }
+  .hero .eyebrow::before,.page-hero .eyebrow::before{background:#fff;}
+  .card-body li::before,.pillar li::before{
+    width:8px;height:7px;top:7px;border-radius:0;background:var(--blue);
+    clip-path:polygon(50% 0,100% 100%,0 100%);
+  }
+  .sector-icon{color:var(--blue);}
+  .c3d-icon{border-color:var(--blue);}
+  .c3d-icon svg{fill:var(--blue);}
 </style>
 </head>
 <body>
@@ -246,7 +265,7 @@
 <header>
   <div class="nav-scrim"></div>
   <div class="nav-row">
-    <a href="index.html"><img src="rocheltex-logo.svg" alt="Rocheltex" class="logo-mark"></a>
+    <a href="index.html"><img src="img/logo/rocheltex-horizontal.svg" alt="Rocheltex, S.L." class="logo-mark" width="192" height="44"></a>
     <nav class="primary">
       <a href="index.html">Inicio</a>
       <a href="rocheltex-proceso.html">Proceso</a>
@@ -366,7 +385,7 @@
   <div class="wrap">
     <div class="foot-top">
       <div class="foot-logo">
-        <img src="rocheltex-logo.svg" alt="Rocheltex" style="height:18px;">
+        <img src="img/logo/rocheltex-empilhado.svg" alt="Rocheltex, S.L." width="176" height="114">
         <p class="foot-tagline">Fibra textil regenerada para automoción, geotextiles, hilatura y punzonado. Aielo de Malferit, Valencia.</p>
       </div>
       <div class="foot-col">
