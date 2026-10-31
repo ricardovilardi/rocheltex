@@ -7,9 +7,9 @@
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="assets/consent.css">
 <style>
   :root{
     --cream:#f7f2e9;
@@ -357,6 +357,8 @@
   .c3d-icon svg{fill:var(--blue);}
   footer{border-top:1px solid var(--line);}
 </style>
+<link rel="alternate" hreflang="es" href="rocheltex-proceso.html">
+<link rel="alternate" hreflang="en" href="en/process.html">
 </head>
 <body>
 
@@ -371,7 +373,7 @@
       <a href="rocheltex-esg.html">Compromiso</a>
     </nav>
     <div class="nav-right">
-      <div class="lang"><b>ES</b> / EN</div>
+      <div class="lang"><b>ES</b> / <a href="en/process.html" hreflang="en" lang="en">EN</a></div>
       <a class="btn btn-dark nav-contact-btn" href="rocheltex-contacto.html">Contacto</a>
       <button class="burger" id="burgerBtn" aria-label="Abrir menú">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
@@ -392,7 +394,7 @@
     <a href="rocheltex-nosotros.html">Nosotros</a>
     <a href="rocheltex-esg.html">Compromiso</a>
   </div>
-  <div class="mob-lang"><b>ES</b> / EN</div>
+  <div class="mob-lang"><b>ES</b> / <a href="en/process.html" hreflang="en" lang="en">EN</a></div>
   <a class="btn" href="rocheltex-contacto.html">Contacto</a>
 </div>
 
@@ -529,9 +531,10 @@
       <span>© Rocheltex, S.L.</span>
       <div class="foot-legal">
         <a href="rocheltex-contacto.html">Contacto</a>
-        <a href="#">Aviso legal</a>
-        <a href="#">Privacidad</a>
-        <a href="#">Cookies</a>
+        <a href="rocheltex-aviso-legal.html">Aviso legal</a>
+        <a href="rocheltex-privacidad.html">Privacidad</a>
+        <a href="rocheltex-cookies.html">Cookies</a>
+        <button type="button" class="link-btn" data-open-cookies>Configurar cookies</button>
       </div>
     </div>
   </div>
@@ -680,5 +683,6 @@
   })();
 </script>
 
+<script src="assets/consent.js" data-policy="rocheltex-cookies.html"></script>
 </body>
 </html>

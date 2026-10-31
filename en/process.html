@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Process — Rocheltex</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="preload" href="../fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../fonts/fonts.css">
+<link rel="stylesheet" href="../assets/consent.css">
+<style>
+  :root{
+    --cream:#f7f2e9;
+    --cream-2:#efe8da;
+    --ink:#191510;
+    --ink-soft:#5c564a;
+    --red:#c70f23;
+    --red-deep:#a90d1e;
+    --blue:#053B8A;
+    --tri:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 11'%3E%3Cpath d='M7 1.8L12.13 10H1.87Z' fill='none' stroke='%23053B8A' stroke-width='2' stroke-linejoin='miter'/%3E%3C/svg%3E");
+    --tri-w:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 11'%3E%3Cpath d='M7 1.8L12.13 10H1.87Z' fill='none' stroke='%23FFFFFF' stroke-width='2' stroke-linejoin='miter'/%3E%3C/svg%3E");
+    --charcoal:#141210;
+    --line:rgba(25,21,16,0.14);
+    --grid-line:rgba(25,21,16,0.06);
+    --radius:0px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background-color:var(--cream);
+    background-image: linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
+    background-size:25% 100%;
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.serif{
+    font-family:'Inter',sans-serif;
+    font-weight:700;
+    line-height:1.08;
+    letter-spacing:-0.02em;
+    margin:0;
+  }
+  h1 i, h2 i{
+    font-style:normal;
+    font-weight:700;
+    color:var(--red);
+  }
+  .num, .accent, .stat .num, .sec-num{
+    font-family:'JetBrains Mono',monospace;
+    font-weight:500;
+    letter-spacing:-0.02em;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    font-weight:500;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--red);
+  }
+  a{color:inherit;}
+  img{display:block;max-width:100%;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 40px;}
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  .btn{
+    position:relative;
+    font-family:'Inter',sans-serif;
+    font-size:14.5px;
+    font-weight:600;
+    text-decoration:none;
+    color:#fff;
+    background:var(--red);
+    padding:15px 36px 15px 28px;
+    border-radius:var(--radius);
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    transition:background .2s ease, transform .2s ease;
+    border:none;
+    cursor:pointer;
+  }
+  .btn::after{
+    content:"";
+    position:absolute;
+    top:9px;right:12px;
+    width:10px;height:10px;
+    border-top:1.5px solid currentColor;
+    border-right:1.5px solid currentColor;
+    opacity:.7;
+  }
+  .btn:hover{background:var(--red-deep);transform:translateY(-1px);}
+  .btn-ghost{
+    background:transparent;
+    border:1px solid rgba(255,255,255,0.55);
+    color:#fff;
+  }
+  .btn-ghost:hover{background:rgba(255,255,255,0.12);}
+  .btn-dark{background:var(--ink);}
+  .btn-dark:hover{background:#000;}
+
+  /* NAV */
+  header{
+    position:fixed;
+    top:0;left:0;right:0;
+    z-index:60;
+  }
+  .nav-scrim{
+    position:absolute;
+    inset:0;
+    height:150px;
+    pointer-events:none;
+    -webkit-backdrop-filter:blur(20px);
+    backdrop-filter:blur(20px);
+    background:linear-gradient(to bottom, rgba(247,242,233,0.85) 0%, rgba(247,242,233,0.55) 42%, rgba(247,242,233,0) 100%);
+    -webkit-mask-image:linear-gradient(to bottom, #000 0%, #000 35%, transparent 100%);
+    mask-image:linear-gradient(to bottom, #000 0%, #000 35%, transparent 100%);
+  }
+  .nav-row{
+    position:relative;z-index:2;
+    max-width:1180px;margin:0 auto;padding:26px 40px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .logo-mark{height:44px;width:auto;}
+  nav.primary{display:flex;gap:34px;}
+  nav.primary a{
+    color:var(--ink);text-decoration:none;font-size:14px;font-weight:500;
+    opacity:.85;
+  }
+  nav.primary a:hover{opacity:1;}
+  nav.primary a.active{opacity:1;color:var(--red);}
+  .nav-right{display:flex;align-items:center;gap:20px;}
+  .lang{font-size:12.5px;color:var(--ink);display:flex;gap:6px;opacity:.75;}
+  .lang b{color:var(--red);font-weight:700;}
+  .nav-contact-btn{padding:10px 26px 10px 20px;font-size:13px;}
+  .nav-contact-btn::after{top:7px;right:9px;width:8px;height:8px;}
+  .burger{
+    display:none;
+    width:38px;height:38px;
+    border:1px solid var(--line);
+    border-radius:50%;
+    background:transparent;
+    color:var(--ink);
+    align-items:center;justify-content:center;
+    cursor:pointer;
+  }
+  .burger svg{width:16px;height:16px;}
+  .mobile-nav{
+    display:none;
+    position:fixed;inset:0;
+    background:var(--charcoal);
+    z-index:100;
+    padding:26px 22px;
+    flex-direction:column;
+  }
+  .mobile-nav.open{display:flex;}
+  .mobile-nav .close-row{display:flex;justify-content:flex-end;}
+  .mobile-nav .close-btn{
+    width:38px;height:38px;border:1px solid rgba(255,255,255,.5);border-radius:50%;
+    background:transparent;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;
+  }
+  .mobile-nav a{
+    color:#fdfbf6;text-decoration:none;
+    font-family:'Inter',sans-serif;font-weight:600;font-size:26px;
+    padding:16px 0;border-bottom:1px solid rgba(255,255,255,.12);
+  }
+  .mobile-nav .mob-links{display:flex;flex-direction:column;margin-top:30px;}
+  .nav-right .lang{display:none;}
+  .mobile-nav .mob-lang{color:#fdfbf6;opacity:.75;font-size:13px;margin-top:26px;display:flex;gap:6px;}
+  .mobile-nav .mob-lang b{color:var(--red);font-weight:700;}
+  .mobile-nav .btn{margin-top:22px;align-self:flex-start;font-size:14.5px;font-weight:600;}
+
+  /* FRAME (boxed content sitting opaque above the ambient grid) */
+  .frame{background:var(--cream);border:1px solid var(--line);padding:64px 56px;}
+
+  /* CLOSING CTA (shared with Home) */
+  .closing{position:relative;padding:150px 0;overflow:hidden;}
+  .closing video,.closing .poster{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  }
+  .closing::after{content:"";position:absolute;inset:0;background:rgba(20,17,14,0.78);}
+  .closing-content{position:relative;z-index:2;text-align:center;}
+  .closing h2{font-size:clamp(34px,5.4vw,58px);color:#fdfbf6;max-width:760px;margin:0 auto;}
+  .closing p{color:#d9d3c5;margin-top:18px;font-size:16px;}
+  .closing .hero-cta{justify-content:center;margin-top:34px;display:flex;gap:16px;flex-wrap:wrap;}
+
+  /* FOOTER (shared with Home) */
+  footer{padding:70px 0 34px;background:var(--cream);}
+  .foot-top{
+    display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px;
+    padding-bottom:50px;border-bottom:1px solid var(--line);
+  }
+  .foot-logo img{width:176px;height:auto;filter:none;}
+  .foot-tagline{margin-top:18px;font-size:14px;color:var(--ink-soft);max-width:280px;line-height:1.6;}
+  .foot-col h4{
+    font-size:12.5px;text-transform:uppercase;letter-spacing:0.1em;
+    color:var(--ink-soft);font-weight:600;margin:0 0 16px;
+  }
+  .foot-col a{display:block;text-decoration:none;font-size:14.5px;margin-bottom:11px;}
+  .foot-bottom{
+    display:flex;justify-content:space-between;align-items:center;
+    padding-top:26px;font-size:13px;color:var(--ink-soft);flex-wrap:wrap;gap:10px;
+  }
+  .foot-legal{display:flex;gap:20px;}
+  .foot-legal a{text-decoration:none;color:var(--ink-soft);}
+
+  /* PAGE HERO — full-bleed photo, dark overlay */
+  .page-hero{
+    position:relative;
+    padding:210px 0 100px;
+    overflow:hidden;
+  }
+  .page-hero .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  .page-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(20,17,14,0.55) 0%, rgba(20,17,14,0.72) 100%);}
+  .page-hero .wrap{position:relative;z-index:2;max-width:760px;}
+  .page-hero .eyebrow{color:#f2b8a8;}
+  .page-hero h1{color:#fdfbf6;font-size:clamp(34px,5vw,54px);margin-top:14px;}
+  .page-hero p{color:#e6e1d6;margin-top:18px;font-size:16.5px;line-height:1.6;max-width:560px;}
+
+  /* DATA BAND — single highlighted stat */
+  .data-band{
+    padding:0 0 110px;
+    background-color:var(--cream);
+    background-image: linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
+    background-size:25% 100%;
+  }
+  .data-band .frame{
+    display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:center;
+  }
+  .data-band .num{font-size:clamp(44px,6vw,72px);font-weight:400;color:var(--ink);white-space:nowrap;}
+  .data-band p{font-size:16px;line-height:1.6;color:var(--ink-soft);max-width:460px;}
+
+  /* STEP GRID — 7 process phases, connected mesh */
+  .steps{
+    padding:0 0 110px;
+    background-color:var(--cream);
+    background-image: linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
+    background-size:25% 100%;
+  }
+  .section-head{max-width:640px;margin-bottom:52px;}
+  .section-head h2{font-size:clamp(30px,4vw,44px);margin-top:14px;}
+
+  /* PROCESS CAROUSEL — 3D ring carousel (same mechanic as the "3D Team
+     Carousel" Framer component): every card sits on a circle and is
+     placed with rotateY(angle)+translateZ(radius) under a perspective
+     camera — pure 3D placement, no manual scale/opacity trick — with
+     arrow + dot navigation, click-to-select side cards, swipe and
+     keyboard support. */
+  .c3d{outline:none;}
+  .c3d-stage{
+    position:relative;
+    height:var(--c3d-h,320px);
+    perspective:var(--c3d-persp,1400px);
+    overflow:hidden;
+  }
+  .c3d-track{position:absolute;inset:0;transform-style:preserve-3d;}
+  .c3d-card{
+    position:absolute;top:50%;left:50%;
+    width:var(--c3d-w,560px);
+    height:var(--c3d-h-card,260px);
+    margin-top:calc(var(--c3d-h-card,260px) / -2);
+    margin-left:calc(var(--c3d-w,560px) / -2);
+    background:var(--cream-2);
+    border:1px solid var(--line);
+    padding:26px 32px;
+    display:flex;flex-direction:column;align-items:flex-start;
+    transition:transform .7s cubic-bezier(.22,.9,.3,1);
+    cursor:pointer;
+    backface-visibility:hidden;
+  }
+  .c3d-card.is-active{cursor:default;}
+  .c3d-icon{
+    width:44px;height:44px;border-radius:50%;
+    border:1.5px solid var(--red);
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:14px;flex-shrink:0;
+  }
+  .c3d-icon svg{width:20px;height:20px;fill:var(--red);}
+  .c3d-card .step-num{font-size:13px;color:var(--red);}
+  .c3d-card h3{
+    margin-top:6px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:19px;font-weight:700;letter-spacing:-0.02em;line-height:1.22;
+  }
+  .c3d-card p{margin-top:8px;font-size:13px;color:var(--ink-soft);line-height:1.55;}
+
+  .c3d-nav{display:flex;align-items:center;justify-content:center;gap:22px;margin-top:24px;}
+  .c3d-arrow{
+    width:42px;height:42px;border-radius:50%;border:1px solid var(--line);
+    background:var(--cream);color:var(--ink);display:flex;align-items:center;justify-content:center;
+    cursor:pointer;transition:border-color .2s ease,color .2s ease;
+  }
+  .c3d-arrow:hover{border-color:var(--red);color:var(--red);}
+  .c3d-arrow svg{width:16px;height:16px;}
+  .c3d-dots{display:flex;align-items:center;gap:8px;}
+  .c3d-dot{
+    width:8px;height:8px;border-radius:50%;background:var(--line);border:none;padding:0;cursor:pointer;
+    transition:background .25s ease,width .25s ease;
+  }
+  .c3d-dot.is-active{width:22px;border-radius:5px;background:var(--red);}
+
+  /* CTA — kept outside the ring (no member icon of its own) */
+  .c3d-cta{
+    margin-top:64px;background:var(--red);color:#fdfbf6;border:1px solid var(--red);
+    padding:34px 40px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;justify-content:space-between;
+  }
+  .c3d-cta-left{display:flex;align-items:center;gap:18px;}
+  .c3d-cta-icon{
+    width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.16);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .c3d-cta-icon svg{width:26px;height:26px;fill:#fdfbf6;}
+  .c3d-cta p{font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;letter-spacing:-0.02em;line-height:1.3;margin:0;max-width:420px;}
+  .c3d-cta .btn{background:#fdfbf6;color:var(--ink);flex-shrink:0;}
+  .c3d-cta .btn:hover{background:#fff;}
+
+  @media (max-width:880px){
+    .c3d-card{padding:22px 24px;}
+    .c3d-icon{width:40px;height:40px;margin-bottom:12px;}
+    .c3d-icon svg{width:18px;height:18px;}
+    .c3d-cta{flex-direction:column;align-items:flex-start;padding:28px 24px;}
+  }
+
+  /* CERT LOGOS (footer + placeholder) */
+  .foot-certs{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;}
+  .foot-certs img{height:42px;width:auto;object-fit:contain;filter:grayscale(1) opacity(0.75);}
+
+  @media (max-width:880px){
+    .wrap{padding:0 22px;}
+    .nav-row{padding:22px;gap:14px;}
+    .logo-mark{height:34px;}
+    nav.primary{display:none;}
+    .burger{display:flex;}
+    .foot-top{grid-template-columns:1fr;gap:30px;}
+    .frame{padding:40px 24px;}
+    .page-hero{padding:170px 0 80px;}
+    .data-band .frame{grid-template-columns:1fr;gap:20px;}
+  }
+  /* BRAND v2 — logo azul + rojo. Regla: azul = grafismo (símbolo, pictogramas,
+     viñetas); rojo = tipografía y acción (eyebrows, números, enlaces, botones). */
+  .eyebrow::before{
+    content:"";display:inline-block;width:14px;height:11px;margin-right:10px;
+    background:var(--tri) center/100% 100% no-repeat;
+    position:relative;top:-1px;
+  }
+  .hero .eyebrow::before,.page-hero .eyebrow::before{background:var(--tri-w) center/100% 100% no-repeat;}
+  .card-body li::before,.pillar li::before{
+    width:14px;height:11px;top:4px;border-radius:0;background:var(--tri) center/100% 100% no-repeat;
+  }
+  .sector-icon{color:var(--blue);}
+  .c3d-icon{border-color:var(--blue);}
+  .c3d-icon svg{fill:var(--blue);}
+  footer{border-top:1px solid var(--line);}
+</style>
+<link rel="alternate" hreflang="es" href="../rocheltex-proceso.html">
+<link rel="alternate" hreflang="en" href="process.html">
+</head>
+<body>
+
+<header>
+  <div class="nav-scrim"></div>
+  <div class="nav-row">
+    <a href="index.html"><img src="../img/logo/rocheltex-horizontal.svg" alt="Rocheltex, S.L." class="logo-mark" width="251" height="44"></a>
+    <nav class="primary">
+      <a href="process.html" class="active">Process</a>
+      <a href="products.html">Products</a>
+      <a href="about.html">About us</a>
+      <a href="commitment.html">Commitment</a>
+    </nav>
+    <div class="nav-right">
+      <div class="lang"><a href="../rocheltex-proceso.html" hreflang="es" lang="es">ES</a> / <b>EN</b></div>
+      <a class="btn btn-dark nav-contact-btn" href="contact.html">Contact</a>
+      <button class="burger" id="burgerBtn" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-nav" id="mobileNav">
+  <div class="close-row">
+    <button class="close-btn" id="closeBtn" aria-label="Close menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <div class="mob-links">
+    <a href="process.html">Process</a>
+    <a href="products.html">Products</a>
+    <a href="about.html">About us</a>
+    <a href="commitment.html">Commitment</a>
+  </div>
+  <div class="mob-lang"><a href="../rocheltex-proceso.html" hreflang="es" lang="es">ES</a> / <b>EN</b></div>
+  <a class="btn" href="contact.html">Contact</a>
+</div>
+
+<section class="page-hero">
+  <img class="poster" src="../hero-poster.jpg" alt="">
+  <div class="wrap">
+    <div class="eyebrow">Process</div>
+    <h1>Our process</h1>
+    <p>From textile raw material to regenerated fibre, in seven controlled, traceable phases.</p>
+  </div>
+</section>
+
+<section class="data-band">
+  <div class="wrap">
+    <div class="frame reveal">
+      <div class="num">+4M kg</div>
+      <p>We collect the raw material ourselves with our own fleet and guarantee a constant supply to our customers.</p>
+    </div>
+  </div>
+</section>
+
+<section class="steps">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Process steps</div>
+      <h2>From textile waste to finished product.</h2>
+    </div>
+    <div class="c3d" id="c3d">
+      <div class="c3d-stage">
+        <div class="c3d-track" id="c3dTrack">
+          <div class="c3d-card" data-i="0">
+            <div class="c3d-icon"><svg viewBox="0 0 48 48"><path d="M7.025 38.229C5.875 37.082 5.3 35.689 5.3 34.05H3.5C3.075 34.05 2.71883 33.9062 2.4315 33.6185C2.14383 33.3312 2 32.975 2 32.55V11C2 10.2 2.3 9.5 2.9 8.9C3.5 8.3 4.2 8 5 8H30.95C31.775 8 32.4813 8.29367 33.069 8.881C33.6563 9.46867 33.95 10.175 33.95 11V16.35H37.7C38.175 16.35 38.625 16.4562 39.05 16.6685C39.475 16.8812 39.825 17.175 40.1 17.55L45.7 25C45.8 25.125 45.875 25.2625 45.925 25.4125C45.975 25.5625 46 25.725 46 25.9V32.55C46 32.975 45.8563 33.3312 45.569 33.6185C45.2813 33.9062 44.925 34.05 44.5 34.05H42.45C42.45 35.6833 41.877 37.075 40.731 38.225C39.585 39.375 38.1933 39.95 36.556 39.95C34.9187 39.95 33.525 39.3763 32.375 38.229C31.225 37.082 30.65 35.689 30.65 34.05H17.1C17.1 35.6833 16.527 37.075 15.381 38.225C14.235 39.375 12.8433 39.95 11.206 39.95C9.56867 39.95 8.175 39.3763 7.025 38.229ZM13.25 36.1C13.8167 35.5333 14.1 34.85 14.1 34.05C14.1 33.25 13.8167 32.5667 13.25 32C12.6833 31.4333 12 31.15 11.2 31.15C10.4 31.15 9.71667 31.4333 9.15 32C8.58333 32.5667 8.3 33.25 8.3 34.05C8.3 34.85 8.58333 35.5333 9.15 36.1C9.71667 36.6667 10.4 36.95 11.2 36.95C12 36.95 12.6833 36.6667 13.25 36.1ZM5 31.05H6.1C6.66667 30.15 7.384 29.4333 8.252 28.9C9.12 28.3667 10.0867 28.1 11.152 28.1C12.2173 28.1 13.1917 28.375 14.075 28.925C14.9583 29.475 15.6833 30.1833 16.25 31.05H30.95V11H5V31.05ZM38.6 36.1C39.1667 35.5333 39.45 34.85 39.45 34.05C39.45 33.25 39.1667 32.5667 38.6 32C38.0333 31.4333 37.35 31.15 36.55 31.15C35.75 31.15 35.0667 31.4333 34.5 32C33.9333 32.5667 33.65 33.25 33.65 34.05C33.65 34.85 33.9333 35.5333 34.5 36.1C35.0667 36.6667 35.75 36.95 36.55 36.95C37.35 36.95 38.0333 36.6667 38.6 36.1ZM33.95 26.75H43.25L37.7 19.35H33.95V26.75Z"/></svg></div>
+            <div class="step-num num">01</div>
+            <h3>Raw material receiving</h3>
+            <p>Raw material arrives at the plant through our own transport fleet, which collects directly at source.</p>
+          </div>
+          <div class="c3d-card" data-i="1">
+            <div class="c3d-icon"><svg viewBox="0 0 48 48"><path d="M22.0001 40C21.4334 40 20.9584 39.8083 20.5751 39.425C20.1917 39.0417 20.0001 38.5667 20.0001 38V26L8.05006 10.75C7.58339 10.1833 7.51672 9.58333 7.85006 8.95C8.18339 8.31667 8.70006 8 9.40006 8H38.6001C39.3001 8 39.8167 8.31667 40.1501 8.95C40.4834 9.58333 40.4167 10.1833 39.9501 10.75L28.0001 26V38C28.0001 38.5667 27.8084 39.0417 27.4251 39.425C27.0417 39.8083 26.5667 40 26.0001 40H22.0001ZM24.0001 26.2L36.0001 11H12.0001L24.0001 26.2Z"/></svg></div>
+            <div class="step-num num">02</div>
+            <h3>Sorting</h3>
+            <p>A robotised system classifies the material before processing.</p>
+          </div>
+          <div class="c3d-card" data-i="2">
+            <div class="c3d-icon"><svg viewBox="0 0 48 48"><path d="M24.05 27.25L18.2 33.1C18.5667 33.6667 18.7917 34.2167 18.875 34.75C18.9583 35.2833 19 35.8667 19 36.5C19 38.6333 18.2833 40.4167 16.85 41.85C15.4167 43.2833 13.6333 44 11.5 44C9.36667 44 7.58333 43.2833 6.15 41.85C4.71667 40.4167 4 38.6333 4 36.5C4 34.3667 4.71667 32.5833 6.15 31.15C7.58333 29.7167 9.36667 29 11.5 29C12.1 29 12.6917 29.0833 13.275 29.25C13.8583 29.4167 14.4667 29.6667 15.1 30L20.9 24.2L15 18.3C14.4333 18.5667 13.8583 18.75 13.275 18.85C12.6917 18.95 12.1 19 11.5 19C9.36667 19 7.58333 18.2833 6.15 16.85C4.71667 15.4167 4 13.6333 4 11.5C4 9.36667 4.71667 7.58333 6.15 6.15C7.58333 4.71667 9.36667 4 11.5 4C13.6333 4 15.4167 4.71667 16.85 6.15C18.2833 7.58333 19 9.36667 19 11.5C19 12.1333 18.9583 12.7333 18.875 13.3C18.7917 13.8667 18.6167 14.4 18.35 14.9L41.75 38.3C42.5167 39.0667 42.6917 39.925 42.275 40.875C41.8583 41.825 41.1167 42.3 40.05 42.3C39.75 42.3 39.4583 42.2417 39.175 42.125C38.8917 42.0083 38.6333 41.8333 38.4 41.6L24.05 27.25ZM29.95 21.65L26.65 18.35L38.4 6.6C38.6333 6.36667 38.8917 6.19167 39.175 6.075C39.4583 5.95833 39.75 5.9 40.05 5.9C41.1167 5.9 41.8417 6.38333 42.225 7.35C42.6083 8.31667 42.4333 9.16667 41.7 9.9L29.95 21.65ZM14.7 14.7C15.5667 13.8333 16 12.7667 16 11.5C16 10.2333 15.5667 9.16667 14.7 8.3C13.8333 7.43333 12.7667 7 11.5 7C10.2333 7 9.16667 7.43333 8.3 8.3C7.43333 9.16667 7 10.2333 7 11.5C7 12.7667 7.43333 13.8333 8.3 14.7C9.16667 15.5667 10.2333 16 11.5 16C12.7667 16 13.8333 15.5667 14.7 14.7ZM24.825 24.875C25.0083 24.6917 25.1 24.4667 25.1 24.2C25.1 23.9333 25.0083 23.7083 24.825 23.525C24.6417 23.3417 24.4167 23.25 24.15 23.25C23.8833 23.25 23.6583 23.3417 23.475 23.525C23.2917 23.7083 23.2 23.9333 23.2 24.2C23.2 24.4667 23.2917 24.6917 23.475 24.875C23.6583 25.0583 23.8833 25.15 24.15 25.15C24.4167 25.15 24.6417 25.0583 24.825 24.875ZM14.7 39.7C15.5667 38.8333 16 37.7667 16 36.5C16 35.2333 15.5667 34.1667 14.7 33.3C13.8333 32.4333 12.7667 32 11.5 32C10.2333 32 9.16667 32.4333 8.3 33.3C7.43333 34.1667 7 35.2333 7 36.5C7 37.7667 7.43333 38.8333 8.3 39.7C9.16667 40.5667 10.2333 41 11.5 41C12.7667 41 13.8333 40.5667 14.7 39.7Z"/></svg></div>
+            <div class="step-num num">03</div>
+            <h3>Cutting</h3>
+            <p>Two cutting lines prepare the material for the blending phase.</p>
+          </div>
+          <div class="c3d-card" data-i="3">
+            <div class="c3d-icon"><svg viewBox="0 0 48 48"><path d="M24 31.5C21.9333 31.5 20.1667 30.7667 18.7 29.3C17.2333 27.8333 16.5 26.0667 16.5 24C16.5 21.9 17.2333 20.125 18.7 18.675C20.1667 17.225 21.9333 16.5 24 16.5C26.1 16.5 27.875 17.225 29.325 18.675C30.775 20.125 31.5 21.9 31.5 24C31.5 26.0667 30.775 27.8333 29.325 29.3C27.875 30.7667 26.1 31.5 24 31.5ZM24 28.5C25.2667 28.5 26.3333 28.0583 27.2 27.175C28.0667 26.2917 28.5 25.2333 28.5 24C28.5 22.7333 28.0667 21.6667 27.2 20.8C26.3333 19.9333 25.2667 19.5 24 19.5C22.7667 19.5 21.7083 19.9333 20.825 20.8C19.9417 21.6667 19.5 22.7333 19.5 24C19.5 25.2333 19.9417 26.2917 20.825 27.175C21.7083 28.0583 22.7667 28.5 24 28.5ZM24 40.1C20.0333 40.1 16.5083 39.85 13.425 39.35C10.3417 38.85 7.76667 38.3167 5.7 37.75C5.23333 37.6167 4.83333 37.3667 4.5 37C4.16667 36.6333 4 36.2 4 35.7C4 35.3 4.175 34.9833 4.525 34.75C4.875 34.5167 5.26667 34.4667 5.7 34.6C7.3 35.0667 8.825 35.4417 10.275 35.725C11.725 36.0083 12.8167 36.2167 13.55 36.35C11.7167 34.85 10.3167 32.9583 9.35 30.675C8.38333 28.3917 7.9 26.1667 7.9 24C7.9 20.0333 8.15 16.5083 8.65 13.425C9.15 10.3417 9.68333 7.76667 10.25 5.7C10.3833 5.23333 10.6333 4.83333 11 4.5C11.3667 4.16667 11.8 4 12.3 4C12.7 4 13.0167 4.175 13.25 4.525C13.4833 4.875 13.5333 5.26667 13.4 5.7C12.9333 7.3 12.5667 8.80833 12.3 10.225C12.0333 11.6417 11.85 12.7167 11.75 13.45C13.35 11.6167 15.25 10.2333 17.45 9.3C19.65 8.36667 21.8333 7.9 24 7.9C27.9667 7.9 31.4917 8.15 34.575 8.65C37.6583 9.15 40.2333 9.68333 42.3 10.25C42.7667 10.3833 43.1667 10.6333 43.5 11C43.8333 11.3667 44 11.8 44 12.3C44 12.7 43.825 13.0167 43.475 13.25C43.125 13.4833 42.7333 13.5333 42.3 13.4C40.7 12.9333 39.1917 12.5583 37.775 12.275C36.3583 11.9917 35.2833 11.8 34.55 11.7C36.45 13.3333 37.85 15.25 38.75 17.45C39.65 19.65 40.1 21.8333 40.1 24C40.1 27.9667 39.85 31.4917 39.35 34.575C38.85 37.6583 38.3167 40.2333 37.75 42.3C37.6167 42.7667 37.3667 43.1667 37 43.5C36.6333 43.8333 36.2 44 35.7 44C35.3 44 34.975 43.825 34.725 43.475C34.475 43.125 34.4167 42.7333 34.55 42.3C35.0167 40.7 35.3917 39.1917 35.675 37.775C35.9583 36.3583 36.1667 35.2833 36.3 34.55C34.6 36.4833 32.6667 37.8917 30.5 38.775C28.3333 39.6583 26.1667 40.1 24 40.1ZM33.275 33.275C35.825 30.725 37.1 27.6333 37.1 24C37.1 20.3667 35.825 17.275 33.275 14.725C30.725 12.175 27.6333 10.9 24 10.9C20.3667 10.9 17.275 12.175 14.725 14.725C12.175 17.275 10.9 20.3667 10.9 24C10.9 27.6333 12.175 30.725 14.725 33.275C17.275 35.825 20.3667 37.1 24 37.1C27.6333 37.1 30.725 35.825 33.275 33.275Z"/></svg></div>
+            <div class="step-num num">04</div>
+            <h3>Blending and treatment</h3>
+            <p>In the blending room, flame-retardant, anti-mould or antistatic treatments are applied through injectors, precisely dosed, if the customer requires it. Any surplus is returned to the fibre, with no waste.</p>
+          </div>
+          <div class="c3d-card" data-i="4">
+            <div class="c3d-icon"><svg viewBox="0 0 48 48"><path d="M13.5 28.5H16.5V27H19.5V28.5H22.5V27H25.5V28.5H28.5V27H31.5V28.5H34.5V27H37.5V43.5C37.5 44.3284 36.8284 45 36 45C35.1716 45 34.5 44.3284 34.5 43.5H31.5C31.5 44.3284 30.8284 45 30 45C29.1716 45 28.5 44.3284 28.5 43.5H25.5C25.5 44.3284 24.8284 45 24 45C23.1716 45 22.5 44.3284 22.5 43.5H19.5C19.5 44.3284 18.8284 45 18 45C17.1716 45 16.5 44.3284 16.5 43.5H13.5C13.5 44.3284 12.8284 45 12 45C11.1716 45 10.5 44.3284 10.5 43.5V27H13.5V28.5ZM13.5 40.5H16.5V37.5H13.5V40.5ZM19.5 40.5H22.5V37.5H19.5V40.5ZM25.5 40.5H28.5V37.5H25.5V40.5ZM31.5 40.5H34.5V37.5H31.5V40.5ZM13.5 34.5H16.5V31.5H13.5V34.5ZM19.5 34.5H22.5V31.5H19.5V34.5ZM25.5 34.5H28.5V31.5H25.5V34.5ZM31.5 34.5H34.5V31.5H31.5V34.5ZM37 5C37.8 5 38.4996 5.30039 39.0996 5.90039C39.6996 6.50039 40 7.2 40 8V21.5H42.5C42.925 21.5 43.2817 21.6443 43.5693 21.9336C43.8566 22.2225 44 22.5812 44 23.0088C44 23.4361 43.8566 23.7919 43.5693 24.0752C43.2817 24.3585 42.925 24.5 42.5 24.5H5.5C5.07513 24.5 4.71893 24.3556 4.43164 24.0664C4.14402 23.7775 4.00005 23.4188 4 22.9912C4 22.5639 4.14397 22.2081 4.43164 21.9248C4.71894 21.6416 5.07508 21.5 5.5 21.5H8V8C8 7.2 8.30039 6.50039 8.90039 5.90039C9.50039 5.30039 10.2 5 11 5H37ZM11 21.5H37V8H11V21.5Z"/></svg></div>
+            <div class="step-num num">05</div>
+            <h3>Carding</h3>
+            <p>The cards homogenise the fibre and prepare the material for pressing.</p>
+          </div>
+          <div class="c3d-card" data-i="5">
+            <div class="c3d-icon"><svg viewBox="0 0 48 48"><path d="M10.85 39H37.15L34 17H14L10.85 39ZM24 14C24.85 14 25.5625 13.7125 26.1375 13.1375C26.7125 12.5625 27 11.85 27 11C27 10.15 26.7125 9.4375 26.1375 8.8625C25.5625 8.2875 24.85 8 24 8C23.15 8 22.4375 8.2875 21.8625 8.8625C21.2875 9.4375 21 10.15 21 11C21 11.85 21.2875 12.5625 21.8625 13.1375C22.4375 13.7125 23.15 14 24 14ZM29.2 14H34C34.7704 14 35.4379 14.2417 36.0025 14.725C36.5675 15.2083 36.9 15.8333 37 16.6L40.1 38.6C40.2334 39.5 40.0064 40.2917 39.419 40.975C38.8314 41.6583 38.075 42 37.15 42H10.85C9.92502 42 9.16886 41.6583 8.58152 40.975C7.99386 40.2917 7.76669 39.5 7.90002 38.6L11 16.6C11.1 15.8333 11.4325 15.2083 11.9975 14.725C12.5622 14.2417 13.2297 14 14 14H18.8C18.5334 13.5333 18.3334 13.0572 18.2 12.5715C18.0667 12.0862 18 11.5623 18 11C18 9.33333 18.5834 7.91667 19.75 6.75C20.9167 5.58333 22.3334 5 24 5C25.6667 5 27.0834 5.58333 28.25 6.75C29.4167 7.91667 30 9.33333 30 11C30 11.5667 29.9334 12.0917 29.8 12.575C29.6667 13.0583 29.4667 13.5333 29.2 14Z"/></svg></div>
+            <div class="step-num num">06</div>
+            <h3>Pressing</h3>
+            <p>Hydraulic presses compact the final product into bales for transport.</p>
+          </div>
+          <div class="c3d-card" data-i="6">
+            <div class="c3d-icon"><svg viewBox="0 0 48 48"><path d="M22.5 40.3001V24.8501L9 17.0501V32.5001L22.5 40.3001ZM25.5 40.3001L39 32.5001V17.0001L25.5 24.8501V40.3001ZM22.5 43.7501L7.5 35.1001C7.03333 34.8334 6.66667 34.4668 6.4 34.0001C6.13333 33.5334 6 33.0334 6 32.5001V15.5001C6 14.9668 6.13333 14.4668 6.4 14.0001C6.66667 13.5334 7.03333 13.1668 7.5 12.9001L22.5 4.2501C22.9667 3.98343 23.4667 3.8501 24 3.8501C24.5333 3.8501 25.0333 3.98343 25.5 4.2501L40.5 12.9001C40.9667 13.1668 41.3333 13.5334 41.6 14.0001C41.8667 14.4668 42 14.9668 42 15.5001V32.5001C42 33.0334 41.8667 33.5334 41.6 34.0001C41.3333 34.4668 40.9667 34.8334 40.5 35.1001L25.5 43.7501C25.0333 44.0168 24.5333 44.1501 24 44.1501C23.4667 44.1501 22.9667 44.0168 22.5 43.7501ZM32.2 17.5001L37.3 14.5501L24 6.8501L18.9 9.8001L32.2 17.5001ZM24 22.3001L29.2 19.2501L15.85 11.5501L10.65 14.5501L24 22.3001Z"/></svg></div>
+            <div class="step-num num">07</div>
+            <h3>Finished product</h3>
+            <p>The resulting fibre is ready for distribution to automotive, geotextiles, spinning and needle-punching.</p>
+          </div>
+        </div>
+      </div>
+      <div class="c3d-nav">
+        <button class="c3d-arrow c3d-prev" type="button" aria-label="Previous step">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <div class="c3d-dots" id="c3dDots"></div>
+        <button class="c3d-arrow c3d-next" type="button" aria-label="Next step">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="c3d-cta reveal">
+      <div class="c3d-cta-left">
+        <div class="c3d-cta-icon"><svg viewBox="0 0 48 48"><path d="M5.5 38C5.075 38 4.71883 37.8553 4.4315 37.566C4.14383 37.277 4 36.9187 4 36.491C4 36.0637 4.14383 35.7083 4.4315 35.425C4.71883 35.1417 5.075 35 5.5 35H22.5C22.925 35 23.2813 35.1447 23.569 35.434C23.8563 35.723 24 36.0813 24 36.509C24 36.9363 23.8563 37.2917 23.569 37.575C23.2813 37.8583 22.925 38 22.5 38H5.5ZM5.5 27.5C5.075 27.5 4.71883 27.3553 4.4315 27.066C4.14383 26.777 4 26.4187 4 25.991C4 25.5637 4.14383 25.2083 4.4315 24.925C4.71883 24.6417 5.075 24.5 5.5 24.5H12.5C12.925 24.5 13.2813 24.6447 13.569 24.934C13.8563 25.223 14 25.5813 14 26.009C14 26.4363 13.8563 26.7917 13.569 27.075C13.2813 27.3583 12.925 27.5 12.5 27.5H5.5ZM5.5 17C5.075 17 4.71883 16.8553 4.4315 16.566C4.14383 16.277 4 15.9187 4 15.491C4 15.0637 4.14383 14.7083 4.4315 14.425C4.71883 14.1417 5.075 14 5.5 14H12.5C12.925 14 13.2813 14.1447 13.569 14.434C13.8563 14.723 14 15.0813 14 15.509C14 15.9363 13.8563 16.2917 13.569 16.575C13.2813 16.8583 12.925 17 12.5 17H5.5ZM28 32C25.2333 32 22.875 31.025 20.925 29.075C18.975 27.125 18 24.7667 18 22C18 19.2333 18.975 16.875 20.925 14.925C22.875 12.975 25.2333 12 28 12C30.7667 12 33.125 12.975 35.075 14.925C37.025 16.875 38 19.2333 38 22C38 23.0667 37.8333 24.1 37.5 25.1C37.1667 26.1 36.6667 27.0333 36 27.9L42.95 34.85C43.25 35.15 43.4 35.5 43.4 35.9C43.4 36.3 43.25 36.65 42.95 36.95C42.65 37.25 42.3 37.4 41.9 37.4C41.5 37.4 41.15 37.25 40.85 36.95L33.9 30C33.0333 30.6667 32.1 31.1667 31.1 31.5C30.1 31.8333 29.0667 32 28 32ZM27.988 29C29.9293 29 31.5833 28.3207 32.95 26.962C34.3167 25.603 35 23.953 35 22.012C35 20.0707 34.3207 18.4167 32.962 17.05C31.603 15.6833 29.953 15 28.012 15C26.0707 15 24.4167 15.6793 23.05 17.038C21.6833 18.397 21 20.047 21 21.988C21 23.9293 21.6793 25.5833 23.038 26.95C24.397 28.3167 26.047 29 27.988 29Z"/></svg></div>
+        <p>Discover the different types of fibre we manufacture</p>
+      </div>
+      <a class="btn" href="products.html">View products</a>
+    </div>
+  </div>
+</section>
+
+<section class="closing">
+  <img class="poster" src="../img/cta-camion-rocheltex.jpg" alt="Rocheltex own-fleet truck in front of its facilities in Aielo de Malferit">
+  <div class="wrap closing-content reveal">
+    <h2>Want more technical detail about our process?</h2>
+    <p>Pol. Ind. Serrans II, s/n · 46812 Aielo de Malferit (Valencia)</p>
+    <div class="hero-cta">
+      <a class="btn" href="contact.html">Go to contact</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-logo">
+        <a href="index.html" aria-label="Rocheltex, home"><img src="../img/logo/rocheltex-empilhado.svg" alt="Rocheltex, S.L." width="176" height="90"></a>
+        <p class="foot-tagline">Regenerated textile fibre for automotive, geotextiles, spinning and needle-punching. Aielo de Malferit, Valencia.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Sections</h4>
+        <a href="process.html">Process</a>
+        <a href="products.html">Products</a>
+        <a href="about.html">About us</a>
+        <a href="commitment.html">Commitment</a>
+      </div>
+      <div class="foot-col">
+        <h4>Certifications</h4>
+        <div class="foot-certs">
+          <img src="../iatf.png" alt="IATF 16949">
+          <img src="../iso9001.png" alt="ISO 9001">
+          <img src="../iso14001.png" alt="ISO 14001">
+          <img src="../iso45001.png" alt="ISO 45001">
+          <img src="../psb.png" alt="PSB — VDA QMC">
+          <img src="../pscr.png" alt="PSCR — VDA QMC">
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© Rocheltex, S.L.</span>
+      <div class="foot-legal">
+        <a href="contact.html">Contact</a>
+        <a href="legal-notice.html">Legal notice</a>
+        <a href="privacy-policy.html">Privacy</a>
+        <a href="cookie-policy.html">Cookies</a>
+        <button type="button" class="link-btn" data-open-cookies>Cookie settings</button>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  },{threshold:0.1});
+  revealEls.forEach(el=>io.observe(el));
+
+  const burgerBtn = document.getElementById('burgerBtn');
+  const closeBtn = document.getElementById('closeBtn');
+  const mobileNav = document.getElementById('mobileNav');
+  if(burgerBtn){ burgerBtn.addEventListener('click', ()=> mobileNav.classList.add('open')); }
+  if(closeBtn){ closeBtn.addEventListener('click', ()=> mobileNav.classList.remove('open')); }
+  document.querySelectorAll('.mobile-nav a').forEach(a=> a.addEventListener('click', ()=> mobileNav.classList.remove('open')));
+
+  /* PROCESS CAROUSEL — 3D ring (same mechanic as the "3D Team Carousel"
+     Framer component): each card is placed with rotateY(angle) +
+     translateZ(radius) under a perspective camera — real 3D placement,
+     the browser does all the foreshortening, no manual scale/opacity.
+     Navigation: prev/next arrows, dots, click a side card, swipe,
+     arrow keys, and a pausable auto-advance. */
+  (function(){
+    const root = document.getElementById('c3d');
+    if(!root) return;
+    const track = document.getElementById('c3dTrack');
+    const cards = [...track.querySelectorAll('.c3d-card')];
+    const n = cards.length;
+    const dotsWrap = document.getElementById('c3dDots');
+    const prevBtn = root.querySelector('.c3d-prev');
+    const nextBtn = root.querySelector('.c3d-next');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let active = 0;
+    let autoTimer = null;
+
+    cards.forEach((_,i)=>{
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'c3d-dot';
+      b.setAttribute('aria-label', 'Go to step ' + (i+1));
+      b.addEventListener('click', ()=>{ goTo(i); stopAuto(); });
+      dotsWrap.appendChild(b);
+    });
+    const dots = [...dotsWrap.querySelectorAll('.c3d-dot')];
+
+    cards.forEach((card,i)=>{
+      card.addEventListener('click', ()=>{ if(i !== active){ goTo(i); stopAuto(); } });
+    });
+
+    function cfg(){
+      // Card width/height are authored to comfortably fit the longest
+      // step copy (measured against "Mezcla y tratamiento"); the stage
+      // height then has to fit the FRONT card's rendered size, which
+      // translateZ(radius) magnifies (it's pulled toward the camera) by
+      // perspective/(perspective-radius) — same 3D math as the reference
+      // component, just sized for real paragraph text instead of a
+      // one-line bio.
+      const mobile = innerWidth < 880;
+      // Desktop is capped around 300px tall (rendered) and a long
+      // perspective + wide radius keep the magnified front card from
+      // swallowing its neighbours. Mobile can run taller, but still
+      // needs enough radius that the rotated side cards don't cross
+      // through the front one at such a narrow width.
+      const perspective = mobile ? 3500 : 10000;
+      const radius = mobile ? 350 : 650;
+      const w = mobile ? 280 : 560;
+      const h = mobile ? 310 : 260;
+      return {
+        w, h,
+        stageH: mobile ? 400 : 320,
+        radius: radius,
+        perspective: perspective
+      };
+    }
+
+    function render(animate){
+      const c = cfg();
+      const step = 360 / n;
+      cards.forEach((card,i)=>{
+        let diff = ((i - active) % n + n) % n;
+        if(diff > n/2) diff -= n;
+        const angle = diff * step;
+        const rad = angle * Math.PI/180;
+        const z = Math.cos(rad) * c.radius;
+        card.style.transition = animate ? '' : 'none';
+        card.style.transform = `rotateY(${angle.toFixed(3)}deg) translateZ(${c.radius}px)`;
+        card.style.zIndex = Math.round(z) + 1000;
+        card.classList.toggle('is-active', i === active);
+      });
+      dots.forEach((d,i)=> d.classList.toggle('is-active', i === active));
+    }
+
+    function layout(){
+      const c = cfg();
+      root.style.setProperty('--c3d-w', c.w + 'px');
+      root.style.setProperty('--c3d-h-card', c.h + 'px');
+      root.style.setProperty('--c3d-h', c.stageH + 'px');
+      root.style.setProperty('--c3d-persp', c.perspective + 'px');
+      render(false);
+    }
+
+    function goTo(i){
+      active = ((i % n) + n) % n;
+      render(!reduceMotion);
+    }
+
+    prevBtn.addEventListener('click', ()=>{ goTo(active-1); stopAuto(); });
+    nextBtn.addEventListener('click', ()=>{ goTo(active+1); stopAuto(); });
+
+    root.tabIndex = 0;
+    root.addEventListener('keydown', (e)=>{
+      if(e.key === 'ArrowLeft'){ goTo(active-1); stopAuto(); }
+      if(e.key === 'ArrowRight'){ goTo(active+1); stopAuto(); }
+    });
+
+    let touchX = null;
+    root.addEventListener('touchstart', e=>{ touchX = e.touches[0].clientX; }, {passive:true});
+    root.addEventListener('touchend', e=>{
+      if(touchX === null) return;
+      const dx = e.changedTouches[0].clientX - touchX;
+      if(Math.abs(dx) > 40){ goTo(active + (dx < 0 ? 1 : -1)); stopAuto(); }
+      touchX = null;
+    }, {passive:true});
+
+    function startAuto(){
+      if(reduceMotion) return;
+      stopAuto();
+      autoTimer = setInterval(()=> goTo(active+1), 4800);
+    }
+    function stopAuto(){
+      if(autoTimer){ clearInterval(autoTimer); autoTimer = null; }
+    }
+
+    root.addEventListener('mouseenter', stopAuto);
+    root.addEventListener('mouseleave', startAuto);
+    root.addEventListener('focusin', stopAuto);
+    root.addEventListener('focusout', startAuto);
+
+    window.addEventListener('resize', layout);
+    layout();
+    startAuto();
+  })();
+</script>
+
+<script src="../assets/consent.js" data-policy="cookie-policy.html"></script>
+</body>
+</html>
