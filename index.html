@@ -18,7 +18,9 @@
     --ink-soft:#5c564a;
     --red:#c70f23;
     --red-deep:#a90d1e;
-    --blue:#0657b9;
+    --blue:#053B8A;
+    --tri:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 11'%3E%3Cpath d='M7 1.8L12.13 10H1.87Z' fill='none' stroke='%23053B8A' stroke-width='2' stroke-linejoin='miter'/%3E%3C/svg%3E");
+    --tri-w:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 11'%3E%3Cpath d='M7 1.8L12.13 10H1.87Z' fill='none' stroke='%23FFFFFF' stroke-width='2' stroke-linejoin='miter'/%3E%3C/svg%3E");
     --charcoal:#141210;
     --line:rgba(25,21,16,0.14);
     --grid-line:rgba(25,21,16,0.06);
@@ -352,10 +354,9 @@
     letter-spacing:.04em;border:1px solid var(--blue);color:var(--blue);padding:3px 9px;
   }
   .product-item ul{list-style:none;margin:20px 0 0;padding:0;display:flex;flex-direction:column;gap:9px;}
-  .product-item li{font-size:14px;color:var(--ink-soft);padding-left:18px;position:relative;}
+  .product-item li{font-size:14px;color:var(--ink-soft);padding-left:24px;position:relative;}
   .product-item li::before{
-    content:"";position:absolute;left:0;top:7px;width:8px;height:7px;background:var(--blue);
-    clip-path:polygon(50% 0,100% 100%,0 100%);
+    content:"";position:absolute;left:0;top:4px;width:14px;height:11px;background:var(--tri) center/100% 100% no-repeat;
   }
 
   /* PILLARS / CARDS */
@@ -393,7 +394,7 @@
     list-style:none;margin:18px 0 0;padding:0;
     display:flex;flex-direction:column;gap:9px;
   }
-  .card-body li{font-size:14px;color:var(--ink-soft);padding-left:18px;position:relative;}
+  .card-body li{font-size:14px;color:var(--ink-soft);padding-left:24px;position:relative;}
   .card-body li::before{
     content:"";position:absolute;left:0;top:7px;
     width:6px;height:6px;background:var(--red);border-radius:50%;
@@ -555,14 +556,13 @@
   /* BRAND v2 — logo azul + rojo. Regla: azul = grafismo (símbolo, pictogramas,
      viñetas); rojo = tipografía y acción (eyebrows, números, enlaces, botones). */
   .eyebrow::before{
-    content:"";display:inline-block;width:9px;height:8px;margin-right:9px;
-    background:var(--blue);clip-path:polygon(50% 0,100% 100%,0 100%);
+    content:"";display:inline-block;width:14px;height:11px;margin-right:10px;
+    background:var(--tri) center/100% 100% no-repeat;
     position:relative;top:-1px;
   }
-  .hero .eyebrow::before,.page-hero .eyebrow::before{background:#fff;}
+  .hero .eyebrow::before,.page-hero .eyebrow::before{background:var(--tri-w) center/100% 100% no-repeat;}
   .card-body li::before,.pillar li::before{
-    width:8px;height:7px;top:7px;border-radius:0;background:var(--blue);
-    clip-path:polygon(50% 0,100% 100%,0 100%);
+    width:14px;height:11px;top:4px;border-radius:0;background:var(--tri) center/100% 100% no-repeat;
   }
   .sector-icon{color:var(--blue);}
   .c3d-icon{border-color:var(--blue);}
@@ -575,7 +575,7 @@
 <header>
   <div class="nav-scrim"></div>
   <div class="nav-row">
-    <a href="index.html"><img src="img/logo/rocheltex-horizontal.svg" alt="Rocheltex, S.L." class="logo-mark" width="192" height="44"></a>
+    <a href="index.html"><img src="img/logo/rocheltex-horizontal.svg" alt="Rocheltex, S.L." class="logo-mark" width="251" height="44"></a>
     <nav class="primary">
       <a href="rocheltex-proceso.html">Proceso</a>
       <a href="rocheltex-productos.html">Productos</a>
@@ -835,7 +835,7 @@
   <div class="wrap">
     <div class="foot-top">
       <div class="foot-logo">
-        <a href="index.html" aria-label="Rocheltex, inicio"><img src="img/logo/rocheltex-empilhado.svg" alt="Rocheltex, S.L." width="176" height="114"></a>
+        <a href="index.html" aria-label="Rocheltex, inicio"><img src="img/logo/rocheltex-empilhado.svg" alt="Rocheltex, S.L." width="176" height="90"></a>
         <p class="foot-tagline">Fibra textil regenerada para automoción, geotextiles, hilatura y punzonado. Aielo de Malferit, Valencia.</p>
       </div>
       <div class="foot-col">
