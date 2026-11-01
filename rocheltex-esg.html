@@ -19,8 +19,8 @@
     --red:#c70f23;
     --red-deep:#a90d1e;
     --blue:#053B8A;
-    --tri:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 11'%3E%3Cpath d='M7 1.8L12.13 10H1.87Z' fill='none' stroke='%23053B8A' stroke-width='2' stroke-linejoin='miter'/%3E%3C/svg%3E");
-    --tri-w:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 11'%3E%3Cpath d='M7 1.8L12.13 10H1.87Z' fill='none' stroke='%23FFFFFF' stroke-width='2' stroke-linejoin='miter'/%3E%3C/svg%3E");
+    --tri:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpolygon points='5.0,0.17 8.97,2.08 9.95,6.38 7.2,9.83 2.8,9.83 0.05,6.38 1.03,2.08' fill='%23C70F23'/%3E%3C/svg%3E");
+    --tri-w:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpolygon points='5.0,0.17 8.97,2.08 9.95,6.38 7.2,9.83 2.8,9.83 0.05,6.38 1.03,2.08' fill='%23C70F23'/%3E%3C/svg%3E");
     --charcoal:#141210;
     --line:rgba(25,21,16,0.14);
     --grid-line:rgba(25,21,16,0.06);
@@ -170,7 +170,8 @@
     padding:16px 0;border-bottom:1px solid rgba(255,255,255,.12);
   }
   .mobile-nav .mob-links{display:flex;flex-direction:column;margin-top:30px;}
-  .nav-right .lang{display:none;}
+  .nav-right .lang{display:flex;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.05em;}
+  @media (max-width:880px){.nav-right .lang{display:none;}}
   .mobile-nav .mob-lang{color:#fdfbf6;opacity:.75;font-size:13px;margin-top:26px;display:flex;gap:6px;}
   .mobile-nav .mob-lang b{color:var(--red);font-weight:700;}
   .mobile-nav .btn{margin-top:22px;align-self:flex-start;font-size:14.5px;font-weight:600;}
@@ -260,7 +261,7 @@
   .pillar h3{margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;letter-spacing:-0.02em;line-height:1.2;}
   .pillar .iso{margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.02em;color:var(--ink-soft);}
   .pillar ul{list-style:none;margin:20px 0 0;padding:0;display:flex;flex-direction:column;gap:10px;}
-  .pillar li{font-size:14px;color:var(--ink-soft);line-height:1.5;padding-left:24px;position:relative;}
+  .pillar li{font-size:14px;color:var(--ink-soft);line-height:1.5;padding-left:22px;position:relative;}
   .pillar li::before{content:"";position:absolute;left:0;top:7px;width:6px;height:6px;background:var(--red);border-radius:50%;}
 
   /* TWO-COL (ethics / human rights) */
@@ -324,13 +325,13 @@
   /* BRAND v2 — logo azul + rojo. Regla: azul = grafismo (símbolo, pictogramas,
      viñetas); rojo = tipografía y acción (eyebrows, números, enlaces, botones). */
   .eyebrow::before{
-    content:"";display:inline-block;width:14px;height:11px;margin-right:10px;
+    content:"";display:inline-block;width:10px;height:10px;margin-right:10px;
     background:var(--tri) center/100% 100% no-repeat;
     position:relative;top:-1px;
   }
   .hero .eyebrow::before,.page-hero .eyebrow::before{background:var(--tri-w) center/100% 100% no-repeat;}
   .card-body li::before,.pillar li::before{
-    width:14px;height:11px;top:4px;border-radius:0;background:var(--tri) center/100% 100% no-repeat;
+    width:10px;height:10px;top:5px;border-radius:0;background:var(--tri) center/100% 100% no-repeat;
   }
   .sector-icon{color:var(--blue);}
   .c3d-icon{border-color:var(--blue);}
