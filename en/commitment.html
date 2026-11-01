@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Commitment — Rocheltex</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="preload" href="../fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../fonts/fonts.css">
+<link rel="stylesheet" href="../assets/consent.css">
+<style>
+  :root{
+    --cream:#f7f2e9;
+    --cream-2:#efe8da;
+    --ink:#191510;
+    --ink-soft:#5c564a;
+    --red:#c70f23;
+    --red-deep:#a90d1e;
+    --blue:#053B8A;
+    --tri:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpolygon points='5.0,0.17 8.97,2.08 9.95,6.38 7.2,9.83 2.8,9.83 0.05,6.38 1.03,2.08' fill='%23C70F23'/%3E%3C/svg%3E");
+    --tri-w:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpolygon points='5.0,0.17 8.97,2.08 9.95,6.38 7.2,9.83 2.8,9.83 0.05,6.38 1.03,2.08' fill='%23C70F23'/%3E%3C/svg%3E");
+    --charcoal:#141210;
+    --line:rgba(25,21,16,0.14);
+    --grid-line:rgba(25,21,16,0.06);
+    --radius:0px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background-color:var(--cream);
+    background-image: linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
+    background-size:25% 100%;
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.serif{
+    font-family:'Inter',sans-serif;
+    font-weight:700;
+    line-height:1.08;
+    letter-spacing:-0.02em;
+    margin:0;
+  }
+  h1 i, h2 i{
+    font-style:normal;
+    font-weight:700;
+    color:var(--red);
+  }
+  .num, .accent, .sec-num{
+    font-family:'JetBrains Mono',monospace;
+    font-weight:500;
+    letter-spacing:-0.02em;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    font-weight:500;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--red);
+  }
+  a{color:inherit;}
+  img{display:block;max-width:100%;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 40px;}
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  .btn{
+    position:relative;
+    font-family:'Inter',sans-serif;
+    font-size:14.5px;
+    font-weight:600;
+    text-decoration:none;
+    color:#fff;
+    background:var(--red);
+    padding:15px 36px 15px 28px;
+    border-radius:var(--radius);
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    transition:background .2s ease, transform .2s ease;
+    border:none;
+    cursor:pointer;
+  }
+  .btn::after{
+    content:"";
+    position:absolute;
+    top:9px;right:12px;
+    width:10px;height:10px;
+    border-top:1.5px solid currentColor;
+    border-right:1.5px solid currentColor;
+    opacity:.7;
+  }
+  .btn:hover{background:var(--red-deep);transform:translateY(-1px);}
+  .btn-ghost{
+    background:transparent;
+    border:1px solid rgba(255,255,255,0.55);
+    color:#fff;
+  }
+  .btn-ghost:hover{background:rgba(255,255,255,0.12);}
+  .btn-dark{background:var(--ink);}
+  .btn-dark:hover{background:#000;}
+
+  /* NAV */
+  header{
+    position:fixed;
+    top:0;left:0;right:0;
+    z-index:60;
+  }
+  .nav-scrim{
+    position:absolute;
+    inset:0;
+    height:150px;
+    pointer-events:none;
+    -webkit-backdrop-filter:blur(20px);
+    backdrop-filter:blur(20px);
+    background:linear-gradient(to bottom, rgba(247,242,233,0.85) 0%, rgba(247,242,233,0.55) 42%, rgba(247,242,233,0) 100%);
+    -webkit-mask-image:linear-gradient(to bottom, #000 0%, #000 35%, transparent 100%);
+    mask-image:linear-gradient(to bottom, #000 0%, #000 35%, transparent 100%);
+  }
+  .nav-row{
+    position:relative;z-index:2;
+    max-width:1180px;margin:0 auto;padding:26px 40px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .logo-mark{height:44px;width:auto;}
+  nav.primary{display:flex;gap:34px;}
+  nav.primary a{
+    color:var(--ink);text-decoration:none;font-size:14px;font-weight:500;
+    opacity:.85;
+  }
+  nav.primary a:hover{opacity:1;}
+  nav.primary a.active{opacity:1;color:var(--red);}
+  .nav-right{display:flex;align-items:center;gap:20px;}
+  .lang{font-size:12.5px;color:var(--ink);display:flex;gap:6px;opacity:.75;}
+  .lang b{color:var(--red);font-weight:700;}
+  .nav-contact-btn{padding:10px 26px 10px 20px;font-size:13px;}
+  .nav-contact-btn::after{top:7px;right:9px;width:8px;height:8px;}
+  .burger{
+    display:none;
+    width:38px;height:38px;
+    border:1px solid var(--line);
+    border-radius:50%;
+    background:transparent;
+    color:var(--ink);
+    align-items:center;justify-content:center;
+    cursor:pointer;
+  }
+  .burger svg{width:16px;height:16px;}
+  .mobile-nav{
+    display:none;
+    position:fixed;inset:0;
+    background:var(--charcoal);
+    z-index:100;
+    padding:26px 22px;
+    flex-direction:column;
+  }
+  .mobile-nav.open{display:flex;}
+  .mobile-nav .close-row{display:flex;justify-content:flex-end;}
+  .mobile-nav .close-btn{
+    width:38px;height:38px;border:1px solid rgba(255,255,255,.5);border-radius:50%;
+    background:transparent;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;
+  }
+  .mobile-nav a{
+    color:#fdfbf6;text-decoration:none;
+    font-family:'Inter',sans-serif;font-weight:600;font-size:26px;
+    padding:16px 0;border-bottom:1px solid rgba(255,255,255,.12);
+  }
+  .mobile-nav .mob-links{display:flex;flex-direction:column;margin-top:30px;}
+  .nav-right .lang{display:flex;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.05em;}
+  @media (max-width:880px){.nav-right .lang{display:none;}}
+  .mobile-nav .mob-lang{color:#fdfbf6;opacity:.75;font-size:13px;margin-top:26px;display:flex;gap:6px;}
+  .mobile-nav .mob-lang b{color:var(--red);font-weight:700;}
+  .mobile-nav .btn{margin-top:22px;align-self:flex-start;font-size:14.5px;font-weight:600;}
+
+  /* FRAME */
+  .frame{background:var(--cream);border:1px solid var(--line);padding:64px 56px;}
+
+  /* CLOSING CTA (shared) */
+  .closing{position:relative;padding:150px 0;overflow:hidden;}
+  .closing video,.closing .poster{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  }
+  .closing::after{content:"";position:absolute;inset:0;background:rgba(20,17,14,0.78);}
+  .closing-content{position:relative;z-index:2;text-align:center;}
+  .closing h2{font-size:clamp(34px,5.4vw,58px);color:#fdfbf6;max-width:760px;margin:0 auto;}
+  .closing p{color:#d9d3c5;margin-top:18px;font-size:16px;}
+  .closing .hero-cta{justify-content:center;margin-top:34px;display:flex;gap:16px;flex-wrap:wrap;}
+
+  /* FOOTER (shared) */
+  footer{padding:70px 0 34px;background:var(--cream);}
+  .foot-top{
+    display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px;
+    padding-bottom:50px;border-bottom:1px solid var(--line);
+  }
+  .foot-logo img{width:176px;height:auto;filter:none;}
+  .foot-tagline{margin-top:18px;font-size:14px;color:var(--ink-soft);max-width:280px;line-height:1.6;}
+  .foot-col h4{
+    font-size:12.5px;text-transform:uppercase;letter-spacing:0.1em;
+    color:var(--ink-soft);font-weight:600;margin:0 0 16px;
+  }
+  .foot-col a{display:block;text-decoration:none;font-size:14.5px;margin-bottom:11px;}
+  .foot-bottom{
+    display:flex;justify-content:space-between;align-items:center;
+    padding-top:26px;font-size:13px;color:var(--ink-soft);flex-wrap:wrap;gap:10px;
+  }
+  .foot-legal{display:flex;gap:20px;}
+  .foot-legal a{text-decoration:none;color:var(--ink-soft);}
+
+  /* SPLIT HERO */
+  .split-hero{
+    padding:200px 0 100px;
+    background-color:var(--cream);
+    background-image: linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
+    background-size:25% 100%;
+  }
+  .split-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:56px;align-items:center;}
+  .split-copy h1{font-size:clamp(32px,4.6vw,50px);}
+  .split-copy p{margin-top:18px;font-size:16.5px;line-height:1.6;color:var(--ink-soft);max-width:460px;}
+  .split-copy .btn{margin-top:30px;}
+  .split-photo{border:1px solid var(--line);overflow:hidden;aspect-ratio:4/5;}
+  .split-photo img{width:100%;height:100%;object-fit:cover;}
+
+  /* CERT LOGOS (footer + placeholder) */
+  .foot-certs{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;}
+  .foot-certs img{height:42px;width:auto;object-fit:contain;filter:grayscale(1) opacity(0.75);}
+
+  .btn-outline{background:transparent;color:var(--ink);border:1px solid var(--ink);}
+  .btn-outline:hover{background:var(--ink);color:var(--cream);}
+  .btn-row{display:flex;gap:16px;flex-wrap:wrap;margin-top:30px;}
+  .btn-row .btn{margin-top:0;}
+  .section-head{max-width:700px;margin-bottom:48px;}
+  .section-head h2{font-size:clamp(28px,3.8vw,42px);margin-top:14px;}
+  .section-head p{margin-top:16px;font-size:16px;line-height:1.6;color:var(--ink-soft);max-width:600px;}
+  .block{padding:0 0 110px;background-color:var(--cream);background-image:linear-gradient(to right,var(--grid-line) 1px,transparent 1px);background-size:25% 100%;}
+  .block-alt{padding:100px 0;background-color:var(--cream-2);background-image:linear-gradient(to right,var(--grid-line) 1px,transparent 1px);background-size:25% 100%;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+
+  /* IMPACT BAND */
+  .impact{padding:0 0 110px;background-color:var(--cream);background-image:linear-gradient(to right,var(--grid-line) 1px,transparent 1px);background-size:25% 100%;}
+  .impact-head{display:flex;align-items:baseline;justify-content:space-between;gap:20px;margin-bottom:18px;}
+  .impact-photo{border:1px solid var(--line);border-bottom:none;aspect-ratio:21/8;overflow:hidden;background:var(--cream-2);}
+  .impact-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+  .impact-row{display:grid;grid-template-columns:repeat(3,1fr);background:var(--cream);border:1px solid var(--line);}
+  .impact-item{position:relative;padding:40px 28px 36px;border-right:1px solid var(--line);}
+  .impact-item:last-child{border-right:none;}
+  .impact-item::after{content:"";position:absolute;top:16px;right:18px;width:12px;height:12px;border-top:1.5px solid var(--ink-soft);border-right:1.5px solid var(--ink-soft);opacity:.3;}
+  .impact-item .fig{font-family:'JetBrains Mono',monospace;font-weight:400;letter-spacing:-0.03em;font-size:clamp(34px,5vw,62px);line-height:1;color:var(--ink);white-space:nowrap;}
+  .impact-item .fig small{font-size:.5em;letter-spacing:-0.01em;color:var(--red);margin-left:6px;}
+  .impact-item .cap{margin-top:14px;font-size:14px;color:var(--ink-soft);line-height:1.4;}
+
+  /* PILLARS */
+  .pillar-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  .pillar{background:var(--cream-2);}
+  .pillar-photo{aspect-ratio:4/3;overflow:hidden;background:var(--cream-2);border-bottom:1px solid var(--line);}
+  .pillar-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+  .pillar-body{padding:26px 24px 32px;}
+  .pillar .p-num{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;color:var(--red);letter-spacing:0.04em;}
+  .pillar h3{margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;letter-spacing:-0.02em;line-height:1.2;}
+  .pillar .iso{margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.02em;color:var(--ink-soft);}
+  .pillar ul{list-style:none;margin:20px 0 0;padding:0;display:flex;flex-direction:column;gap:10px;}
+  .pillar li{font-size:14px;color:var(--ink-soft);line-height:1.5;padding-left:22px;position:relative;}
+  .pillar li::before{content:"";position:absolute;left:0;top:7px;width:6px;height:6px;background:var(--red);border-radius:50%;}
+
+  /* TWO-COL (ethics / human rights) */
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:0;background:var(--cream);border:1px solid var(--line);}
+  .two-col .copy{padding:56px 52px;}
+  .two-col .copy h2{font-size:clamp(26px,3.4vw,38px);margin-top:14px;}
+  .two-col .copy p{margin-top:16px;font-size:15.5px;line-height:1.65;color:var(--ink-soft);max-width:440px;}
+  .point-list{list-style:none;margin:0;padding:0;border-left:1px solid var(--line);counter-reset:pt;}
+  .point-list li{counter-increment:pt;display:grid;grid-template-columns:44px 1fr;gap:14px;padding:22px 30px;border-bottom:1px solid var(--line);font-size:15px;line-height:1.5;color:var(--ink);}
+  .point-list li:last-child{border-bottom:none;}
+  .point-list li::before{content:counter(pt,decimal-leading-zero);font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;color:var(--red);padding-top:2px;}
+
+  /* SDG */
+  .sdg-row{display:grid;grid-template-columns:repeat(9,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  .sdg-row img{width:100%;height:auto;display:block;aspect-ratio:1/1;}
+
+  /* CERTS */
+  .certs{padding:0 0 110px;text-align:center;background-color:var(--cream);background-image:linear-gradient(to right,var(--grid-line) 1px,transparent 1px);background-size:25% 100%;}
+  .certs .frame{padding:64px 56px;}
+  .certs-head{max-width:640px;margin:0 auto 36px;}
+  .certs-head h2{font-size:clamp(26px,3.2vw,36px);margin-top:12px;}
+  .certs-head p{margin-top:14px;font-size:15.5px;line-height:1.6;color:var(--ink-soft);}
+  .certs-row{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:36px;}
+  .certs-row img{height:64px;width:auto;object-fit:contain;filter:grayscale(1) opacity(0.75);transition:filter .25s ease;}
+  .certs-row img:hover{filter:grayscale(0) opacity(1);}
+
+  /* ETHICS CHANNEL */
+  .channel-grid{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;}
+  .channel-grid h2{font-size:clamp(26px,3.4vw,38px);margin-top:14px;}
+  .channel-icon{width:96px;height:96px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;background:var(--cream-2);}
+  .channel-icon img{width:52px;height:52px;}
+  .channel-grid p{margin-top:16px;font-size:15.5px;line-height:1.65;color:var(--ink-soft);max-width:640px;}
+
+  @media (max-width:1080px){
+    .pillar-grid{grid-template-columns:repeat(2,1fr);}
+  }
+  @media (max-width:880px){
+    .wrap{padding:0 22px;}
+    .nav-row{padding:22px;gap:14px;}
+    .logo-mark{height:34px;}
+    nav.primary{display:none;}
+    .burger{display:flex;}
+    .foot-top{grid-template-columns:1fr;gap:30px;}
+    .frame{padding:40px 24px;}
+    .split-hero{padding:170px 0 70px;}
+    .split-grid{grid-template-columns:1fr;}
+    .split-photo{aspect-ratio:16/10;}
+    .impact-row{grid-template-columns:1fr;}
+    .impact-item{border-right:none;border-bottom:1px solid var(--line);}
+    .impact-item:last-child{border-bottom:none;}
+    .pillar-grid{grid-template-columns:1fr;}
+    .two-col{grid-template-columns:1fr;}
+    .two-col .copy{padding:40px 24px;}
+    .point-list{border-left:none;border-top:1px solid var(--line);}
+    .point-list li{padding:20px 24px;}
+    .sdg-row{grid-template-columns:repeat(3,1fr);}
+    .certs .frame{padding:40px 24px;}
+    .channel-grid{grid-template-columns:1fr;}
+    .channel-icon{justify-self:start;width:80px;height:80px;}
+  }
+  /* BRAND v2 — logo azul + rojo. Regla: azul = grafismo (símbolo, pictogramas,
+     viñetas); rojo = tipografía y acción (eyebrows, números, enlaces, botones). */
+  .eyebrow::before{
+    content:"";display:inline-block;width:10px;height:10px;margin-right:10px;
+    background:var(--tri) center/100% 100% no-repeat;
+    position:relative;top:-1px;
+  }
+  .hero .eyebrow::before,.page-hero .eyebrow::before{background:var(--tri-w) center/100% 100% no-repeat;}
+  .card-body li::before,.pillar li::before{
+    width:10px;height:10px;top:5px;border-radius:0;background:var(--tri) center/100% 100% no-repeat;
+  }
+  .sector-icon{color:var(--blue);}
+  .c3d-icon{border-color:var(--blue);}
+  .c3d-icon svg{fill:var(--blue);}
+  footer{border-top:1px solid var(--line);}
+</style>
+<link rel="alternate" hreflang="es" href="../rocheltex-esg.html">
+<link rel="alternate" hreflang="en" href="commitment.html">
+</head>
+<body>
+
+<header>
+  <div class="nav-scrim"></div>
+  <div class="nav-row">
+    <a href="index.html"><img src="../img/logo/rocheltex-horizontal.svg" alt="Rocheltex, S.L." class="logo-mark" width="251" height="44"></a>
+    <nav class="primary">
+      <a href="process.html">Process</a>
+      <a href="products.html">Products</a>
+      <a href="about.html">About us</a>
+      <a href="commitment.html" class="active">Commitment</a>
+    </nav>
+    <div class="nav-right">
+      <div class="lang"><a href="../rocheltex-esg.html" hreflang="es" lang="es">ES</a> / <b>EN</b></div>
+      <a class="btn btn-dark nav-contact-btn" href="contact.html">Contact</a>
+      <button class="burger" id="burgerBtn" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-nav" id="mobileNav">
+  <div class="close-row">
+    <button class="close-btn" id="closeBtn" aria-label="Close menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <div class="mob-links">
+    <a href="process.html">Process</a>
+    <a href="products.html">Products</a>
+    <a href="about.html">About us</a>
+    <a href="commitment.html">Commitment</a>
+  </div>
+  <div class="mob-lang"><a href="../rocheltex-esg.html" hreflang="es" lang="es">ES</a> / <b>EN</b></div>
+  <a class="btn" href="contact.html">Contact</a>
+</div>
+
+<section class="split-hero">
+  <div class="wrap">
+    <div class="split-grid reveal">
+      <div class="split-copy">
+        <div class="eyebrow">ESG</div>
+        <h1 style="margin-top:14px;">Integrity, people and environment: our commitment beyond the product</h1>
+        <p>Almost 40 years building Rocheltex on seriousness, honesty and the value of our word — today formalised in our quality, environmental, people and governance policy.</p>
+        <div class="btn-row">
+          <a class="btn" href="#pilares">See our pillars</a>
+          <a class="btn btn-outline" href="contact.html">Contact</a>
+        </div>
+      </div>
+      <div class="split-photo">
+        <img src="../img/esg-hero-fibra-macro.jpg?v=4" alt="Pile of grey industrial textile fibre with coloured threads">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="impact" id="impacto">
+  <div class="wrap">
+    <div class="impact-head reveal"><span class="eyebrow">Environmental impact</span></div>
+    <div class="impact-photo reveal"><img src="../img/esg-impacto-naturaleza.jpg" alt="Light through trees over leaves and textile fibre, a symbol of environmental impact" loading="lazy"></div>
+    <div class="impact-row reveal">
+      <div class="impact-item"><div class="fig">840.32<small>t</small></div><div class="cap">Standard carbon savings</div></div>
+      <div class="impact-item"><div class="fig">997.87<small>t</small></div><div class="cap">CO₂ avoided</div></div>
+      <div class="impact-item"><div class="fig">1.36K</div><div class="cap">Equivalent trees planted</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="pilares">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Our pillars</div>
+      <h2>One standard for quality, environment, people and governance</h2>
+      <p>Our management rests on four pillars, aligned with internationally recognised ISO standards and ESG (Environmental, Social and Governance) criteria.</p>
+    </div>
+    <div class="pillar-grid reveal">
+      <div class="pillar">
+        <div class="pillar-photo"><img src="../img/esg-pilar-calidad.jpg?v=4" alt="Roll of grey technical felt unrolling on a concrete floor, a symbol of quality and excellence" loading="lazy"></div>
+        <div class="pillar-body">
+        <div class="p-num">01</div>
+        <h3>Quality and excellence in automotive</h3>
+        <div class="iso">ISO 9001 · IATF 16949</div>
+        <ul>
+          <li>Customer focus and a zero-defects philosophy</li>
+          <li>Continuous improvement and risk management through FMEA</li>
+          <li>Strict compliance with product safety requirements</li>
+        </ul>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-photo"><img src="../img/esg-pilar-ambiental.jpg?v=2" alt="Close-up of regenerated grey textile fibre, a symbol of environmental commitment" loading="lazy"></div>
+        <div class="pillar-body">
+        <div class="p-num">02</div>
+        <h3>Environmental commitment and decarbonisation</h3>
+        <div class="iso">ISO 14001</div>
+        <ul>
+          <li>Protecting the environment and efficient use of natural resources</li>
+          <li>Circular economy: waste reduction, reuse and recycling</li>
+          <li>Active reduction of our carbon footprint</li>
+        </ul>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-photo"><img src="../img/esg-pilar-personas.jpg?v=2" alt="Hand in a safety glove touching a bale of textile fibre, a symbol of people and safety" loading="lazy"></div>
+        <div class="pillar-body">
+        <div class="p-num">03</div>
+        <h3>People, safety and well-being</h3>
+        <div class="iso">ISO 45001</div>
+        <ul>
+          <li>Safe and healthy work environments</li>
+          <li>Preventive culture and the right to stop work in the face of any risk (<em>Stop Work</em>)</li>
+          <li>Active staff involvement in continuous improvement</li>
+          <li>Equal opportunities and absolute rejection of forced or child labour</li>
+        </ul>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-photo"><img src="../img/esg-pilar-gobernanza.jpg?v=2" alt="Handshake in front of stacks of fibre bales ready for shipping, a symbol of governance and ethics" loading="lazy"></div>
+        <div class="pillar-body">
+        <div class="p-num">04</div>
+        <h3>Governance and business ethics</h3>
+        <div class="iso">Ethics · Compliance · Supply chain</div>
+        <ul>
+          <li>Zero tolerance of bribery and corruption</li>
+          <li>Rigorous compliance with legislation and customer requirements</li>
+          <li>Requiring the same standards from our supply chain</li>
+        </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block-alt" id="etica">
+  <div class="wrap">
+    <div class="two-col reveal">
+      <div class="copy">
+        <span class="eyebrow">Code of ethics</span>
+        <h2>A culture built on integrity</h2>
+        <p>Our Code of Ethics and Professional Conduct is mandatory for all Rocheltex staff, and extends the same principles to the suppliers, customers and institutions we work with.</p>
+      </div>
+      <ul class="point-list">
+        <li>Respect, diversity and zero tolerance of any form of discrimination or harassment</li>
+        <li>Occupational health and safety as a non-negotiable principle</li>
+        <li>Confidentiality and data protection, in line with the GDPR</li>
+        <li>Zero tolerance of bribery in any commercial relationship</li>
+        <li>Responsible use of company assets and transparency towards third parties</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="derechos-humanos" style="padding-top:110px;">
+  <div class="wrap">
+    <div class="two-col reveal">
+      <div class="copy">
+        <span class="eyebrow">Human rights</span>
+        <h2>The same standard at every workplace</h2>
+        <p>Our Human and Labour Rights Policy sets the mandatory guidelines governing relations with managers, employees and partners at all our sites and operations.</p>
+      </div>
+      <ul class="point-list">
+        <li>Equal treatment and non-discrimination, with specific protection for the LGBTI community</li>
+        <li>Absolute rejection of forced labour and special vigilance against child labour in the supply chain</li>
+        <li>Fair working hours, guaranteed breaks and paid holidays</li>
+        <li>Respect for freedom of association and collective bargaining</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="ods" style="padding-bottom:110px;">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">2030 Agenda</div>
+      <h2>Our commitment, aligned with the Sustainable Development Goals</h2>
+    </div>
+    <div class="sdg-row reveal">
+      <img src="../img/ods/ods-03.png" alt="Sustainable Development Goal 3: Good health and well-being" loading="lazy">
+      <img src="../img/ods/ods-05.png" alt="SDG 5: Gender equality" loading="lazy">
+      <img src="../img/ods/ods-08.png" alt="SDG 8: Decent work and economic growth" loading="lazy">
+      <img src="../img/ods/ods-09.png" alt="SDG 9: Industry, innovation and infrastructure" loading="lazy">
+      <img src="../img/ods/ods-10.png" alt="SDG 10: Reduced inequalities" loading="lazy">
+      <img src="../img/ods/ods-11.png" alt="SDG 11: Sustainable cities and communities" loading="lazy">
+      <img src="../img/ods/ods-12.png" alt="SDG 12: Responsible consumption and production" loading="lazy">
+      <img src="../img/ods/ods-13.png" alt="SDG 13: Climate action" loading="lazy">
+      <img src="../img/ods/ods-16.png" alt="SDG 16: Peace, justice and strong institutions" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<section class="certs" id="certificaciones">
+  <div class="wrap">
+    <div class="frame reveal">
+      <div class="certs-head">
+        <span class="eyebrow">Certifications</span>
+        <h2>Audited processes in every pillar</h2>
+        <p>ISO 9001 backs our quality; ISO 14001, our environmental management; ISO 45001, the health and safety of our team. IATF 16949, PSB and PSCR complete the quality framework for the automotive sector.</p>
+      </div>
+      <div class="certs-row">
+        <img src="../iatf.png" alt="IATF 16949 certification">
+        <img src="../iso9001.png" alt="ISO 9001 certification">
+        <img src="../iso14001.png" alt="ISO 14001 certification">
+        <img src="../iso45001.png" alt="ISO 45001 certification">
+        <img src="../psb.png" alt="PSB — VDA QMC certification">
+        <img src="../pscr.png" alt="PSCR — VDA QMC certification">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="canal-etico" style="padding-bottom:110px;">
+  <div class="wrap">
+    <div class="frame reveal">
+      <div class="channel-grid">
+        <div>
+          <span class="eyebrow">Reporting channel</span>
+          <h2>A confidential channel, with no retaliation</h2>
+          <p>We provide employees and partners with an Ethics Channel to report any irregularity in good faith. We guarantee confidentiality, no retaliation and an objective investigation, in compliance with Law 2/2023.</p>
+        </div>
+        <div class="channel-icon"><img src="../img/safe-talk.svg" alt="" aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="closing">
+  <img class="poster" src="../img/cta-camion-rocheltex.jpg" alt="Rocheltex own-fleet truck in front of its facilities in Aielo de Malferit">
+  <div class="wrap closing-content reveal">
+    <h2>Want more information about our commitments?</h2>
+    <p>Pol. Ind. Serrans II, s/n · 46812 Aielo de Malferit (Valencia)</p>
+    <div class="hero-cta">
+      <a class="btn" href="contact.html">Go to contact</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-logo">
+        <a href="index.html" aria-label="Rocheltex, home"><img src="../img/logo/rocheltex-empilhado.svg" alt="Rocheltex, S.L." width="176" height="90"></a>
+        <p class="foot-tagline">Regenerated textile fibre for automotive, geotextiles, spinning and needle-punching. Aielo de Malferit, Valencia.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Sections</h4>
+        <a href="process.html">Process</a>
+        <a href="products.html">Products</a>
+        <a href="about.html">About us</a>
+        <a href="commitment.html">Commitment</a>
+      </div>
+      <div class="foot-col">
+        <h4>Certifications</h4>
+        <div class="foot-certs">
+          <img src="../iatf.png" alt="IATF 16949">
+          <img src="../iso9001.png" alt="ISO 9001">
+          <img src="../iso14001.png" alt="ISO 14001">
+          <img src="../iso45001.png" alt="ISO 45001">
+          <img src="../psb.png" alt="PSB — VDA QMC">
+          <img src="../pscr.png" alt="PSCR — VDA QMC">
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© Rocheltex, S.L.</span>
+      <div class="foot-legal">
+        <a href="contact.html">Contact</a>
+        <a href="legal-notice.html">Legal notice</a>
+        <a href="privacy-policy.html">Privacy</a>
+        <a href="cookie-policy.html">Cookies</a>
+        <button type="button" class="link-btn" data-open-cookies>Cookie settings</button>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  },{threshold:0.1});
+  revealEls.forEach(el=>io.observe(el));
+
+  const burgerBtn = document.getElementById('burgerBtn');
+  const closeBtn = document.getElementById('closeBtn');
+  const mobileNav = document.getElementById('mobileNav');
+  if(burgerBtn){ burgerBtn.addEventListener('click', ()=> mobileNav.classList.add('open')); }
+  if(closeBtn){ closeBtn.addEventListener('click', ()=> mobileNav.classList.remove('open')); }
+  document.querySelectorAll('.mobile-nav a').forEach(a=> a.addEventListener('click', ()=> mobileNav.classList.remove('open')));
+</script>
+
+<script src="../assets/consent.js" data-policy="cookie-policy.html"></script>
+</body>
+</html>

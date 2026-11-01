@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy policy — Rocheltex</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="preload" href="../fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../fonts/fonts.css">
+<link rel="stylesheet" href="../assets/consent.css">
+<style>
+  :root{
+    --cream:#f7f2e9;
+    --cream-2:#efe8da;
+    --ink:#191510;
+    --ink-soft:#5c564a;
+    --red:#c70f23;
+    --red-deep:#a90d1e;
+    --blue:#053B8A;
+    --tri:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpolygon points='5.0,0.17 8.97,2.08 9.95,6.38 7.2,9.83 2.8,9.83 0.05,6.38 1.03,2.08' fill='%23C70F23'/%3E%3C/svg%3E");
+    --tri-w:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpolygon points='5.0,0.17 8.97,2.08 9.95,6.38 7.2,9.83 2.8,9.83 0.05,6.38 1.03,2.08' fill='%23C70F23'/%3E%3C/svg%3E");
+    --charcoal:#141210;
+    --line:rgba(25,21,16,0.14);
+    --grid-line:rgba(25,21,16,0.06);
+    --radius:0px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background-color:var(--cream);
+    background-image: linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
+    background-size:25% 100%;
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.serif{
+    font-family:'Inter',sans-serif;
+    font-weight:700;
+    line-height:1.08;
+    letter-spacing:-0.02em;
+    margin:0;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    font-weight:500;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--red);
+  }
+  a{color:inherit;}
+  img{display:block;max-width:100%;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 40px;}
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  .btn{
+    position:relative;
+    font-family:'Inter',sans-serif;
+    font-size:14.5px;
+    font-weight:600;
+    text-decoration:none;
+    color:#fff;
+    background:var(--red);
+    padding:15px 36px 15px 28px;
+    border-radius:var(--radius);
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    transition:background .2s ease, transform .2s ease;
+    border:none;
+    cursor:pointer;
+  }
+  .btn::after{
+    content:"";
+    position:absolute;
+    top:9px;right:12px;
+    width:10px;height:10px;
+    border-top:1.5px solid currentColor;
+    border-right:1.5px solid currentColor;
+    opacity:.7;
+  }
+  .btn:hover{background:var(--red-deep);transform:translateY(-1px);}
+  .btn-dark{background:var(--ink);}
+  .btn-dark:hover{background:#000;}
+
+  /* NAV */
+  header{
+    position:fixed;
+    top:0;left:0;right:0;
+    z-index:60;
+  }
+  .nav-scrim{
+    position:absolute;
+    inset:0;
+    height:150px;
+    pointer-events:none;
+    -webkit-backdrop-filter:blur(20px);
+    backdrop-filter:blur(20px);
+    background:linear-gradient(to bottom, rgba(247,242,233,0.85) 0%, rgba(247,242,233,0.55) 42%, rgba(247,242,233,0) 100%);
+    -webkit-mask-image:linear-gradient(to bottom, #000 0%, #000 35%, transparent 100%);
+    mask-image:linear-gradient(to bottom, #000 0%, #000 35%, transparent 100%);
+  }
+  .nav-row{
+    position:relative;z-index:2;
+    max-width:1180px;margin:0 auto;padding:26px 40px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .logo-mark{height:44px;width:auto;}
+  nav.primary{display:flex;gap:34px;}
+  nav.primary a{
+    color:var(--ink);text-decoration:none;font-size:14px;font-weight:500;
+    opacity:.85;
+  }
+  nav.primary a:hover{opacity:1;}
+  .nav-right{display:flex;align-items:center;gap:20px;}
+  .lang{font-size:12.5px;color:var(--ink);display:flex;gap:6px;opacity:.75;}
+  .lang b{color:var(--red);font-weight:700;}
+  .nav-contact-btn{padding:10px 26px 10px 20px;font-size:13px;}
+  .nav-contact-btn::after{top:7px;right:9px;width:8px;height:8px;}
+  .burger{
+    display:none;
+    width:38px;height:38px;
+    border:1px solid var(--line);
+    border-radius:50%;
+    background:transparent;
+    color:var(--ink);
+    align-items:center;justify-content:center;
+    cursor:pointer;
+  }
+  .burger svg{width:16px;height:16px;}
+  .mobile-nav{
+    display:none;
+    position:fixed;inset:0;
+    background:var(--charcoal);
+    z-index:100;
+    padding:26px 22px;
+    flex-direction:column;
+  }
+  .mobile-nav.open{display:flex;}
+  .mobile-nav .close-row{display:flex;justify-content:flex-end;}
+  .mobile-nav .close-btn{
+    width:38px;height:38px;border:1px solid rgba(255,255,255,.5);border-radius:50%;
+    background:transparent;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;
+  }
+  .mobile-nav a{
+    color:#fdfbf6;text-decoration:none;
+    font-family:'Inter',sans-serif;font-weight:600;font-size:26px;
+    padding:16px 0;border-bottom:1px solid rgba(255,255,255,.12);
+  }
+  .mobile-nav .mob-links{display:flex;flex-direction:column;margin-top:30px;}
+  .nav-right .lang{display:flex;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.05em;}
+  @media (max-width:880px){.nav-right .lang{display:none;}}
+  .mobile-nav .mob-lang{color:#fdfbf6;opacity:.75;font-size:13px;margin-top:26px;display:flex;gap:6px;}
+  .mobile-nav .mob-lang b{color:var(--red);font-weight:700;}
+  .mobile-nav .btn{margin-top:22px;align-self:flex-start;font-size:14.5px;font-weight:600;}
+
+  /* FOOTER (shared) */
+  footer{padding:70px 0 34px;background:var(--cream);}
+  .foot-top{
+    display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px;
+    padding-bottom:50px;border-bottom:1px solid var(--line);
+  }
+  .foot-logo img{width:176px;height:auto;filter:none;}
+  .foot-tagline{margin-top:18px;font-size:14px;color:var(--ink-soft);max-width:280px;line-height:1.6;}
+  .foot-col h4{
+    font-size:12.5px;text-transform:uppercase;letter-spacing:0.1em;
+    color:var(--ink-soft);font-weight:600;margin:0 0 16px;
+  }
+  .foot-col a{display:block;text-decoration:none;font-size:14.5px;margin-bottom:11px;}
+  .foot-bottom{
+    display:flex;justify-content:space-between;align-items:center;
+    padding-top:26px;font-size:13px;color:var(--ink-soft);flex-wrap:wrap;gap:10px;
+  }
+  .foot-legal{display:flex;gap:20px;}
+  .foot-legal a{text-decoration:none;color:var(--ink-soft);}
+
+  /* HEADER BAND */
+  .intro-band{
+    padding:200px 0 70px;
+    background-color:var(--cream);
+    background-image: linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
+    background-size:25% 100%;
+  }
+  .intro-band .wrap{max-width:700px;}
+  .intro-band h1{font-size:clamp(34px,5vw,54px);margin-top:14px;}
+  .intro-band p{margin-top:18px;font-size:16.5px;line-height:1.6;color:var(--ink-soft);}
+
+  /* CONTACT GRID */
+  .contact-section{
+    padding:20px 0 100px;
+    background-color:var(--cream);
+    background-image: linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
+    background-size:25% 100%;
+  }
+  .contact-grid{display:grid;grid-template-columns:1.15fr 0.85fr;gap:1px;background:var(--line);border:1px solid var(--line);}
+
+  .form-card{background:var(--cream);padding:48px;}
+  .field{margin-bottom:20px;}
+  .field label{display:block;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px;}
+  .field input, .field select, .field textarea{
+    width:100%;padding:13px 15px;border:1px solid var(--line);border-radius:0;
+    font-family:'Inter',sans-serif;font-size:15px;color:var(--ink);background:var(--cream-2);
+    outline:none;transition:border-color .2s ease;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus{border-color:var(--red);}
+  .field textarea{resize:vertical;min-height:110px;}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .form-note{font-size:12.5px;color:var(--ink-soft);margin-top:14px;}
+
+  .info-card{background:var(--ink);color:#fdfbf6;padding:48px;height:100%;}
+  .info-card h3{font-size:20px;font-weight:600;color:#fdfbf6;}
+  .info-row{display:flex;gap:14px;margin-top:22px;align-items:flex-start;}
+  .info-row .ic{width:20px;height:20px;color:var(--red);flex-shrink:0;margin-top:2px;}
+  .info-row div{font-size:14.5px;line-height:1.6;color:#e6e1d6;}
+  .info-row a{color:#fdfbf6;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.3);}
+
+  /* MAP */
+  .map-section{
+    padding:0 0 100px;
+    background-color:var(--cream);
+    background-image: linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
+    background-size:25% 100%;
+  }
+  .map-frame{border:1px solid var(--line);overflow:hidden;}
+  .map-frame iframe{width:100%;height:420px;border:0;display:block;filter:grayscale(0.35) contrast(1.05);}
+
+  /* CERT LOGOS (footer + placeholder) */
+  .foot-certs{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;}
+  .foot-certs img{height:42px;width:auto;object-fit:contain;filter:grayscale(1) opacity(0.75);}
+
+  @media (max-width:880px){
+    .wrap{padding:0 22px;}
+    .nav-row{padding:22px;gap:14px;}
+    .logo-mark{height:34px;}
+    nav.primary{display:none;}
+    .burger{display:flex;}
+    .foot-top{grid-template-columns:1fr;gap:30px;}
+    .intro-band{padding:170px 0 50px;}
+    .contact-grid{grid-template-columns:1fr;}
+    .field-row{grid-template-columns:1fr;}
+    .form-card, .info-card{padding:28px;}
+    .map-frame iframe{height:300px;}
+  }
+  /* BRAND v2 — logo azul + rojo. Regla: azul = grafismo (símbolo, pictogramas,
+     viñetas); rojo = tipografía y acción (eyebrows, números, enlaces, botones). */
+  .eyebrow::before{
+    content:"";display:inline-block;width:10px;height:10px;margin-right:10px;
+    background:var(--tri) center/100% 100% no-repeat;
+    position:relative;top:-1px;
+  }
+  .hero .eyebrow::before,.page-hero .eyebrow::before{background:var(--tri-w) center/100% 100% no-repeat;}
+  .card-body li::before,.pillar li::before{
+    width:10px;height:10px;top:5px;border-radius:0;background:var(--tri) center/100% 100% no-repeat;
+  }
+  .sector-icon{color:var(--blue);}
+  .c3d-icon{border-color:var(--blue);}
+  .c3d-icon svg{fill:var(--blue);}
+  footer{border-top:1px solid var(--line);}
+
+  /* LEGAL */
+  .legal{padding:64px 0 120px;}
+  .intro-band .wrap{max-width:860px;}
+  .legal .wrap.legal-body{max-width:860px;}
+  .legal-body .meta{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 36px;}
+  .legal-body h2{font-size:clamp(20px,2.2vw,25px);letter-spacing:-.015em;margin:44px 0 14px;line-height:1.25;}
+  .legal-body h2:first-of-type{margin-top:0;}
+  .legal-body h3{font-size:16.5px;margin:26px 0 8px;}
+  .legal-body p,.legal-body li{font-size:15.5px;line-height:1.72;color:var(--ink-soft);}
+  .legal-body p{margin:0 0 14px;}
+  .legal-body ul,.legal-body ol{margin:0 0 16px;padding-left:22px;}
+  .legal-body li{margin:0 0 6px;}
+  .legal-body a{color:var(--red);text-decoration:underline;text-underline-offset:2px;}
+  .legal-body strong{color:var(--ink);}
+  .legal-table{width:100%;border-collapse:collapse;margin:6px 0 22px;font-size:14px;}
+  .legal-table th,.legal-table td{border:1px solid var(--line);padding:11px 13px;text-align:left;vertical-align:top;line-height:1.55;color:var(--ink-soft);}
+  .legal-table th{background:var(--cream-2);color:var(--ink);font-weight:600;font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;}
+  .legal-table td:first-child{color:var(--ink);font-weight:600;}
+  .legal-scroll{overflow-x:auto;}
+  .legal-id{display:grid;grid-template-columns:200px 1fr;border:1px solid var(--line);margin:0 0 22px;}
+  .legal-id div{padding:11px 14px;border-bottom:1px solid var(--line);font-size:14.5px;line-height:1.55;}
+  .legal-id div:nth-last-child(-n+2){border-bottom:0;}
+  .legal-id .k{background:var(--cream-2);font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink);font-weight:600;}
+  .legal-id .v{color:var(--ink-soft);}
+  .todo{background:#ffe66d;color:#14110e;padding:0 4px;font-weight:600;}
+  @media (max-width:700px){.legal-id{grid-template-columns:1fr;}.legal-id .k{border-bottom:0;padding-bottom:2px;}.legal-id .v{padding-top:2px;}}
+</style>
+<link rel="alternate" hreflang="es" href="../rocheltex-privacidad.html">
+<link rel="alternate" hreflang="en" href="privacy-policy.html">
+</head>
+<body>
+
+<header>
+  <div class="nav-scrim"></div>
+  <div class="nav-row">
+    <a href="index.html"><img src="../img/logo/rocheltex-horizontal.svg" alt="Rocheltex, S.L." class="logo-mark" width="251" height="44"></a>
+    <nav class="primary">
+      <a href="process.html">Process</a>
+      <a href="products.html">Products</a>
+      <a href="about.html">About us</a>
+      <a href="commitment.html">Commitment</a>
+    </nav>
+    <div class="nav-right">
+      <div class="lang"><a href="../rocheltex-privacidad.html" hreflang="es" lang="es">ES</a> / <b>EN</b></div>
+      <a class="btn btn-dark nav-contact-btn" href="contact.html">Contact</a>
+      <button class="burger" id="burgerBtn" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-nav" id="mobileNav">
+  <div class="close-row">
+    <button class="close-btn" id="closeBtn" aria-label="Close menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <div class="mob-links">
+    <a href="process.html">Process</a>
+    <a href="products.html">Products</a>
+    <a href="about.html">About us</a>
+    <a href="commitment.html">Commitment</a>
+  </div>
+  <div class="mob-lang"><a href="../rocheltex-privacidad.html" hreflang="es" lang="es">ES</a> / <b>EN</b></div>
+  <a class="btn" href="contact.html">Contact</a>
+</div>
+
+<section class="intro-band">
+  <div class="wrap">
+    <div class="eyebrow">Legal</div>
+    <h1>Privacy policy</h1>
+    <p>How we process your personal data, in accordance with Regulation (EU) 2016/679 (GDPR) and Organic Law 3/2018 (LOPDGDD).</p>
+  </div>
+</section>
+
+<section class="legal">
+  <div class="wrap legal-body">
+    <p class="meta">Last updated: 1 November 2026</p>
+    <h2>1. Data controller</h2>
+    <p>The controller of your personal data is:</p>
+    <div class="legal-id">
+      <div class="k">Owner</div><div class="v">Rocheltex, S.L.</div>
+      <div class="k">Tax ID (NIF)</div><div class="v"><span class="todo">B96120159 [verificar]</span></div>
+      <div class="k">Registered office</div><div class="v">Pol. Ind. Serrans II, s/n · 46812 Aielo de Malferit (Valencia), Spain</div>
+      <div class="k">Email</div><div class="v"><a href="mailto:jss@rocheltex.es">jss@rocheltex.es</a></div>
+      <div class="k">Phone</div><div class="v"><a href="tel:+34962904384">+34 96 290 43 84</a></div>
+      <div class="k">Commercial Register</div><div class="v">Commercial Register of Valencia — <span class="todo">Volume [__], Folio [__], Sheet [__], Entry [__]</span></div>
+    </div>
+    <p>You can contact us about any data protection matter at <a href="mailto:jss@rocheltex.es">jss@rocheltex.es</a>.</p>
+
+    <h2>2. What data we process and where it comes from</h2>
+    <p>We process the data you give us directly when using the contact form or when you write or call us: name, company, email, telephone, business sector and the content of your message. If the data belongs to a third party, you declare that you have their authorisation to provide it.</p>
+    <p>In addition, the server hosting the Website may log technical connection data (such as the IP address and the date and time of access) for security and operational reasons. This Website does not use analytics or advertising cookies.</p>
+
+    <h2>3. Purposes and legal basis</h2>
+    <div class="legal-scroll"><table class="legal-table">
+      <thead><tr><th>Purpose</th><th>Legal basis</th></tr></thead>
+      <tbody>
+        <tr><td>Handling enquiries, information requests and quotation requests received through the form, email or telephone.</td><td>Your consent (art. 6.1.a GDPR) and the application of pre-contractual measures at your request (art. 6.1.b GDPR).</td></tr>
+        <tr><td>Managing the commercial and professional relationship with customers, suppliers and business contacts.</td><td>Performance of a contract or pre-contractual measures (art. 6.1.b) and legitimate interest in maintaining the business relationship (art. 6.1.f).</td></tr>
+        <tr><td>Complying with applicable legal obligations (tax, accounting and others).</td><td>Legal obligation (art. 6.1.c GDPR).</td></tr>
+        <tr><td>Ensuring the security and proper functioning of the Website.</td><td>Legitimate interest (art. 6.1.f GDPR).</td></tr>
+      </tbody>
+    </table></div>
+    <p>We do not make automated decisions or create profiles from your data.</p>
+
+    <h2>4. Retention period</h2>
+    <p>We will keep your data for as long as necessary to handle your enquiry and, where applicable, for the duration of the business relationship. After that, they will be duly blocked for the limitation periods of any legal liabilities that may arise, and deleted once those periods have elapsed.</p>
+
+    <h2>5. Recipients and international transfers</h2>
+    <p>We will not disclose your data to third parties, except where legally required (for example, to Public Administrations, judges and courts). Technology service providers (web hosting, email and maintenance) acting as data processors under a contract pursuant to Article 28 GDPR may have access to it.</p>
+    <p>As a general rule, we do not transfer data outside the European Economic Area. If a provider were located outside it, the transfer would be covered by a European Commission adequacy decision or standard contractual clauses. If you agree to load the Google map on the Contact page, Google LLC may process data about your browsing in accordance with its <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">privacy policy</a>.</p>
+
+    <h2>6. Your rights</h2>
+    <p>You can exercise your rights of <strong>access, rectification, erasure, objection, restriction of processing and portability</strong>, and withdraw your consent at any time (without affecting the lawfulness of the prior processing), by writing to <a href="mailto:jss@rocheltex.es">jss@rocheltex.es</a> stating the right you wish to exercise. We may ask you for a copy of a document proving your identity.</p>
+    <p>We will reply within one month at most. If you consider that your rights have not been properly dealt with, you can lodge a complaint with the Spanish Data Protection Agency (<a href="https://www.aepd.es" target="_blank" rel="noopener noreferrer">www.aepd.es</a>).</p>
+
+    <h2>7. Security</h2>
+    <p>We apply appropriate technical and organisational measures to protect your data against unauthorised access, loss or alteration, in line with the level of risk.</p>
+
+    <h2>8. Minors</h2>
+    <p>This Website is not aimed at children under 14. If you become aware that a minor has given us data without the authorisation of their legal representatives, please write to us so we can delete it.</p>
+
+    <h2>9. Changes to this policy</h2>
+    <p>We may update this Privacy policy to adapt it to legal or operational changes. The version in force is the one published on this page, with its update date.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-logo">
+        <a href="index.html" aria-label="Rocheltex, home"><img src="../img/logo/rocheltex-empilhado.svg" alt="Rocheltex, S.L." width="176" height="90"></a>
+        <p class="foot-tagline">Regenerated textile fibre for automotive, geotextiles, spinning and needle-punching. Aielo de Malferit, Valencia.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Sections</h4>
+        <a href="process.html">Process</a>
+        <a href="products.html">Products</a>
+        <a href="about.html">About us</a>
+        <a href="commitment.html">Commitment</a>
+      </div>
+      <div class="foot-col">
+        <h4>Certifications</h4>
+        <div class="foot-certs">
+          <img src="../iatf.png" alt="IATF 16949">
+          <img src="../iso9001.png" alt="ISO 9001">
+          <img src="../iso14001.png" alt="ISO 14001">
+          <img src="../iso45001.png" alt="ISO 45001">
+          <img src="../psb.png" alt="PSB — VDA QMC">
+          <img src="../pscr.png" alt="PSCR — VDA QMC">
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© Rocheltex, S.L.</span>
+      <div class="foot-legal">
+        <a href="contact.html">Contact</a>
+        <a href="legal-notice.html">Legal notice</a>
+        <a href="privacy-policy.html">Privacy</a>
+        <a href="cookie-policy.html">Cookies</a>
+        <button type="button" class="link-btn" data-open-cookies>Cookie settings</button>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  },{threshold:0.1});
+  revealEls.forEach(el=>io.observe(el));
+
+  const burgerBtn = document.getElementById('burgerBtn');
+  const closeBtn = document.getElementById('closeBtn');
+  const mobileNav = document.getElementById('mobileNav');
+  if(burgerBtn){ burgerBtn.addEventListener('click', ()=> mobileNav.classList.add('open')); }
+  if(closeBtn){ closeBtn.addEventListener('click', ()=> mobileNav.classList.remove('open')); }
+  document.querySelectorAll('.mobile-nav a').forEach(a=> a.addEventListener('click', ()=> mobileNav.classList.remove('open')));
+</script>
+
+<script src="../assets/consent.js" data-policy="cookie-policy.html"></script>
+</body>
+</html>

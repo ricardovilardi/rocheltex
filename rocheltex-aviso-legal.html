@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aviso legal — Rocheltex</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="assets/consent.css">
+<style>
+  :root{
+    --cream:#f7f2e9;
+    --cream-2:#efe8da;
+    --ink:#191510;
+    --ink-soft:#5c564a;
+    --red:#c70f23;
+    --red-deep:#a90d1e;
+    --blue:#053B8A;
+    --tri:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpolygon points='5.0,0.17 8.97,2.08 9.95,6.38 7.2,9.83 2.8,9.83 0.05,6.38 1.03,2.08' fill='%23C70F23'/%3E%3C/svg%3E");
+    --tri-w:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpolygon points='5.0,0.17 8.97,2.08 9.95,6.38 7.2,9.83 2.8,9.83 0.05,6.38 1.03,2.08' fill='%23C70F23'/%3E%3C/svg%3E");
+    --charcoal:#141210;
+    --line:rgba(25,21,16,0.14);
+    --grid-line:rgba(25,21,16,0.06);
+    --radius:0px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background-color:var(--cream);
+    background-image: linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
+    background-size:25% 100%;
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.serif{
+    font-family:'Inter',sans-serif;
+    font-weight:700;
+    line-height:1.08;
+    letter-spacing:-0.02em;
+    margin:0;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    font-weight:500;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--red);
+  }
+  a{color:inherit;}
+  img{display:block;max-width:100%;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 40px;}
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  .btn{
+    position:relative;
+    font-family:'Inter',sans-serif;
+    font-size:14.5px;
+    font-weight:600;
+    text-decoration:none;
+    color:#fff;
+    background:var(--red);
+    padding:15px 36px 15px 28px;
+    border-radius:var(--radius);
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    transition:background .2s ease, transform .2s ease;
+    border:none;
+    cursor:pointer;
+  }
+  .btn::after{
+    content:"";
+    position:absolute;
+    top:9px;right:12px;
+    width:10px;height:10px;
+    border-top:1.5px solid currentColor;
+    border-right:1.5px solid currentColor;
+    opacity:.7;
+  }
+  .btn:hover{background:var(--red-deep);transform:translateY(-1px);}
+  .btn-dark{background:var(--ink);}
+  .btn-dark:hover{background:#000;}
+
+  /* NAV */
+  header{
+    position:fixed;
+    top:0;left:0;right:0;
+    z-index:60;
+  }
+  .nav-scrim{
+    position:absolute;
+    inset:0;
+    height:150px;
+    pointer-events:none;
+    -webkit-backdrop-filter:blur(20px);
+    backdrop-filter:blur(20px);
+    background:linear-gradient(to bottom, rgba(247,242,233,0.85) 0%, rgba(247,242,233,0.55) 42%, rgba(247,242,233,0) 100%);
+    -webkit-mask-image:linear-gradient(to bottom, #000 0%, #000 35%, transparent 100%);
+    mask-image:linear-gradient(to bottom, #000 0%, #000 35%, transparent 100%);
+  }
+  .nav-row{
+    position:relative;z-index:2;
+    max-width:1180px;margin:0 auto;padding:26px 40px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .logo-mark{height:44px;width:auto;}
+  nav.primary{display:flex;gap:34px;}
+  nav.primary a{
+    color:var(--ink);text-decoration:none;font-size:14px;font-weight:500;
+    opacity:.85;
+  }
+  nav.primary a:hover{opacity:1;}
+  .nav-right{display:flex;align-items:center;gap:20px;}
+  .lang{font-size:12.5px;color:var(--ink);display:flex;gap:6px;opacity:.75;}
+  .lang b{color:var(--red);font-weight:700;}
+  .nav-contact-btn{padding:10px 26px 10px 20px;font-size:13px;}
+  .nav-contact-btn::after{top:7px;right:9px;width:8px;height:8px;}
+  .burger{
+    display:none;
+    width:38px;height:38px;
+    border:1px solid var(--line);
+    border-radius:50%;
+    background:transparent;
+    color:var(--ink);
+    align-items:center;justify-content:center;
+    cursor:pointer;
+  }
+  .burger svg{width:16px;height:16px;}
+  .mobile-nav{
+    display:none;
+    position:fixed;inset:0;
+    background:var(--charcoal);
+    z-index:100;
+    padding:26px 22px;
+    flex-direction:column;
+  }
+  .mobile-nav.open{display:flex;}
+  .mobile-nav .close-row{display:flex;justify-content:flex-end;}
+  .mobile-nav .close-btn{
+    width:38px;height:38px;border:1px solid rgba(255,255,255,.5);border-radius:50%;
+    background:transparent;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;
+  }
+  .mobile-nav a{
+    color:#fdfbf6;text-decoration:none;
+    font-family:'Inter',sans-serif;font-weight:600;font-size:26px;
+    padding:16px 0;border-bottom:1px solid rgba(255,255,255,.12);
+  }
+  .mobile-nav .mob-links{display:flex;flex-direction:column;margin-top:30px;}
+  .nav-right .lang{display:flex;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.05em;}
+  @media (max-width:880px){.nav-right .lang{display:none;}}
+  .mobile-nav .mob-lang{color:#fdfbf6;opacity:.75;font-size:13px;margin-top:26px;display:flex;gap:6px;}
+  .mobile-nav .mob-lang b{color:var(--red);font-weight:700;}
+  .mobile-nav .btn{margin-top:22px;align-self:flex-start;font-size:14.5px;font-weight:600;}
+
+  /* FOOTER (shared) */
+  footer{padding:70px 0 34px;background:var(--cream);}
+  .foot-top{
+    display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px;
+    padding-bottom:50px;border-bottom:1px solid var(--line);
+  }
+  .foot-logo img{width:176px;height:auto;filter:none;}
+  .foot-tagline{margin-top:18px;font-size:14px;color:var(--ink-soft);max-width:280px;line-height:1.6;}
+  .foot-col h4{
+    font-size:12.5px;text-transform:uppercase;letter-spacing:0.1em;
+    color:var(--ink-soft);font-weight:600;margin:0 0 16px;
+  }
+  .foot-col a{display:block;text-decoration:none;font-size:14.5px;margin-bottom:11px;}
+  .foot-bottom{
+    display:flex;justify-content:space-between;align-items:center;
+    padding-top:26px;font-size:13px;color:var(--ink-soft);flex-wrap:wrap;gap:10px;
+  }
+  .foot-legal{display:flex;gap:20px;}
+  .foot-legal a{text-decoration:none;color:var(--ink-soft);}
+
+  /* HEADER BAND */
+  .intro-band{
+    padding:200px 0 70px;
+    background-color:var(--cream);
+    background-image: linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
+    background-size:25% 100%;
+  }
+  .intro-band .wrap{max-width:700px;}
+  .intro-band h1{font-size:clamp(34px,5vw,54px);margin-top:14px;}
+  .intro-band p{margin-top:18px;font-size:16.5px;line-height:1.6;color:var(--ink-soft);}
+
+  /* CONTACT GRID */
+  .contact-section{
+    padding:20px 0 100px;
+    background-color:var(--cream);
+    background-image: linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
+    background-size:25% 100%;
+  }
+  .contact-grid{display:grid;grid-template-columns:1.15fr 0.85fr;gap:1px;background:var(--line);border:1px solid var(--line);}
+
+  .form-card{background:var(--cream);padding:48px;}
+  .field{margin-bottom:20px;}
+  .field label{display:block;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px;}
+  .field input, .field select, .field textarea{
+    width:100%;padding:13px 15px;border:1px solid var(--line);border-radius:0;
+    font-family:'Inter',sans-serif;font-size:15px;color:var(--ink);background:var(--cream-2);
+    outline:none;transition:border-color .2s ease;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus{border-color:var(--red);}
+  .field textarea{resize:vertical;min-height:110px;}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .form-note{font-size:12.5px;color:var(--ink-soft);margin-top:14px;}
+
+  .info-card{background:var(--ink);color:#fdfbf6;padding:48px;height:100%;}
+  .info-card h3{font-size:20px;font-weight:600;color:#fdfbf6;}
+  .info-row{display:flex;gap:14px;margin-top:22px;align-items:flex-start;}
+  .info-row .ic{width:20px;height:20px;color:var(--red);flex-shrink:0;margin-top:2px;}
+  .info-row div{font-size:14.5px;line-height:1.6;color:#e6e1d6;}
+  .info-row a{color:#fdfbf6;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.3);}
+
+  /* MAP */
+  .map-section{
+    padding:0 0 100px;
+    background-color:var(--cream);
+    background-image: linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
+    background-size:25% 100%;
+  }
+  .map-frame{border:1px solid var(--line);overflow:hidden;}
+  .map-frame iframe{width:100%;height:420px;border:0;display:block;filter:grayscale(0.35) contrast(1.05);}
+
+  /* CERT LOGOS (footer + placeholder) */
+  .foot-certs{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;}
+  .foot-certs img{height:42px;width:auto;object-fit:contain;filter:grayscale(1) opacity(0.75);}
+
+  @media (max-width:880px){
+    .wrap{padding:0 22px;}
+    .nav-row{padding:22px;gap:14px;}
+    .logo-mark{height:34px;}
+    nav.primary{display:none;}
+    .burger{display:flex;}
+    .foot-top{grid-template-columns:1fr;gap:30px;}
+    .intro-band{padding:170px 0 50px;}
+    .contact-grid{grid-template-columns:1fr;}
+    .field-row{grid-template-columns:1fr;}
+    .form-card, .info-card{padding:28px;}
+    .map-frame iframe{height:300px;}
+  }
+  /* BRAND v2 — logo azul + rojo. Regla: azul = grafismo (símbolo, pictogramas,
+     viñetas); rojo = tipografía y acción (eyebrows, números, enlaces, botones). */
+  .eyebrow::before{
+    content:"";display:inline-block;width:10px;height:10px;margin-right:10px;
+    background:var(--tri) center/100% 100% no-repeat;
+    position:relative;top:-1px;
+  }
+  .hero .eyebrow::before,.page-hero .eyebrow::before{background:var(--tri-w) center/100% 100% no-repeat;}
+  .card-body li::before,.pillar li::before{
+    width:10px;height:10px;top:5px;border-radius:0;background:var(--tri) center/100% 100% no-repeat;
+  }
+  .sector-icon{color:var(--blue);}
+  .c3d-icon{border-color:var(--blue);}
+  .c3d-icon svg{fill:var(--blue);}
+  footer{border-top:1px solid var(--line);}
+
+  /* LEGAL */
+  .legal{padding:64px 0 120px;}
+  .intro-band .wrap{max-width:860px;}
+  .legal .wrap.legal-body{max-width:860px;}
+  .legal-body .meta{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 36px;}
+  .legal-body h2{font-size:clamp(20px,2.2vw,25px);letter-spacing:-.015em;margin:44px 0 14px;line-height:1.25;}
+  .legal-body h2:first-of-type{margin-top:0;}
+  .legal-body h3{font-size:16.5px;margin:26px 0 8px;}
+  .legal-body p,.legal-body li{font-size:15.5px;line-height:1.72;color:var(--ink-soft);}
+  .legal-body p{margin:0 0 14px;}
+  .legal-body ul,.legal-body ol{margin:0 0 16px;padding-left:22px;}
+  .legal-body li{margin:0 0 6px;}
+  .legal-body a{color:var(--red);text-decoration:underline;text-underline-offset:2px;}
+  .legal-body strong{color:var(--ink);}
+  .legal-table{width:100%;border-collapse:collapse;margin:6px 0 22px;font-size:14px;}
+  .legal-table th,.legal-table td{border:1px solid var(--line);padding:11px 13px;text-align:left;vertical-align:top;line-height:1.55;color:var(--ink-soft);}
+  .legal-table th{background:var(--cream-2);color:var(--ink);font-weight:600;font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;}
+  .legal-table td:first-child{color:var(--ink);font-weight:600;}
+  .legal-scroll{overflow-x:auto;}
+  .legal-id{display:grid;grid-template-columns:200px 1fr;border:1px solid var(--line);margin:0 0 22px;}
+  .legal-id div{padding:11px 14px;border-bottom:1px solid var(--line);font-size:14.5px;line-height:1.55;}
+  .legal-id div:nth-last-child(-n+2){border-bottom:0;}
+  .legal-id .k{background:var(--cream-2);font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink);font-weight:600;}
+  .legal-id .v{color:var(--ink-soft);}
+  .todo{background:#ffe66d;color:#14110e;padding:0 4px;font-weight:600;}
+  @media (max-width:700px){.legal-id{grid-template-columns:1fr;}.legal-id .k{border-bottom:0;padding-bottom:2px;}.legal-id .v{padding-top:2px;}}
+</style>
+<link rel="alternate" hreflang="es" href="rocheltex-aviso-legal.html">
+<link rel="alternate" hreflang="en" href="en/legal-notice.html">
+</head>
+<body>
+
+<header>
+  <div class="nav-scrim"></div>
+  <div class="nav-row">
+    <a href="index.html"><img src="img/logo/rocheltex-horizontal.svg" alt="Rocheltex, S.L." class="logo-mark" width="251" height="44"></a>
+    <nav class="primary">
+      <a href="rocheltex-proceso.html">Proceso</a>
+      <a href="rocheltex-productos.html">Productos</a>
+      <a href="rocheltex-nosotros.html">Nosotros</a>
+      <a href="rocheltex-esg.html">Compromiso</a>
+    </nav>
+    <div class="nav-right">
+      <div class="lang"><b>ES</b> / <a href="en/legal-notice.html" hreflang="en" lang="en">EN</a></div>
+      <a class="btn btn-dark nav-contact-btn" href="rocheltex-contacto.html">Contacto</a>
+      <button class="burger" id="burgerBtn" aria-label="Abrir menú">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-nav" id="mobileNav">
+  <div class="close-row">
+    <button class="close-btn" id="closeBtn" aria-label="Cerrar menú">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <div class="mob-links">
+    <a href="rocheltex-proceso.html">Proceso</a>
+    <a href="rocheltex-productos.html">Productos</a>
+    <a href="rocheltex-nosotros.html">Nosotros</a>
+    <a href="rocheltex-esg.html">Compromiso</a>
+  </div>
+  <div class="mob-lang"><b>ES</b> / <a href="en/legal-notice.html" hreflang="en" lang="en">EN</a></div>
+  <a class="btn" href="rocheltex-contacto.html">Contacto</a>
+</div>
+
+<section class="intro-band">
+  <div class="wrap">
+    <div class="eyebrow">Legal</div>
+    <h1>Aviso legal</h1>
+    <p>Información sobre el titular del sitio web y las condiciones de uso, conforme a la LSSI-CE.</p>
+  </div>
+</section>
+
+<section class="legal">
+  <div class="wrap legal-body">
+    <p class="meta">Última actualización: 1 de noviembre de 2026</p>
+    <h2>1. Datos identificativos del titular</h2>
+    <p>En cumplimiento del artículo 10 de la Ley 34/2002, de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSI-CE), se informa de que el titular de este sitio web (el «Sitio Web») es:</p>
+    <div class="legal-id">
+      <div class="k">Titular</div><div class="v">Rocheltex, S.L.</div>
+      <div class="k">NIF</div><div class="v"><span class="todo">B96120159 [verificar]</span></div>
+      <div class="k">Domicilio social</div><div class="v">Pol. Ind. Serrans II, s/n · 46812 Aielo de Malferit (Valencia), España</div>
+      <div class="k">Correo electrónico</div><div class="v"><a href="mailto:jss@rocheltex.es">jss@rocheltex.es</a></div>
+      <div class="k">Teléfono</div><div class="v"><a href="tel:+34962904384">+34 96 290 43 84</a></div>
+      <div class="k">Registro Mercantil</div><div class="v">Registro Mercantil de Valencia — <span class="todo">Tomo [__], Folio [__], Hoja [__], Inscripción [__]</span></div>
+    </div>
+    <p>Dirección del Sitio Web: <span class="todo">[dominio definitivo, p. ej. www.rocheltex.com]</span>.</p>
+
+    <h2>2. Objeto</h2>
+    <p>El Sitio Web tiene por finalidad ofrecer información corporativa y comercial sobre Rocheltex, S.L. («Rocheltex»), empresa dedicada a la fabricación de fibra textil regenerada (borra) para los sectores de automoción, geotextiles, hilatura y punzonado, así como sobre sus productos, procesos, certificaciones y compromisos, y facilitar el contacto con la empresa.</p>
+
+    <h2>3. Condiciones de acceso y uso</h2>
+    <p>El acceso al Sitio Web es libre y gratuito. La navegación por el Sitio Web atribuye la condición de usuario e implica la aceptación plena de este Aviso Legal. El usuario se compromete a utilizar el Sitio Web, sus contenidos y servicios de conformidad con la ley, la buena fe, el orden público y el presente Aviso Legal, y a abstenerse de:</p>
+    <ul>
+      <li>realizar actividades ilícitas, contrarias a la buena fe o lesivas de derechos o intereses de Rocheltex o de terceros;</li>
+      <li>introducir o difundir virus informáticos u otros sistemas capaces de dañar o inutilizar el Sitio Web o los equipos de terceros;</li>
+      <li>intentar acceder a áreas restringidas, alterar el funcionamiento del Sitio Web o extraer sus contenidos de forma masiva o automatizada sin autorización.</li>
+    </ul>
+
+    <h2>4. Propiedad intelectual e industrial</h2>
+    <p>Los contenidos del Sitio Web (textos, fotografías, vídeos, gráficos, diseño, código, estructura) y los signos distintivos, incluidos el nombre comercial, la marca y el logotipo de Rocheltex, son titularidad de Rocheltex o de terceros que han autorizado su uso, y están protegidos por la normativa de propiedad intelectual e industrial.</p>
+    <p>Queda prohibida su reproducción, distribución, comunicación pública, transformación o cualquier otro uso sin autorización expresa y por escrito de Rocheltex, salvo para uso personal y no comercial. Los logotipos de certificaciones y normas (por ejemplo, ISO, IATF, VDA QMC) pertenecen a sus respectivos titulares y se muestran únicamente para acreditar las certificaciones de Rocheltex.</p>
+
+    <h2>5. Exclusión de garantías y responsabilidad</h2>
+    <p>Rocheltex se esfuerza por mantener actualizada la información del Sitio Web, pero no garantiza la ausencia de errores ni su disponibilidad continuada. La información sobre productos, composiciones, capacidades y certificaciones tiene carácter informativo; las especificaciones técnicas, la disponibilidad y las condiciones comerciales aplicables se confirman en cada oferta o contrato.</p>
+    <p>Rocheltex no será responsable de los daños derivados del uso del Sitio Web, de interrupciones del servicio, de fallos técnicos, ni del contenido y disponibilidad de sitios web de terceros a los que pueda enlazar el Sitio Web.</p>
+
+    <h2>6. Enlaces</h2>
+    <p>El Sitio Web puede contener enlaces a sitios de terceros con fines informativos. Rocheltex no controla ni se responsabiliza de su contenido ni de sus políticas. Quien desee establecer un enlace al Sitio Web deberá dirigirse a la página principal, sin falsear su procedencia ni sugerir una relación con Rocheltex que no exista.</p>
+
+    <h2>7. Protección de datos y cookies</h2>
+    <p>El tratamiento de los datos personales se rige por la <a href="rocheltex-privacidad.html">Política de privacidad</a>. El uso de cookies y tecnologías similares se describe en la <a href="rocheltex-cookies.html">Política de cookies</a>.</p>
+
+    <h2>8. Modificaciones</h2>
+    <p>Rocheltex se reserva el derecho de modificar este Aviso Legal y los contenidos del Sitio Web en cualquier momento, sin necesidad de previo aviso. Se recomienda revisarlo periódicamente.</p>
+
+    <h2>9. Legislación aplicable y jurisdicción</h2>
+    <p>Este Aviso Legal se rige por la legislación española. Para cualquier controversia relacionada con el Sitio Web, las partes se someten a los juzgados y tribunales de Valencia, salvo que la normativa aplicable establezca otro fuero.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-logo">
+        <a href="index.html" aria-label="Rocheltex, inicio"><img src="img/logo/rocheltex-empilhado.svg" alt="Rocheltex, S.L." width="176" height="90"></a>
+        <p class="foot-tagline">Fibra textil regenerada para automoción, geotextiles, hilatura y punzonado. Aielo de Malferit, Valencia.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Secciones</h4>
+        <a href="rocheltex-proceso.html">Proceso</a>
+        <a href="rocheltex-productos.html">Productos</a>
+        <a href="rocheltex-nosotros.html">Nosotros</a>
+        <a href="rocheltex-esg.html">Compromiso</a>
+      </div>
+      <div class="foot-col">
+        <h4>Certificaciones</h4>
+        <div class="foot-certs">
+          <img src="iatf.png" alt="IATF 16949">
+          <img src="iso9001.png" alt="ISO 9001">
+          <img src="iso14001.png" alt="ISO 14001">
+          <img src="iso45001.png" alt="ISO 45001">
+          <img src="psb.png" alt="PSB — VDA QMC">
+          <img src="pscr.png" alt="PSCR — VDA QMC">
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© Rocheltex, S.L.</span>
+      <div class="foot-legal">
+        <a href="rocheltex-contacto.html">Contacto</a>
+        <a href="rocheltex-aviso-legal.html">Aviso legal</a>
+        <a href="rocheltex-privacidad.html">Privacidad</a>
+        <a href="rocheltex-cookies.html">Cookies</a>
+        <button type="button" class="link-btn" data-open-cookies>Configurar cookies</button>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  },{threshold:0.1});
+  revealEls.forEach(el=>io.observe(el));
+
+  const burgerBtn = document.getElementById('burgerBtn');
+  const closeBtn = document.getElementById('closeBtn');
+  const mobileNav = document.getElementById('mobileNav');
+  if(burgerBtn){ burgerBtn.addEventListener('click', ()=> mobileNav.classList.add('open')); }
+  if(closeBtn){ closeBtn.addEventListener('click', ()=> mobileNav.classList.remove('open')); }
+  document.querySelectorAll('.mobile-nav a').forEach(a=> a.addEventListener('click', ()=> mobileNav.classList.remove('open')));
+</script>
+
+<script src="assets/consent.js" data-policy="rocheltex-cookies.html"></script>
+</body>
+</html>
