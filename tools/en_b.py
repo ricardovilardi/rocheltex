@@ -167,5 +167,5 @@ B = [
 ('¿Quieres más información sobre nuestros','Want more information about our commitments?'),
 ('Árboles equivalentes plantados','Equivalent trees planted'),
 ('Ética · Cumplimiento','Ethics · Compliance · Supply chain'),
-('Última actualización:','Last updated: <span class="todo">[date]</span>'),
+('Última actualización:','Last updated: 1 November 2026'),
 ]
